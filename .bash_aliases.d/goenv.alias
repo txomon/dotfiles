@@ -1,0 +1,1 @@
+alias activate-goenv="source $(which goenv)"
