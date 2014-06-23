@@ -21,7 +21,7 @@
 [submodule "TaskList.vim"]
 	path = .vim/bundle/TaskList.vim
 	ignore = dirty
-	url = git://github.com/vim-scripts/TaskList
+	url = git://github.com/vim-scripts/TaskList.vim
 [submodule "Vundle.vim"]
 	path = .vim/bundle/Vundle.vim
 	ignore = dirty
