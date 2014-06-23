@@ -2,8 +2,9 @@
 if [ -f "$HOME/.env" ]; then
     . "$HOME/.env"
 fi
+
 # include .zshrc if it exists
-if [ -f "$HOME/.zshrc" ]; then
+if [ -f "$HOME/.zsh" ]; then
     . "$HOME/.zsh"
 fi
 
