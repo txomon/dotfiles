@@ -120,3 +120,4 @@ JAVA_HOME=/usr/lib/jvm/default-java/
 export JAVA_HOME
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+[[ -s "/home/javier/.gvm/scripts/gvm" ]] && source "/home/javier/.gvm/scripts/gvm"

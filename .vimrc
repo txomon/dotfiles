@@ -74,6 +74,13 @@ Plugin 'pyflakes'
 " Virtual env activation
 Plugin 'virtualenv.vim'
 
+" Go "
+""""""
+Plugin 'fatih/vim-go'
+
+" Markdown "
+Plugin 'plasticboy/vim-markdown'
+
 call vundle#end()            " required
 
 " To ignore plugin indent changes, instead use:
@@ -89,6 +96,20 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+" Plugin configuration "
+""""""""""""""""""""""""
+" Lusty "
+" I might receive error messages, put this to fix it:
+set hidden
+
+" plasticboy/vim-markdown "
+" Don't like ultra folded docs
+let g:vim_markdown_initial_foldlevel=2
+" Don't like default key mappings
+let g:vim_markdown_no_default_key_mappings=1
+
+" Personal configuration "
+""""""""""""""""""""""""""
 " Set updates on read
 set autoread
 

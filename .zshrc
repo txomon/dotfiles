@@ -7,6 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="random"
 #ZSH_THEME="robbyrussell"
+THEMES_FILE="$HOME/.omz-themes"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -25,7 +26,14 @@ plugins=(git
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+#alias oh-my-zsh-theme-remove='echo "Removing theme ${themes[$N]}" ; sed -i.bak "/$(basename ${themes[$N]})/d" ~/.oh-my-zsh/custom/omz-themes.txt'
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH="/home/javier/bin:$PATH"
 
 export EDITOR='vim'
+export GOPATH='/home/javier/go'
+export PATH="/home/javier/go:$PATH"
+
+[[ -s "/home/javier/.gvm/scripts/gvm" ]] && source "/home/javier/.gvm/scripts/gvm"

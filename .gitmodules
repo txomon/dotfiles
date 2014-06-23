@@ -1,0 +1,60 @@
+[submodule "oh-my-zsh"]
+	path = .oh-my-zsh
+	ignore = dirty
+[submodule "AutoClose"]
+	path = .vim/bundle/AutoClose
+	ignore = dirty
+[submodule "AutoComplPop"]
+        path = .vim/bundle/AutoComplPop
+	ignore = dirty
+[submodule "Gundo"]
+	path = .vim/bundle/Gundo
+	ignore = dirty
+[submodule "ScrollColors"]
+	path = .vim/bundle/ScrollColors
+	ignore = dirty
+[submodule "SuperTab"]
+	path = .vim/bundle/SuperTab
+	ignore = dirty
+[submodule "TaskList.vim"]
+	path = .vim/bundle/TaskList.vim
+	ignore = dirty
+[submodule "Vundle.vim"]
+	path = .vim/bundle/Vundle.vim
+	ignore = dirty
+[submodule "c.vim"]
+	path = .vim/bundle/c.vim
+	ignore = dirty
+[submodule "fugitive.vim"]
+	path = .vim/bundle/fugitive.vim
+	ignore = dirty
+[submodule "lusty"]
+	path = .vim/bundle/lusty
+	ignore = dirty
+[submodule "pep8"]
+	path = .vim/bundle/pep8
+	ignore = dirty
+[submodule "pydoc.vim"]
+	path = .vim/bundle/pydoc.vim
+	ignore = dirty
+[submodule "pyflakes"]
+	path = .vim/bundle/pyflakes
+	ignore = dirty
+[submodule "python.vim"]
+	path = .vim/bundle/python.vim
+	ignore = dirty
+[submodule "python.vim--Vasiliev"]
+	path = .vim/bundle/python.vim--Vasiliev
+	ignore = dirty
+[submodule "supertab"]
+	path = .vim/bundle/supertab
+	ignore = dirty
+[submodule "taglist.vim"]
+	path = .vim/bundle/taglist.vim
+	ignore = dirty
+[submodule "vim-go"]
+	path = .vim/bundle/vim-go/
+	ignore = dirty
+[submodule "virtualenv.vim"]
+	path = .vim/bundle/virtualenv.vim
+	ignore = dirty
