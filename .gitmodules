@@ -1,60 +1,80 @@
 [submodule "oh-my-zsh"]
 	path = .oh-my-zsh
 	ignore = dirty
+	url = git://github.com/txomon/oh-my-zsh
 [submodule "AutoClose"]
 	path = .vim/bundle/AutoClose
 	ignore = dirty
+	url = git://github.com/vim-scripts/AutoClose
 [submodule "AutoComplPop"]
         path = .vim/bundle/AutoComplPop
 	ignore = dirty
+	url = git://github.com/vim-scripts/AutoComplPop
 [submodule "Gundo"]
 	path = .vim/bundle/Gundo
 	ignore = dirty
+	url = git://github.com/vim-scripts/Gundo
 [submodule "ScrollColors"]
 	path = .vim/bundle/ScrollColors
 	ignore = dirty
-[submodule "SuperTab"]
-	path = .vim/bundle/SuperTab
-	ignore = dirty
+	url = git://github.com/vim-scripts/ScrollColors
 [submodule "TaskList.vim"]
 	path = .vim/bundle/TaskList.vim
 	ignore = dirty
+	url = git://github.com/vim-scripts/TaskList
 [submodule "Vundle.vim"]
 	path = .vim/bundle/Vundle.vim
 	ignore = dirty
+	url = git://github.com/gmarik/Vundle.vim
 [submodule "c.vim"]
 	path = .vim/bundle/c.vim
 	ignore = dirty
+	url = git://github.com/vim-scripts/c.vim
 [submodule "fugitive.vim"]
 	path = .vim/bundle/fugitive.vim
 	ignore = dirty
+	url = git://github.com/vim-scripts/fugitive.vim
 [submodule "lusty"]
 	path = .vim/bundle/lusty
 	ignore = dirty
+	url = git://github.com/sjbach/lusty
 [submodule "pep8"]
 	path = .vim/bundle/pep8
 	ignore = dirty
+	url = git://github.com/vim-scripts/pep8
 [submodule "pydoc.vim"]
 	path = .vim/bundle/pydoc.vim
 	ignore = dirty
+	url = git://github.com/vim-scripts/pydoc.vim
 [submodule "pyflakes"]
 	path = .vim/bundle/pyflakes
 	ignore = dirty
+	url = git://github.com/vim-scripts/pyflakes
 [submodule "python.vim"]
 	path = .vim/bundle/python.vim
 	ignore = dirty
+	url = git://github.com/vim-scripts/python.vim
 [submodule "python.vim--Vasiliev"]
 	path = .vim/bundle/python.vim--Vasiliev
 	ignore = dirty
+	url = git://github.com/vim-scripts/python.vim--Vasiliev
 [submodule "supertab"]
 	path = .vim/bundle/supertab
 	ignore = dirty
+	url = git://github.com/ervandew/supertab
 [submodule "taglist.vim"]
 	path = .vim/bundle/taglist.vim
 	ignore = dirty
+	url = git://github.com/vim-scripts/taglist.vim
 [submodule "vim-go"]
 	path = .vim/bundle/vim-go/
 	ignore = dirty
+	url = git://github.com/fatih/vim-go
 [submodule "virtualenv.vim"]
 	path = .vim/bundle/virtualenv.vim
 	ignore = dirty
+	url = git://github.com/vim-scripts/virtualenv.vim
+[submodule "vim-markdown"]
+	path = .vim/bundle/vim-markdown/
+	ignore = dirty
+	url = git://github.com/plasticboy/vim-markdown
