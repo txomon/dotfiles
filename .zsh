@@ -18,9 +18,38 @@ THEMES_FILE="$HOME/.omz-themes"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy-mm-dd"
 
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOCONNECT=false
 # Plugins to be used
-plugins=(git
-
-         )
+plugins=(
+  autoenv,
+  colored-man
+  colorize
+  compleat
+  copydir
+  copyfile
+  cp
+  dircycle
+  encode64
+  extract
+  hsi
+  supervisor
+  tmux
+  tmuxinator
+  urltools
+  vundle
+  web-search
+  docker
+  git
+  github
+  go
+  rvm
+  python
+  debian
+  themes
+  history
+  git-extras)
 
 source $ZSH/oh-my-zsh.sh
+
+zstyle ':omz:module:tmux' auto-start 'yes'
