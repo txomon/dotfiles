@@ -69,7 +69,7 @@
 [submodule "vim-go"]
 	path = .vim/bundle/vim-go
 	ignore = dirty
-	url = git://github.com/fatih/vim-go
+	url = git://github.com/txomon/vim-go
 [submodule "virtualenv.vim"]
 	path = .vim/bundle/virtualenv.vim
 	ignore = dirty
