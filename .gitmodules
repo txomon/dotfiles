@@ -67,7 +67,7 @@
 	ignore = dirty
 	url = git://github.com/vim-scripts/taglist.vim
 [submodule "vim-go"]
-	path = .vim/bundle/vim-go/
+	path = .vim/bundle/vim-go
 	ignore = dirty
 	url = git://github.com/fatih/vim-go
 [submodule "virtualenv.vim"]
@@ -75,6 +75,6 @@
 	ignore = dirty
 	url = git://github.com/vim-scripts/virtualenv.vim
 [submodule "vim-markdown"]
-	path = .vim/bundle/vim-markdown/
+	path = .vim/bundle/vim-markdown
 	ignore = dirty
 	url = git://github.com/plasticboy/vim-markdown
