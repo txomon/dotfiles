@@ -76,7 +76,7 @@ Plugin 'virtualenv.vim'
 
 " Go "
 """"""
-Plugin 'fatih/vim-go'
+Plugin 'txomon/vim-go'
 
 " Markdown "
 Plugin 'plasticboy/vim-markdown'
