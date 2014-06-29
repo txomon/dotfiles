@@ -108,6 +108,9 @@ let g:vim_markdown_initial_foldlevel=2
 " Don't like default key mappings
 let g:vim_markdown_no_default_key_mappings=1
 
+" txomon/vim-go
+let g:go_disable_autoinstall = 1
+
 " Personal configuration "
 """"""""""""""""""""""""""
 " Set updates on read
