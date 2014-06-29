@@ -25,6 +25,7 @@
 !.oh-my-zsh
 !.omz-themes
 !.profile
+!.tmux.conf
 !.vim
 !.vim/bundle
 !.vim/bundle/AutoClose
