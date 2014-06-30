@@ -118,3 +118,10 @@ syntax on
 
 " Enable mouse integration
 set mouse=a
+
+" Fix tmux missinteractions
+map <Esc>[B <Down>
+nnoremap [A <Up>
+nnoremap [B <Down>
+nnoremap [C <Right>
+nnoremap [D <Left>
