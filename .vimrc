@@ -33,10 +33,10 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'taglist.vim'
 " Autocompletion popups
 Plugin 'AutoComplPop'
+" AutoClose for braces and so closing
+" disabled for inserting horrible chars "Plugin 'AutoClose'
 " Super tab for completion
 Plugin 'ervandew/supertab'
-" Autoclose brackets
-Plugin 'AutoClose'
 " Buffer management
 Plugin 'sjbach/lusty'
 " Color schemes for syntax highlighting
@@ -122,9 +122,17 @@ syntax on
 " Enable mouse integration
 set mouse=a
 
+"" Disable backups
+"set nobackup
+"set nowritebackup
+"set noswapfile
 " Fix tmux missinteractions
-map <Esc>[B <Down>
-nnoremap [A <Up>
-nnoremap [B <Down>
-nnoremap [C <Right>
-nnoremap [D <Left>
+""map <Esc>[B <Down>
+""nnoremap [A <Up>
+""nnoremap [B <Down>
+""nnoremap [C <Right>
+""nnoremap [D <Left>
+""map [A <Up>
+""map [B <Down>
+""map [C <Right>
+""map [D <Left>
