@@ -1,3 +1,8 @@
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
