@@ -3,9 +3,11 @@ if [ -f "$HOME/.env" ]; then
     . "$HOME/.env"
 fi
 
-# include .zshrc if it exists
-if [ -f "$HOME/.zsh" ]; then
-    . "$HOME/.zsh"
+if  tty -s ; then 
+	# include .zshrc if it exists
+	if [ -f "$HOME/.zsh" ]; then
+	    . "$HOME/.zsh"
+	fi
 fi
 
 # Load general configuration
