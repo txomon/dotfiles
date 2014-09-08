@@ -1,4 +1,5 @@
 *
+!.bin
 !.bash_aliases
 !.bash_aliases.d
 !.bash_aliases.d/common-mistakes.alias
