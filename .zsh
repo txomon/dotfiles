@@ -58,3 +58,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 zstyle ':omz:module:tmux' auto-start 'yes'
+
+autoload -U compinit
+compinit
+setopt completealiases

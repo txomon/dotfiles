@@ -1,3 +1,5 @@
+export PATH=~/bin:$PATH
+
 # Load computer specific env variables
 if [ -f "$HOME/.env" ]; then
     . "$HOME/.env"
