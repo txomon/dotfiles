@@ -123,9 +123,9 @@ syntax on
 set mouse=a
 
 "" Disable backups
-"set nobackup
-"set nowritebackup
-"set noswapfile
+set nobackup
+set nowritebackup
+set noswapfile
 " Fix tmux missinteractions
 ""map <Esc>[B <Down>
 ""nnoremap [A <Up>
@@ -136,3 +136,5 @@ set mouse=a
 ""map [B <Down>
 ""map [C <Right>
 ""map [D <Left>
+
+set background=dark
