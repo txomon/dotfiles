@@ -118,6 +118,7 @@ set autoread
 
 " Syntax coloring enable
 syntax on
+set background=dark
 
 " Enable mouse integration
 set mouse=a
