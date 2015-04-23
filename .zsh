@@ -28,7 +28,7 @@ ZSH_TMUX_AUTOCONNECT=true
 ZSH_TMUX_AUTOQUIT=false
 # Plugins to be used
 plugins=(
-  autoenv,
+  autoenv
   colored-man
   colorize
   compleat
@@ -51,7 +51,6 @@ plugins=(
   go
   rvm
   python
-  debian
   themes
   history
   git-extras)
