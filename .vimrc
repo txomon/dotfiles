@@ -81,6 +81,10 @@ Plugin 'txomon/vim-go'
 " Markdown "
 Plugin 'plasticboy/vim-markdown'
 
+" Salt "
+""""""""
+Plugin 'saltstack/salt-vim'
+
 call vundle#end()            " required
 
 " To ignore plugin indent changes, instead use:
