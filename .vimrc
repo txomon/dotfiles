@@ -32,7 +32,8 @@ Plugin 'gmarik/Vundle.vim'
 " Source code browsing
 Plugin 'taglist.vim'
 " Autocompletion popups
-Plugin 'AutoComplPop'
+" disabled for horribly interference
+" Plugin 'AutoComplPop'
 " AutoClose for braces and so closing
 " disabled for inserting horrible chars "Plugin 'AutoClose'
 " Super tab for completion
@@ -139,3 +140,14 @@ set noswapfile
 ""map [D <Left>
 
 set background=dark
+
+" Detect scons files as python files
+au BufReadPost SConscript set syntax=python
+au BufReadPost SConstruct set syntax=python
+
+" Show commands
+set showcmd
+
+" Highlight search results
+set hlsearch
+nnoremap <CR> :nohlsearch<CR><CR>
