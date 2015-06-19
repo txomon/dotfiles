@@ -28,7 +28,6 @@ ZSH_TMUX_AUTOCONNECT=true
 ZSH_TMUX_AUTOQUIT=false
 # Plugins to be used
 plugins=(
-  autoenv
   colored-man
   colorize
   compleat

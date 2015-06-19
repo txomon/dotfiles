@@ -1,0 +1,7 @@
+docker(){
+  if [[ $@ == "rmi untagged" ]]; then
+    command docker rmi $(docker images | grep none | awk '{print $3}')
+  else
+    command docker "$@"
+  fi
+}
