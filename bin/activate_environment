@@ -4,8 +4,8 @@ while true; do
 	if [ -f "$PWD/bin/activate" ]; then
 		source $PWD/bin/activate
 		break
-	elif [ -f "$PWD/ve/bin/activate" ]; then
-		source $PWD/ve/bin/activate
+	elif [ -f "$PWD/ve$1/bin/activate" ]; then
+		source $PWD/ve$1/bin/activate
 		break
 	else
 		cd ..
