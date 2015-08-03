@@ -3,61 +3,56 @@ case $- in
     *i*) ;;
       *) return;;
 esac
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="random"
-#ZSH_THEME="robbyrussell"
-THEMES_FILE="$HOME/.omz-themes"
+export ANTIGEN_DEFAULT_REPO_URL='https://github.com/txomon/oh-my-zsh/'
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+source $HOME/.antigen-git/antigen.zsh
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy-mm-dd"
+
+antigen use oh-my-zsh
+
+antigen bundle colored-man
+antigen bundle colorize
+antigen bundle compleat
+antigen bundle copydir
+antigen bundle copyfile
+antigen bundle cp
+antigen bundle dircycle
+antigen bundle encode64
+antigen bundle extract
+antigen bundle hsi
+antigen bundle supervisor
 
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOCONNECT=true
 ZSH_TMUX_AUTOQUIT=false
+antigen bundle tmux
+antigen bundle tmuxinator
+antigen bundle urltools
+antigen bundle vundle
+antigen bundle web-search
+antigen bundle docker
+antigen bundle git
+antigen bundle github
+antigen bundle go
+antigen bundle rvm
+antigen bundle python
+antigen bundle themes
+antigen bundle history
+antigen bundle git-extras
+
+antigen theme random
+
+antigen apply
+
+
 # Plugins to be used
-plugins=(
-  colored-man
-  colorize
-  compleat
-  copydir
-  copyfile
-  cp
-  dircycle
-  encode64
-  extract
-  hsi
-  supervisor
-  tmux
-  tmuxinator
-  urltools
-  vundle
-  web-search
-  docker
-  git
-  github
-  go
-  rvm
-  python
-  themes
-  history
-  git-extras)
-
-source $ZSH/oh-my-zsh.sh
-
-zstyle ':omz:module:tmux' auto-start 'yes'
-
-autoload -U compinit
-compinit
-setopt completealiases
+#
+# source $ZSH/oh-my-zsh.sh
+#
+# zstyle ':omz:module:tmux' auto-start 'yes'
+#
+# autoload -U compinit
+# compinit
+# setopt completealiases
