@@ -1,90 +1,90 @@
 [submodule "oh-my-zsh"]
+	update = checkout
 	path = .oh-my-zsh
 	ignore = dirty
-	update = merge
 	url = git://github.com/txomon/oh-my-zsh
 [submodule "AutoClose"]
+	update = checkout
 	path = .vim/bundle/AutoClose
 	ignore = dirty
-	update = merge
 	url = git://github.com/vim-scripts/AutoClose
 [submodule "AutoComplPop"]
+	update = checkout
         path = .vim/bundle/AutoComplPop
 	ignore = dirty
-	update = merge
 	url = git://github.com/vim-scripts/AutoComplPop
 [submodule "Gundo"]
+	update = checkout
 	path = .vim/bundle/Gundo
 	ignore = dirty
-	update = merge
 	url = git://github.com/vim-scripts/Gundo
 [submodule "ScrollColors"]
 	path = .vim/bundle/ScrollColors
 	ignore = dirty
-	update = merge
 	url = git://github.com/vim-scripts/ScrollColors
+	update = checkout
 [submodule "TaskList.vim"]
+	update = checkout
 	path = .vim/bundle/TaskList.vim
 	ignore = dirty
 	url = git://github.com/vim-scripts/TaskList.vim
-	update = merge
 [submodule "Vundle.vim"]
+	update = checkout
 	path = .vim/bundle/Vundle.vim
 	ignore = dirty
 	url = git://github.com/gmarik/Vundle.vim
-	update = merge
 [submodule "c.vim"]
+	update = checkout
 	path = .vim/bundle/c.vim
 	ignore = dirty
 	url = git://github.com/vim-scripts/c.vim
-	update = merge
 [submodule "fugitive.vim"]
-	update = merge
+	update = checkout
 	path = .vim/bundle/fugitive.vim
 	ignore = dirty
 	url = git://github.com/vim-scripts/fugitive.vim
 [submodule "lusty"]
 	path = .vim/bundle/lusty
-	update = merge
+	update = checkout
 	ignore = dirty
 	url = git://github.com/sjbach/lusty
 [submodule "pep8"]
 	path = .vim/bundle/pep8
 	ignore = dirty
-	update = merge
+	update = checkout
 	url = git://github.com/vim-scripts/pep8
 [submodule "pydoc.vim"]
 	path = .vim/bundle/pydoc.vim
+	update = checkout
 	ignore = dirty
-	update = merge
 	url = git://github.com/vim-scripts/pydoc.vim
 [submodule "pyflakes"]
 	path = .vim/bundle/pyflakes
 	ignore = dirty
 	url = git://github.com/vim-scripts/pyflakes
-	update = merge
+	update = checkout
 [submodule "python.vim"]
+	update = checkout
 	path = .vim/bundle/python.vim
 	ignore = dirty
 	url = git://github.com/vim-scripts/python.vim
-	update = merge
 [submodule "python.vim--Vasiliev"]
 	path = .vim/bundle/python.vim--Vasiliev
+	update = checkout
 	ignore = dirty
 	url = git://github.com/vim-scripts/python.vim--Vasiliev
-	update = merge
 [submodule "supertab"]
 	path = .vim/bundle/supertab
 	ignore = dirty
 	url = git://github.com/ervandew/supertab
-	update = merge
+	update = checkout
 [submodule "taglist.vim"]
 	path = .vim/bundle/taglist.vim
 	ignore = dirty
 	url = git://github.com/vim-scripts/taglist.vim
-	update = merge
+	update = checkout
 [submodule "vim-go"]
-	update = merge
+	update = checkout
 	path = .vim/bundle/vim-go
 	ignore = dirty
 	url = git://github.com/txomon/vim-go
@@ -92,9 +92,14 @@
 	path = .vim/bundle/virtualenv.vim
 	ignore = dirty
 	url = git://github.com/vim-scripts/virtualenv.vim
-	update = merge
+	update = checkout
 [submodule "vim-markdown"]
 	path = .vim/bundle/vim-markdown
 	ignore = dirty
 	url = git://github.com/plasticboy/vim-markdown
-	update = merge
+	update = checkout
+[submodule "antigen"]
+	path = .antigen-git
+	ignore = dirty
+	url = git://github.com/zsh-users/antigen
+	update = checkout

@@ -1,4 +1,10 @@
 *
+!bin
+!bin/*
+!.antigen
+!.antigen/*
+!.antigen-git
+!.antigen-git/*
 !.bin
 !.bash_aliases
 !.bash_aliases.d
