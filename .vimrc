@@ -123,7 +123,8 @@ set autoread
 
 " Syntax coloring enable
 syntax on
-set background=dark
+" set background=dark
+set background=light
 
 " Enable mouse integration
 set mouse=a
@@ -142,8 +143,6 @@ set noswapfile
 ""map [B <Down>
 ""map [C <Right>
 ""map [D <Left>
-
-set background=dark
 
 " Detect scons files as python files
 au BufReadPost SConscript set syntax=python
