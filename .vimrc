@@ -148,6 +148,9 @@ set noswapfile
 au BufReadPost SConscript set syntax=python
 au BufReadPost SConstruct set syntax=python
 
+" Autosave files on focus lost
+au FocusLost * :wa
+
 " Show commands
 set showcmd
 
