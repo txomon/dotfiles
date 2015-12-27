@@ -153,6 +153,7 @@ au FocusLost * :wa
 
 " Show commands
 set showcmd
+set autoread
 
 " Highlight search results
 set hlsearch
