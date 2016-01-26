@@ -34,6 +34,7 @@
 /.gstreamer-0.10/
 /.gtk-bookmarks
 /.gvm/
+/.idlerc/
 /.ipython/
 /.java/
 /.jupyter/
@@ -46,6 +47,7 @@
 /.mozilla/
 /.mplayer/
 /.mysql/
+/.nemiver/
 /.node-gyp/
 /.npm/
 /.nv/
@@ -60,6 +62,7 @@
 /.pypirc
 /.python_history
 /.quiltrc-dpkg
+/.repo_.gitconfig.json
 /.repoconfig/
 /.repopickle_.gitconfig
 /.rvm/
@@ -75,6 +78,7 @@
 /.thumbnails/
 /.thunderbird/
 /.tox/
+/.ts3client/
 /.tuxguitar-1.2/
 /.uml/
 /.vim/.netrwhist
@@ -83,6 +87,7 @@
 /.wine/
 /.wireshark/
 /.xchat2/
+/.xsel.log
 /.xsession-errors
 /.xsession-errors.old
 /.zcompdump
@@ -95,12 +100,15 @@
 /Pictures/
 /VirtualBox VMs/
 /backup/
+/configs/
 /go/
 /projects/
+/tests/
 /ve/
 /ve2/
 /ve3/
 /xilinx_ise.lic
+
 
 .[CIPA]*/*
 !.[CIPA]*/config/
