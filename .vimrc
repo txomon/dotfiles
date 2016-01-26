@@ -27,57 +27,20 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-" General features "
-""""""""""""""""""""
-" Source code browsing
-Plugin 'taglist.vim'
-" Autocompletion popups
-" disabled for horribly interference
-" Plugin 'AutoComplPop'
-" AutoClose for braces and so closing
-" disabled for inserting horrible chars "Plugin 'AutoClose'
-" Super tab for completion
-Plugin 'ervandew/supertab'
-" Buffer management
-Plugin 'sjbach/lusty'
-" Color schemes for syntax highlighting
-Plugin 'ScrollColors'
-
-" VCS "
-"""""""
-" Git version control
-Plugin 'fugitive.vim'
-" Visual history browser
-Plugin 'Gundo'
-
-" IDE "
-"""""""
-" Task list like eclipse's
-Plugin 'TaskList.vim'
-
-" C "
-"""""
-" C/C++ IDE
-Plugin 'c.vim'
-
 " Python "
 """"""""""
-" Python highlighting (enchancing default)
-Plugin 'python.vim--Vasiliev'
-" Python facilities
-Plugin 'python.vim'
-" pep8 syntax style
-Plugin 'pep8'
-" Python documentation browser
-Plugin 'pydoc.vim'
-" Python common errors highlighting
-Plugin 'pyflakes'
-" Virtual env activation
-Plugin 'virtualenv.vim'
-
-" Go "
-""""""
-Plugin 'txomon/vim-go'
+"" Python highlighting (enchancing default)
+"Plugin 'python.vim--Vasiliev'
+"" Python facilities
+"Plugin 'python.vim'
+"" pep8 syntax style
+"Plugin 'pep8'
+"" Python documentation browser
+"Plugin 'pydoc.vim'
+"" Python common errors highlighting
+"Plugin 'pyflakes'
+"" Virtual env activation
+"Plugin 'virtualenv.vim'
 
 " Markdown "
 Plugin 'plasticboy/vim-markdown'
@@ -103,18 +66,12 @@ filetype plugin indent on    " required
 
 " Plugin configuration "
 """"""""""""""""""""""""
-" Lusty "
-" I might receive error messages, put this to fix it:
-set hidden
 
 " plasticboy/vim-markdown "
 " Don't like ultra folded docs
-let g:vim_markdown_initial_foldlevel=2
+let g:vim_markdown_initial_foldlevel=3
 " Don't like default key mappings
 let g:vim_markdown_no_default_key_mappings=1
-
-" txomon/vim-go
-let g:go_disable_autoinstall = 1
 
 " Personal configuration "
 """"""""""""""""""""""""""
@@ -133,16 +90,6 @@ set mouse=a
 set nobackup
 set nowritebackup
 set noswapfile
-" Fix tmux missinteractions
-""map <Esc>[B <Down>
-""nnoremap [A <Up>
-""nnoremap [B <Down>
-""nnoremap [C <Right>
-""nnoremap [D <Left>
-""map [A <Up>
-""map [B <Down>
-""map [C <Right>
-""map [D <Left>
 
 " Detect scons files as python files
 au BufReadPost SConscript set syntax=python
