@@ -114,3 +114,7 @@
 !.[CIPA]*/config/
 .[CIPA]*/config/*
 !.[CIPA]*/config/codestyles/
+
+!.config
+.config/*
+!.config/git
