@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-if [[ ! $TERM =~ screen ]]; then
+if [[ "x$TMUX" =~ "x" ]]; then
 	tmux attach || tmux
 fi
 

@@ -6,13 +6,15 @@
 /.Xil/
 /.Xilinx/
 /.android/
+/.aws/
 /.bash_history
 /.cache/
 /.ccache/
 /.chrome-remote-desktop-session
-/.config/
 /.cvsps/
+/.dbshell
 /.dbus/
+/.docker/
 /.dotfiles/
 /.eaglerc
 /.eclipse/
@@ -37,6 +39,7 @@
 /.idlerc/
 /.ipython/
 /.java/
+/.jd/
 /.jupyter/
 /.kde/
 /.lastpass
@@ -44,6 +47,7 @@
 /.local/
 /.macromedia/
 /.minecraft/
+/.mongorc.js
 /.mozilla/
 /.mplayer/
 /.mysql/
@@ -110,11 +114,14 @@
 /xilinx_ise.lic
 
 
-.[CIPA]*/*
-!.[CIPA]*/config/
-.[CIPA]*/config/*
-!.[CIPA]*/config/codestyles/
+/.[CIPA]*/*
+!/.[CIPA]*/config/
+/.[CIPA]*/config/*
+!/.[CIPA]*/config/codestyles/
 
-!.config
-.config/*
-!.config/git
+!/.config
+/.config/*
+!/.config/git
+!/.config/fish/
+/.config/fish/*
+!/.config/fish/config.fish
