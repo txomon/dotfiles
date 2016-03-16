@@ -49,6 +49,10 @@ Plugin 'plasticboy/vim-markdown'
 """"""""
 Plugin 'saltstack/salt-vim'
 
+" Terraform "
+"""""""""""""
+Plugin 'hashivim/vim-terraform'
+
 call vundle#end()            " required
 
 " To ignore plugin indent changes, instead use:

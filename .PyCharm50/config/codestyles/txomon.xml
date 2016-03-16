@@ -1,6 +1,9 @@
 <code_scheme name="txomon">
   <option name="LINE_SEPARATOR" value="&#10;" />
   <option name="RIGHT_MARGIN" value="79" />
+  <MultiMarkdownCodeStyleSettings>
+    <option name="RIGHT_MARGIN" value="72" />
+  </MultiMarkdownCodeStyleSettings>
   <Python>
     <option name="NEW_LINE_AFTER_COLON" value="true" />
   </Python>
