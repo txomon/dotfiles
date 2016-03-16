@@ -42,6 +42,7 @@
 /.jd/
 /.jupyter/
 /.kde/
+/.kube/
 /.lastpass
 /.lesshst
 /.local/
@@ -90,6 +91,7 @@
 /.vnc/
 /.wine/
 /.wireshark/
+/.xca/
 /.xchat2/
 /.xsel.log
 /.xsession-errors
