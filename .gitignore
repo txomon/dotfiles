@@ -1,5 +1,6 @@
 /.HitboxTeam/
 /.ICEauthority
+/.Osmos/
 /.Skype/
 /.VirtualBox/
 /.Xauthority
@@ -100,6 +101,7 @@
 /.zcompdump-theoden-5.0.8
 /.zsh-update
 /.zsh_history
+.*.json
 /Desktop/
 /Documents/
 /Downloads/
@@ -127,3 +129,9 @@
 !/.config/fish/
 /.config/fish/*
 !/.config/fish/config.fish
+
+!/.vim
+/.vim/*
+!/.vim/bundle
+/.vim/bundle/*
+!/.vim/bundle/Vundle.vim
