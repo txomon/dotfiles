@@ -90,6 +90,7 @@
 /.vim/.netrwhist
 /.viminfo
 /.vnc/
+/.wget-hsts
 /.wine/
 /.wireshark/
 /.xca/
@@ -118,10 +119,10 @@
 /xilinx_ise.lic
 
 
-/.[CIPA]*/*
-!/.[CIPA]*/config/
-/.[CIPA]*/config/*
-!/.[CIPA]*/config/codestyles/
+/.[CIPAW]*/*
+!/.[CIPAW]*/config/
+/.[CIPAW]*/config/*
+!/.[CIPAW]*/config/codestyles/
 
 !/.config
 /.config/*

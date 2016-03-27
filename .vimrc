@@ -73,7 +73,7 @@ filetype plugin indent on    " required
 
 " plasticboy/vim-markdown "
 " Don't like ultra folded docs
-let g:vim_markdown_initial_foldlevel=3
+let g:vim_markdown_folding_disabled = 1
 " Don't like default key mappings
 let g:vim_markdown_no_default_key_mappings=1
 
