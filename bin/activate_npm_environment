@@ -1,9 +1,9 @@
 oldpwd=$PWD
 
 while true; do
-	if [ -f "$PWD/node_modules/.bin" ]; then
+	if [ -d "$PWD/node_modules/.bin" ]; then
 		#Delete any other node path and inster ours
-                export PATH=$(echo $PATH | perl -pe "s/(.*?)([\w\/]*node_modules\/.bin:|:[\w\/]*node_modules\/.bin)(.*)/\1:\3/p")
+                export PATH=$(echo $PATH | perl -pe "s/(.*?)([\w\/]*node_modules\/.bin:|:[\w\/]*node_modules\/.bin)(.*)/\1\3/p")
 		export PATH=$PATH:$PWD/node_modules/.bin
 		break
 	else

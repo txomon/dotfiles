@@ -1,6 +1,5 @@
 .idea/
 /tmp/
-
+/node_modules/
 *.orig
-
 *.new
