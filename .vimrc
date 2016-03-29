@@ -47,7 +47,7 @@ Plugin 'plasticboy/vim-markdown'
 
 " Salt "
 """"""""
-Plugin 'saltstack/salt-vim'
+"Plugin 'saltstack/salt-vim'
 
 " Terraform "
 """""""""""""

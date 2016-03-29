@@ -127,3 +127,6 @@
 !/.config/fish/
 /.config/fish/*
 !/.config/fish/config.fish
+/.heroku/
+/.bash_logout
+/.python-eggs/
