@@ -140,3 +140,10 @@
 !/.vim/bundle
 /.vim/bundle/*
 !/.vim/bundle/Vundle.vim
+.netrc
+.pg*
+.psql_history
+.plotly/
+.rpdb2_settings/
+.winpdb_settings.cfg
+/ve34/
