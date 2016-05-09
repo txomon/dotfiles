@@ -50,6 +50,7 @@
 /.lastpass
 /.lesshst
 /.local/
+/.m2/
 /.macromedia/
 /.minecraft/
 /.mongorc.js
@@ -126,6 +127,7 @@
 /.[CIPAW]*/*
 !/.[CIPAW]*/config/
 /.[CIPAW]*/config/*
+!/.[CIPAW]*/config/colors/
 !/.[CIPAW]*/config/codestyles/
 
 !/.config
@@ -134,6 +136,8 @@
 !/.config/fish/
 /.config/fish/*
 !/.config/fish/config.fish
+!/.config/fish/solarized.fish
+
 
 !/.vim
 /.vim/*

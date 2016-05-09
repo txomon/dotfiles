@@ -1,7 +1,14 @@
 <code_scheme name="Default (1)">
-  <option name="RIGHT_MARGIN" value="100" />
+  <option name="LINE_SEPARATOR" value="&#10;" />
+  <option name="RIGHT_MARGIN" value="80" />
+  <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="true" />
   <MultiMarkdownCodeStyleSettings>
-    <option name="RIGHT_MARGIN" value="72" />
+    <option name="SMART_EDIT_UNDERSCORES" value="true" />
+    <option name="SMART_EDIT_ASTERISKS" value="true" />
+    <option name="SMART_EDIT_TILDES" value="true" />
+    <option name="SMART_EDIT_TABLES" value="true" />
+    <option name="TABLE_LEFT_ALIGN_MARKER" value="0" />
+    <option name="RIGHT_MARGIN" value="-1" />
   </MultiMarkdownCodeStyleSettings>
   <XML>
     <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
