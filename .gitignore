@@ -135,7 +135,8 @@
 
 !/.config
 /.config/*
-!/.config/git
+!/.config/awesome/
+!/.config/git/
 !/.config/fish/
 /.config/fish/*
 !/.config/fish/config.fish
