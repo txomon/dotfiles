@@ -82,10 +82,10 @@ let g:vim_markdown_no_default_key_mappings=1
 " Set updates on read
 set autoread
 
-" Syntax coloring enable
+" Coloring
 syntax on
-" set background=dark
-set background=light
+set background=dark
+colorscheme solarized
 
 " Enable mouse integration
 set mouse=a
