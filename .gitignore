@@ -145,9 +145,12 @@
 
 !/.vim
 /.vim/*
+!/.vim/colors
 !/.vim/bundle
 /.vim/bundle/*
 !/.vim/bundle/Vundle.vim
+
+
 .netrc
 .pg*
 .psql_history
