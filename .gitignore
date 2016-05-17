@@ -6,6 +6,7 @@
 /.Xauthority
 /.Xil/
 /.Xilinx/
+/.adobe/
 /.android/
 /.appcfg*
 /.aws/
@@ -58,6 +59,7 @@
 /.mplayer/
 /.mysql/
 /.nemiver/
+/.netrc
 /.node-gyp/
 /.npm/
 /.nv/
@@ -65,8 +67,11 @@
 /.omz-themes.old
 /.openshot/
 /.oracle_jre_usage/
+/.pg*
 /.pip/
 /.pki/
+/.plotly/
+/.psql_history
 /.pulse-cookie
 /.pulse/
 /.pypirc
@@ -76,6 +81,7 @@
 /.repo_.gitconfig.json
 /.repoconfig/
 /.repopickle_.gitconfig
+/.rpdb2_settings/
 /.rvm/
 /.sane/
 /.sqlite_history
@@ -97,6 +103,7 @@
 /.vnc/
 /.wget-hsts
 /.wine/
+/.winpdb_settings.cfg
 /.wireshark/
 /.xca/
 /.xchat2/
@@ -112,6 +119,7 @@
 /Documents/
 /Downloads/
 /Pictures/
+/Videos/
 /VirtualBox VMs/
 /backup/
 /configs/
@@ -121,6 +129,7 @@
 /ve/
 /ve2/
 /ve3/
+/ve34/
 /xilinx_ise.lic
 
 
@@ -150,14 +159,3 @@
 /.vim/bundle/*
 !/.vim/bundle/Vundle.vim
 
-
-.netrc
-.pg*
-.psql_history
-.plotly/
-.rpdb2_settings/
-.winpdb_settings.cfg
-/ve34/
-Videos/
-/adobe/
-/.adobe/
