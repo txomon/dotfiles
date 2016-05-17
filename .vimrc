@@ -45,6 +45,9 @@ Plugin 'gmarik/Vundle.vim'
 " Markdown "
 Plugin 'plasticboy/vim-markdown'
 
+" Ansible/YAML
+Plugin 'pearofducks/ansible-vim'
+
 " Salt "
 """"""""
 "Plugin 'saltstack/salt-vim'
