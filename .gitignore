@@ -159,3 +159,8 @@
 /.vim/bundle/*
 !/.vim/bundle/Vundle.vim
 
+.cookiecutter*
+.bzr.log
+.dockercfg
+.mysql_history
+.vagrant.d/
