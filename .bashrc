@@ -95,7 +95,7 @@ fi
 
 # Load general configuration
 if [ -d "$HOME/.env-vars/" ]; then
-	for f in `find $HOME/.env-vars/ -name '*.env'`; do
+	for f in `find $HOME/.env-vars/ -name '*.env' -or -name '*.env.bash'`; do
 		. $f
 	done
 fi
