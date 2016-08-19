@@ -155,10 +155,8 @@
 !/.config/awesome/
 !/.config/git/
 !/.config/fish/
-/.config/fish/*
-!/.config/fish/config.fish
-!/.config/fish/solarized.fish
-!/.config/fish/functions
+!/.config/fish/*
+/.config/fish/fish_history
 
 
 !/.vim
