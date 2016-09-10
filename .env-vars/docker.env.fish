@@ -78,7 +78,7 @@ end
 
 function docker 
 	set option $argv[1]
-	if test "$option"="clean"
+	if test "$option" = "clean"
 		set --erase argv[1]
 		docker_clean $argv
 	else
