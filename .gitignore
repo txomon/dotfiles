@@ -146,11 +146,14 @@
 /.[CIPAW]*/*
 !/.[CIPAW]*/config/
 /.[CIPAW]*/config/*
+!/.[CIPAW]*/config/codestyles/
 !/.[CIPAW]*/config/colors/
+!/.[CIPAW]*/config/fileTemplates/
 !/.[CIPAW]*/config/options/
 /.[CIPAW]*/config/options/*
 !/.[CIPAW]*/config/options/colors.scheme.xml
-!/.[CIPAW]*/config/codestyles/
+!/.[CIPAW]*/config/options/code.style.schemes
+!/.[CIPAW]*/config/options/code.style.schemes.xml
 
 !/.config
 /.config/*
