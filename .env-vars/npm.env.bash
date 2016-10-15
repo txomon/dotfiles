@@ -1,4 +1,4 @@
-function nact {
+function nactivate {
 	oldpwd=$PWD
 
 	while true; do

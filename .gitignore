@@ -62,6 +62,7 @@
 /.mongorc.js
 /.mozilla/
 /.mplayer/
+/Music/
 /.mysql/
 /.mysql_history
 /.nemiver/
@@ -104,6 +105,7 @@
 /.subversion/
 /.teamviewer/
 /.technic/
+/.TelegramDesktop/
 /tests/
 /.thumbnails/
 /.thunderbird/

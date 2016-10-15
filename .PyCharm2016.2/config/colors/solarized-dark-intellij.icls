@@ -694,12 +694,6 @@
         <option name="FONT_TYPE" value="2" />
       </value>
     </option>
-    <option name="DEFAULT_BRACES">
-      <value />
-    </option>
-    <option name="DEFAULT_BRACKETS">
-      <value />
-    </option>
     <option name="DEFAULT_CONSTANT">
       <value>
         <option name="FOREGROUND" value="d33682" />
@@ -716,9 +710,6 @@
       </value>
     </option>
     <option name="DEFAULT_DOC_MARKUP">
-      <value />
-    </option>
-    <option name="DEFAULT_DOT">
       <value />
     </option>
     <option name="DEFAULT_ENTITY">
@@ -763,9 +754,6 @@
       <value>
         <option name="FOREGROUND" value="cb4b16" />
       </value>
-    </option>
-    <option name="DEFAULT_PARENTHS">
-      <value />
     </option>
     <option name="DEFAULT_STATIC_FIELD">
       <value>
