@@ -159,6 +159,7 @@
 /.config/*
 !/.config/awesome/
 !/.config/git/
+/.config/git/gitk
 !/.config/fish/
 !/.config/fish/*
 /.config/fish/fish_history
