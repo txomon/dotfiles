@@ -7,6 +7,7 @@
 /.bash_logout
 /.bzr.log
 /.cache/
+/Calibre Library/
 /.ccache/
 /.chrome-remote-desktop-session
 /configs/
@@ -35,9 +36,11 @@
 /.gksu.lock
 /.gnome/
 /.gnome2/
+/.gnucash/
 /.gnupg/
 /go/
 /.gradle/
+/.gramps/
 /.gstreamer-0.10/
 /.gtk-bookmarks
 /.gvm/
@@ -60,6 +63,7 @@
 /*.md
 /.minecraft/
 /.mongorc.js
+/.mono/
 /.mozilla/
 /.mplayer/
 /Music/
@@ -68,6 +72,7 @@
 /.nemiver/
 /.netrc
 /.node-gyp/
+/.node_repl_history
 /.npm/
 /.nv/
 /.nvidia-settings-rc
@@ -89,6 +94,7 @@
 /.python-eggs/
 /.python_history
 /.quiltrc-dpkg
+/Recordings/
 /.rediscli_history
 /.repoconfig/
 /.repo_.gitconfig.json
@@ -106,6 +112,7 @@
 /.teamviewer/
 /.technic/
 /.TelegramDesktop/
+/.terraform.d/
 /tests/
 /.thumbnails/
 /.thunderbird/
@@ -172,5 +179,3 @@
 /.vim/bundle/*
 !/.vim/bundle/Vundle.vim
 
-.node_repl_history
-.terraform.d/

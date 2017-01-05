@@ -2,12 +2,14 @@
 # Do NOT edit it directly, your changes will be overwritten.
 SET __fish_classic_git_prompt_initialized:\x1d
 SET __fish_init_1_50_0:\x1d
+SET __fish_init_2_39_8:\x1d
 SET __fish_init_2_3_0:\x1d
 SET fish_color_autosuggestion:555\x1eyellow
 SET fish_color_command:005fd7\x1epurple
 SET fish_color_comment:red
 SET fish_color_cwd:green
 SET fish_color_cwd_root:red
+SET fish_color_end:brmagenta
 SET fish_color_error:red\x1e\x2d\x2dbold
 SET fish_color_escape:cyan
 SET fish_color_history_current:cyan
