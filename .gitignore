@@ -183,3 +183,4 @@
 .terraform.d/
 /.travis/
 /.erlang.cookie
+.vscode/
