@@ -105,7 +105,7 @@ for container in $container_ids; do
         allvolumes+=${container}
         #add all volumes from this container to the list of volumes
         for volpath in $(
-                ${docker_bin} inspect --format='{{range $vol, $path := .Volumes}}{{$path}}{{"\n"}}{{end}}' ${container}; \
+                ${docker_bin} inspect --format='{{range $vol, $path := .Config.Volumes}}{{$path}}{{"\n"}}{{end}}' ${container}; \
                 ${docker_bin} inspect --format='{{range $mount := .Mounts}}{{$mount.Source}}{{"\n"}}{{end}}' ${container} \
         ); do
                 log_verbose "Processing volumepath ${volpath} for container ${container}"
