@@ -1,5 +1,6 @@
 <code_scheme name="Jinn coding style">
   <option name="RIGHT_MARGIN" value="119" />
+  <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
   <Python>
     <option name="NEW_LINE_AFTER_COLON" value="true" />
     <option name="OPTIMIZE_IMPORTS_SORT_NAMES_IN_FROM_IMPORTS" value="true" />
