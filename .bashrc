@@ -53,7 +53,7 @@ fi
 
 unset -f set_colors
 
-if [[ "x$TMUX" =~ "x" ]]; then
+if [[ -z "$TMUX" ]]; then
 	tmux attach || tmux
 fi
 
