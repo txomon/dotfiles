@@ -1,18 +1,24 @@
 /.adobe/
 /.android/
 /.appcfg*
+/.audacity-data/
 /.aws/
 /backup/
 /.bash_history
 /.bash_logout
+/.boto
 /.bzr.log
 /.cache/
 /Calibre Library/
 /.ccache/
+/.cert/
 /.chrome-remote-desktop-session
+/chroot/
+/.circleci/
 /configs/
 /.cookiecutter*
 /.cvsps/
+/.dbeaver4/
 /.dbshell
 /.dbus/
 /Desktop/
@@ -24,8 +30,10 @@
 /.eaglerc
 /.eclipse/
 /.electrum/
+/.erlang.cookie
 /.esd_auth
 /.eteks/
+/.ethash/
 /.fontconfig/
 /.gconf/
 /.gem/
@@ -44,6 +52,7 @@
 /.gstreamer-0.10/
 /.gtk-bookmarks
 /.gvm/
+/.helm/
 /.heroku/
 /.HitboxTeam/
 /.ICEauthority
@@ -109,6 +118,7 @@
 /.steampath
 /.steampid
 /.subversion/
+/.swt/
 /.teamviewer/
 /.technic/
 /.TelegramDesktop/
@@ -117,6 +127,8 @@
 /.thumbnails/
 /.thunderbird/
 /.tox/
+/tmp/
+/.travis/
 /.ts3client/
 /.tuxguitar-1.2/
 /.uml/
@@ -129,6 +141,9 @@
 /.viminfo
 /.vim/.netrwhist
 /.VirtualBox/
+/.virtualenvs
+/.vscode/
+/.VSCodeVim/
 /VirtualBox VMs/
 /.vnc/
 /.wget-hsts
@@ -150,17 +165,17 @@
 /.zsh-update
 
 
-/.[CIPAW]*/*
-!/.[CIPAW]*/config/
-/.[CIPAW]*/config/*
-!/.[CIPAW]*/config/codestyles/
-!/.[CIPAW]*/config/colors/
-!/.[CIPAW]*/config/fileTemplates/
-!/.[CIPAW]*/config/options/
-/.[CIPAW]*/config/options/*
-!/.[CIPAW]*/config/options/colors.scheme.xml
-!/.[CIPAW]*/config/options/code.style.schemes
-!/.[CIPAW]*/config/options/code.style.schemes.xml
+/.[ACDIPW]*/*
+!/.[ACDIPW]*/config/
+/.[ACDIPW]*/config/*
+!/.[ACDIPW]*/config/codestyles/
+!/.[ACDIPW]*/config/colors/
+!/.[ACDIPW]*/config/fileTemplates/
+!/.[ACDIPW]*/config/options/
+/.[ACDIPW]*/config/options/*
+!/.[ACDIPW]*/config/options/colors.scheme.xml
+!/.[ACDIPW]*/config/options/code.style.schemes
+!/.[ACDIPW]*/config/options/code.style.schemes.xml
 
 !/.config
 /.config/*
@@ -170,6 +185,7 @@
 !/.config/fish/
 !/.config/fish/*
 /.config/fish/fish_history
+/.config/fish/fishd.*
 
 
 !/.vim
@@ -179,8 +195,4 @@
 /.vim/bundle/*
 !/.vim/bundle/Vundle.vim
 
-.node_repl_history
-.terraform.d/
-/.travis/
-/.erlang.cookie
-.vscode/
+
