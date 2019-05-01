@@ -1,6 +1,4 @@
-.idea/
-/tmp/
-/node_modules/
+/.idea/
+/.vscode/
 *.orig
 *.new
-.vscode/

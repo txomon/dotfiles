@@ -2,6 +2,7 @@
 /.android/
 /.appcfg*
 /.audacity-data/
+/.arm/
 /.aws/
 /backup/
 /.bash_history
@@ -63,6 +64,7 @@
 /.*.json
 /.jupyter/
 /.kde/
+/.keras/
 /.kube/
 /.lastpass
 /.lesshst
@@ -83,6 +85,7 @@
 /.node-gyp/
 /.node_repl_history
 /.npm/
+/.nuget/
 /.nv/
 /.nvidia-settings-rc
 /.omz-themes.old
@@ -146,10 +149,13 @@
 /.VSCodeVim/
 /VirtualBox VMs/
 /.vnc/
+/.web3/
 /.wget-hsts
 /.wine/
+/.wine32/
 /.winpdb_settings.cfg
 /.wireshark/
+/.yarnrc
 /.Xauthority
 /.xca/
 /.xchat2/
@@ -161,6 +167,7 @@
 /.xsession-errors.old
 /.zcompdump
 /.zcompdump-theoden-5.0.8
+/.ZenBound2/
 /.zsh_history
 /.zsh-update
 
@@ -194,5 +201,4 @@
 !/.vim/bundle
 /.vim/bundle/*
 !/.vim/bundle/Vundle.vim
-
 
