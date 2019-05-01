@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+
+import argparse
+import subprocess
+import sys
+
+parser = argparse.ArgumentParser(prog=sys.argv[0])
+parser.add_argument('package_name')
+parser.add_argument('dest_name', nargs='?')
+
+packages = subprocess.check_output('adb shell pm list packages'.split()).decode()
+args = parser.parse_args()
+
+possible_packages = []
+
+for line in packages.splitlines():
+    _, package = line.split(':', 1)
+    if args.package_name in package:
+        print(line)
+        possible_packages.append(package)
+
+if len(possible_packages) > 1:
+    print('There are several matching packages, exiting')
+    for package in possible_packages:
+        print('Possible:', package)
+    exit(1)
+elif not len(possible_packages):
+    print('No matches, try again')
+    for line in packages.splitlines():
+        _, package = line.split(':', 1)
+        print(package)
+    exit(2)
+
+package = possible_packages[0]
+
+path_string = subprocess.check_output(f'adb shell pm path {package}'.split()).decode()
+
+_, path = path_string.strip().split(':', 1)
+
+dest_name = args.dest_name or f'{package}.apk'
+
+print(f'Getting package {package} from {path} as {dest_name}')
+
+path_string = subprocess.check_output(f'adb pull {path} {dest_name}'.split()).decode()
+
