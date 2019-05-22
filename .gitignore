@@ -8,6 +8,7 @@
 /.bash_history
 /.bash_logout
 /.boto
+/.Braid/
 /.bzr.log
 /.cache/
 /Calibre Library/
@@ -35,6 +36,7 @@
 /.esd_auth
 /.eteks/
 /.ethash/
+/.ethereum/
 /.fontconfig/
 /.gconf/
 /.gem/
@@ -51,8 +53,10 @@
 /.gradle/
 /.gramps/
 /.gstreamer-0.10/
+/.gsutil/
 /.gtk-bookmarks
 /.gvm/
+/.gyazo.id
 /.helm/
 /.heroku/
 /.HitboxTeam/
@@ -68,6 +72,8 @@
 /.kube/
 /.lastpass
 /.lesshst
+/.lives
+/.lives-dir/
 /.local/
 /.m2/
 /.macromedia/
@@ -88,6 +94,7 @@
 /.nuget/
 /.nv/
 /.nvidia-settings-rc
+/.octave_hist
 /.omz-themes.old
 /.openshot/
 /.oracle_jre_usage/
@@ -111,6 +118,7 @@
 /.repoconfig/
 /.repo_.gitconfig.json
 /.repopickle_.gitconfig
+/.rnd
 /.rpdb2_settings/
 /.rvm/
 /.sane/
@@ -129,8 +137,8 @@
 /tests/
 /.thumbnails/
 /.thunderbird/
-/.tox/
 /tmp/
+/.tox/
 /.travis/
 /.ts3client/
 /.tuxguitar-1.2/
@@ -149,6 +157,7 @@
 /.VSCodeVim/
 /VirtualBox VMs/
 /.vnc/
+/.vscode/
 /.web3/
 /.wget-hsts
 /.wine/
@@ -165,6 +174,7 @@
 /.xsel.log
 /.xsession-errors
 /.xsession-errors.old
+/.yarnrc
 /.zcompdump
 /.zcompdump-theoden-5.0.8
 /.ZenBound2/
