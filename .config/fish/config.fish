@@ -8,3 +8,6 @@ if test -d "$HOME/.env-vars/"
 	set -q f
 end
 
+if which direnv
+	eval (direnv hook fish)
+end

@@ -2,3 +2,4 @@
 /.vscode/
 *.orig
 *.new
+.envrc
