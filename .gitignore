@@ -7,6 +7,7 @@
 /backup/
 /.bash_history
 /.bash_logout
+/.bigqueryrc
 /.boto
 /.Braid/
 /.bzr.log

@@ -1,5 +1,8 @@
 <code_scheme name="Txomon coding style" version="173">
   <option name="RIGHT_MARGIN" value="89" />
+  <HCL-Terraform>
+    <option name="PROPERTY_ALIGNMENT" value="2" />
+  </HCL-Terraform>
   <Python>
     <option name="NEW_LINE_AFTER_COLON" value="true" />
     <option name="OPTIMIZE_IMPORTS_SORT_NAMES_IN_FROM_IMPORTS" value="true" />
