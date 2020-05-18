@@ -1,8 +1,9 @@
 /.adobe/
 /.android/
 /.appcfg*
-/.audacity-data/
 /.arm/
+/.atlauncher/
+/.audacity-data/
 /.aws/
 /backup/
 /.bash_history
@@ -13,11 +14,13 @@
 /.bzr.log
 /.cache/
 /Calibre Library/
+/.cargo/
 /.ccache/
 /.cert/
 /.chrome-remote-desktop-session
 /chroot/
 /.circleci/
+/.cmake/
 /configs/
 /.cookiecutter*
 /.cvsps/
@@ -29,10 +32,12 @@
 /.dockercfg
 /Documents/
 /.dotfiles/
+/.dotnet/
 /Downloads/
 /.eaglerc
 /.eclipse/
 /.electrum/
+/.elvish/
 /.erlang.cookie
 /.esd_auth
 /.eteks/
@@ -71,6 +76,7 @@
 /.jupyter/
 /.kde/
 /.keras/
+/.krew/
 /.kube/
 /.lastpass
 /.lesshst
@@ -81,10 +87,12 @@
 /.macromedia/
 /*.md
 /.minecraft/
+*.mkv
 /.mongorc.js
 /.mono/
 /.mozilla/
 /.mplayer/
+/.mputils/
 /Music/
 /.mysql/
 /.mysql_history
@@ -139,6 +147,7 @@
 /tests/
 /.thumbnails/
 /.thunderbird/
+/.tlauncher/
 /tmp/
 /.tox/
 /.travis/
@@ -154,19 +163,18 @@
 /.viminfo
 /.vim/.netrwhist
 /.VirtualBox/
-/.virtualenvs
-/.vscode/
-/.VSCodeVim/
 /VirtualBox VMs/
+/.virtualenvs
 /.vnc/
 /.vscode/
+/.vscode/
+/.VSCodeVim/
 /.web3/
 /.wget-hsts
 /.wine/
 /.wine32/
 /.winpdb_settings.cfg
 /.wireshark/
-/.yarnrc
 /.Xauthority
 /.xca/
 /.xchat2/
@@ -177,6 +185,7 @@
 /.xsession-errors
 /.xsession-errors.old
 /.yarnrc
+/.yarnrc
 /.zcompdump
 /.zcompdump-theoden-5.0.8
 /.ZenBound2/
@@ -184,17 +193,17 @@
 /.zsh-update
 
 
-/.[ACDIPW]*/*
-!/.[ACDIPW]*/config/
-/.[ACDIPW]*/config/*
-!/.[ACDIPW]*/config/codestyles/
-!/.[ACDIPW]*/config/colors/
-!/.[ACDIPW]*/config/fileTemplates/
-!/.[ACDIPW]*/config/options/
-/.[ACDIPW]*/config/options/*
-!/.[ACDIPW]*/config/options/colors.scheme.xml
-!/.[ACDIPW]*/config/options/code.style.schemes
-!/.[ACDIPW]*/config/options/code.style.schemes.xml
+/.[ACDGIPW]*/*
+!/.[ACDGIPW]*/config/
+/.[ACDGIPW]*/config/*
+!/.[ACDGIPW]*/config/codestyles/
+!/.[ACDGIPW]*/config/colors/
+!/.[ACDGIPW]*/config/fileTemplates/
+!/.[ACDGIPW]*/config/options/
+/.[ACDGIPW]*/config/options/*
+!/.[ACDGIPW]*/config/options/colors.scheme.xml
+!/.[ACDGIPW]*/config/options/code.style.schemes
+!/.[ACDGIPW]*/config/options/code.style.schemes.xml
 
 !/.config
 /.config/*
