@@ -11,3 +11,10 @@ end
 if which direnv
 	eval (direnv hook fish)
 end
+
+bind \e\[1\;5C forward-word
+bind \e\[1\;5D backward-word
+bind -M insert \e\[1\;5C forward-word
+bind -M insert \e\[1\;5D backward-word
+bind -M visual \e\[1\;5C forward-word
+bind -M visual \e\[1\;5D backward-word

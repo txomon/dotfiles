@@ -86,6 +86,11 @@ let g:vim_markdown_no_default_key_mappings=1
 set autoread
 
 " Coloring
+" If it doesn't look good, set the terminal colour palete to solarized, quote:
+"
+" If you are going to use Solarized in Terminal mode (i.e. not in a GUI
+" version like gvim or macvim), please please please consider setting your
+" terminal emulator's colorscheme to used the Solarized palette
 syntax on
 set background=dark
 colorscheme solarized
@@ -112,3 +117,8 @@ set autoread
 " Highlight search results
 set hlsearch
 nnoremap <CR> :nohlsearch<CR><CR>
+
+set ignorecase  " do case insensitive search 
+set incsearch   " show incremental search results as you type
+set number      " display line number
+set noswapfile  " disable swap file
