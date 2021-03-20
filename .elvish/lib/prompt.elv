@@ -1,15 +1,21 @@
 use math
 use re
+use github.com/href/elvish-gitstatus/gitstatus
+
+set gitstatus:binary = "/usr/share/gitstatus/usrbin/gitstatusd"
 
 # Colours are used with the next into account:
 # * ANSI colour compatibility
 # * Gnome terminal compatibility
 # * Dark/Light theme compatibility
+# * Linux VTTY compatibility
 #
-# In whatever theme you are using Colour 0 and 8 (black and bright black in ANSI) should
-#  be whatever the normal text is coloured with
-#
-# Colours 7 and 15 (white and bright white in ANSI) should NEVER be used.
+# By default ANSI 0, ANSI 7, ANSI 8, and ANSI 15 will be background and foreground colours
+#  black, white, bright black, bright white respectively. However, never format as any
+#  of these 4 colours, or you will get set ups (vtty) in which fg and bg colours are the
+#  same because the shell itself relies on the pallete definition. This is not a problem
+#  when using other terminal emulators such as gnome, because they have Text, Background,
+#  Highlighted Text and Highlighted Background as base colours, and then the palette
 
 last-cmd-start-time = 0
 last-cmd-end-time = 0
@@ -35,7 +41,7 @@ fn prompt-username {
 }
 
 fn prompt-hostname {
-  put (styled (hostname) black)
+  put (hostname)
 }
 
 fn prompt-date {
@@ -92,7 +98,31 @@ fn prompt-status {
 }
 
 fn prompt-git {
-  put ""
+  git = (gitstatus:query $pwd)
+  if (not $git[is-repository]) {
+    put ""
+    return
+  }
+
+  status = " ("
+  if (eq $git[local-branch] "") {
+      status = $status$git[commit][:8]
+  } else {
+      status = $status$git[local-branch]
+  }
+  # show a state indicator
+  if (or (> $git[unstaged] 0) (> $git[untracked] 0)) {
+      status = $status(styled '*' yellow)
+  } elif (> $git[staged] 0) {
+      status = $status(styled '*' green)
+  } elif (> $git[commits-ahead] 0) {
+      status = $status(styled '^' yellow)
+  } elif (> $git[commits-behind] 0) {
+      status = (styled '⌄' yellow)
+  }
+
+  put $status")"
+  return
 }
 
 

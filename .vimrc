@@ -92,7 +92,8 @@ set autoread
 " version like gvim or macvim), please please please consider setting your
 " terminal emulator's colorscheme to used the Solarized palette
 syntax on
-set background=dark
+"" Disabled because terminal emulator has been configured with ANSI inverted
+" colours, other terminals shouldn't be aware of colour scheme
 colorscheme solarized
 
 " Enable mouse integration
