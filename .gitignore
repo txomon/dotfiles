@@ -124,6 +124,7 @@
 /.pg*
 /Pictures/
 /.pip/
+/.pkg-cache/
 /.pki/
 /PlayOnLinux*
 /.plotly/
