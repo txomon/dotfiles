@@ -7,3 +7,4 @@ use direnv
 use prompt
 
 set edit:insert:binding[Ctrl-W] = $edit:kill-small-word-left~
+set edit:insert:binding[Ctrl-F] = $edit:-instant:start~
