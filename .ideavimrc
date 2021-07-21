@@ -1,1 +1,2 @@
 nnoremap gh :action ShowErrorDescription<CR>
+set ideajoin
