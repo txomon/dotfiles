@@ -17,14 +17,14 @@ set gitstatus:binary = "/usr/share/gitstatus/usrbin/gitstatusd"
 #  when using other terminal emulators such as gnome, because they have Text, Background,
 #  Highlighted Text and Highlighted Background as base colours, and then the palette
 
-last-cmd-start-time = 0
-last-cmd-end-time = 0
+var last-cmd-start-time = 0
+var last-cmd-end-time = 0
 
 fn now {
   put (date +%s%2N)
 }
 
-fn after-readline-hook [cmd]{
+fn after-readline-hook {|cmd|
   set last-cmd-start-time = (now)
 }
 
@@ -33,7 +33,7 @@ fn before-readline-hook {
 }
 
 fn prompt-username {
-  set user = (whoami)
+  var user = (whoami)
   if (==s $user "root") {
     put (styled "root" red)
   }
@@ -49,43 +49,43 @@ fn prompt-date {
 }
 
 fn prompt-pwd {
-  set dir-length = 3
-  set dir = (tilde-abbr $pwd)
-  short-dir = (re:replace '(\.?[^/]{'$dir-length'})[^/]*/' '$1/' $dir)
+  var dir-length = 3
+  var dir_ = (tilde-abbr $pwd)
+  var short-dir = (re:replace '(\.?[^/]{'$dir-length'})[^/]*/' '$1/' $dir_)
   put (styled $short-dir green)
 }
 
-fn ts-diff [end start]{
-  delta = (- $end $start)
+fn ts-diff {|end start|
+  var delta = (- $end $start)
 
-  milis = (% $delta 100)
+  var milis = (% $delta 100)
 
-  _seconds = (math:floor (/ $delta 100 ))
-  seconds = (% $_seconds 60)
-  final_time = $seconds.$milis
-  _minutes = (math:floor (/ $_seconds 60))
+  var _seconds = (math:floor (/ $delta 100 ))
+  var seconds = (% $_seconds 60)
+  var final_time = $seconds.$milis
+  var _minutes = (math:floor (/ $_seconds 60))
   if (== $_minutes 0 ) {
     put $final_time
     return
   }
 
-  minutes = (% $_minutes 60)
-  final_time = $minutes"m"$final_time
-  _hours = (math:floor (/ $_minutes 60))
+  var minutes = (% $_minutes 60)
+  var final_time = $minutes"m"$final_time
+  var _hours = (math:floor (/ $_minutes 60))
   if (== $_hours 0 ) {
     put $final_time
     return
   }
 
-  hours = (% $_hours 60)
-  final_time = $hours"h"$final_time
-  _days = (math:floor (/ $_hours 60))
+  var hours = (% $_hours 60)
+  var final_time = $hours"h"$final_time
+  var _days = (math:floor (/ $_hours 60))
   if (== $_days 0) {
     put $final_time
     return
   }
 
-  days = (% $_days 24)
+  var days = (% $_days 24)
   put $days"d"$final_time
 }
 
@@ -98,27 +98,27 @@ fn prompt-status {
 }
 
 fn prompt-git {
-  git = (gitstatus:query $pwd)
+  var git = (gitstatus:query $pwd)
   if (not $git[is-repository]) {
     put ""
     return
   }
 
-  status = " ("
+  var status = " ("
   if (eq $git[local-branch] "") {
-      status = $status$git[commit][:8]
+      set status = $status$git[commit][:8]
   } else {
-      status = $status$git[local-branch]
+      set status = $status$git[local-branch]
   }
   # show a state indicator
   if (or (> $git[unstaged] 0) (> $git[untracked] 0)) {
-      status = $status(styled '*' yellow)
+      set status = $status(styled '*' yellow)
   } elif (> $git[staged] 0) {
-      status = $status(styled '*' green)
+      set status = $status(styled '*' green)
   } elif (> $git[commits-ahead] 0) {
-      status = $status(styled '^' yellow)
+      set status = $status(styled '^' yellow)
   } elif (> $git[commits-behind] 0) {
-      status = (styled '⌄' yellow)
+      set status = (styled '⌄' yellow)
   }
 
   put $status")"
@@ -127,17 +127,17 @@ fn prompt-git {
 
 
 fn init {
-  last-cmd-start-time = (now)
-  set _prompt-username = (prompt-username)
-  set _prompt-hostname = (prompt-hostname)
-  edit:prompt = {
+  set last-cmd-start-time = (now)
+  var _prompt-username = (prompt-username)
+  var _prompt-hostname = (prompt-hostname)
+  set edit:prompt = {
     print (prompt-date)" "(prompt-times)" "$_prompt-username"@"$_prompt-hostname" "(prompt-pwd)(prompt-git)(prompt-status)"$ "
   }
-  edit:rprompt = { print ( date -u '+=>%Y-%m-%dT%H:%M:%SZ' -d "@"$last-cmd-end-time[0..-2] ) }
+  set edit:rprompt = { print ( date -u '+=>%Y-%m-%dT%H:%M:%SZ' -d "@"$last-cmd-end-time[0..-2] ) }
   set edit:after-readline = [$@edit:after-readline $after-readline-hook~]
   set edit:before-readline = [$@edit:before-readline $before-readline-hook~]
   set edit:-prompt-eagerness = 10
-  last-cmd-end-time = (now)
+  set last-cmd-end-time = (now)
 }
 
 init

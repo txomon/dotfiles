@@ -8,3 +8,9 @@ use prompt
 
 set edit:insert:binding[Ctrl-W] = $edit:kill-small-word-left~
 set edit:insert:binding[Ctrl-F] = $edit:-instant:start~
+
+# for f (ls ~/.env-vars/*.env)  {
+#    source $f
+# }
+
+set paths = [$@paths ~/bin ~/.tfenv/bin]
