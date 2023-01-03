@@ -13,4 +13,4 @@ set edit:insert:binding[Ctrl-F] = $edit:-instant:start~
 #    source $f
 # }
 
-set paths = [$@paths ~/bin ~/.tfenv/bin]
+set paths = [~/bin ~/.tfenv/bin $@paths]

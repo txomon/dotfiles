@@ -19,6 +19,9 @@ set gitstatus:binary = "/usr/share/gitstatus/usrbin/gitstatusd"
 
 var last-cmd-start-time = 0
 var last-cmd-end-time = 0
+# seconds are with 2 decimal places
+var notify-after = (* 20 100)
+var notified-already = $false
 
 fn now {
   put (date +%s%2N)
@@ -26,10 +29,16 @@ fn now {
 
 fn after-readline-hook {|cmd|
   set last-cmd-start-time = (now)
+  set notified-already = $false
 }
 
 fn before-readline-hook {
   set last-cmd-end-time = (now)
+  var delta = (- $last-cmd-end-time $last-cmd-start-time)
+  if (and (> $delta $notify-after) (not $notified-already)) {
+    notify
+    set notified-already = $true
+  }
 }
 
 fn prompt-username {
