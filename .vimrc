@@ -118,6 +118,7 @@ set autoread
 " Highlight search results
 set hlsearch
 nnoremap <CR> :nohlsearch<CR><CR>
+inoremap <C-v> <ESC>"+pi
 
 set ignorecase  " do case insensitive search 
 set incsearch   " show incremental search results as you type

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ x"$@" = x ]]; then
+	notify-send -et 2 "Done!"
+else
+	notify-send "$@"
+fi
+
