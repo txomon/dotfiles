@@ -229,6 +229,8 @@
 !/.config/git/
 /.config/git/gitk
 
+!/.config/elvish/
+
 !/.config/fish/
 /.config/fish/*
 !/.config/fish/config.fish
