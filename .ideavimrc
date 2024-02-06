@@ -1,2 +1,15 @@
-nnoremap gh :action ShowErrorDescription<CR>
+" https://github.com/JetBrains/ideavim#executing-actions
+" Show context/error
+nmap gh <action>(ShowErrorDescription)
+" Paste from clipboard when in insert mode
+inoremap <C-v> <ESC>"+pa
+" Copy from clipboard when a selection is done
+vnoremap <C-c> "+y
+" Save all files when hitting <C-s> in normal mode
+nmap <C-s> <action>(SaveAll)
+" Expand selection to the parent
+vmap <C-w> <action>(EditorSelectWord)
+" Shrink selection to the child
+vmap <C-S-w> <action>(EditorUnselectWord)
+" Remember that selection of selected text's next ocurrence is with alt-j
 set ideajoin
