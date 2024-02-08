@@ -1,20 +1,15 @@
 [submodule "Vundle.vim"]
-	update = checkout
 	path = .vim/bundle/Vundle.vim
+	url = github:gmarik/Vundle.vim
 	ignore = dirty
-	url = git://github.com/gmarik/Vundle.vim
 [submodule "vim-markdown"]
 	path = .vim/bundle/vim-markdown
+	url = github:plasticboy/vim-markdown
 	ignore = dirty
-	url = git://github.com/plasticboy/vim-markdown
-	update = checkout
 [submodule "antigen"]
 	path = .antigen-git
+	url = github:zsh-users/antigen
 	ignore = dirty
-	url = git://github.com/zsh-users/antigen
-	update = checkout
-[submodule "antigen"]
-	path = .antigen-git
-	ignore = dirty
-	url = git://github.com/zsh-users/antigen
-	update = checkout
+[submodule ".tfenv"]
+	path = .tfenv
+	url = github:tfutils/tfenv
