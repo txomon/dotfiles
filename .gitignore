@@ -52,6 +52,7 @@
 /.fontconfig/
 /.FreeCAD/
 /.ftblauncher/
+/Games/
 /.gconf/
 /.gem/
 /.gimp-2.8/
@@ -93,6 +94,7 @@
 /.local/
 /.m2/
 /.macromedia/
+/.masterpdfeditor/
 /*.md
 /.minecraft/
 *.mkv
