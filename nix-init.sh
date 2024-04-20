@@ -52,7 +52,7 @@ else
 fi
 
 # If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+[[ \$- != *i* ]] && return
 
 # Set something for the cmd line
 PS1='[\u@\h \W]\\\$ '
