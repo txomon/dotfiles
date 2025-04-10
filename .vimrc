@@ -91,7 +91,7 @@ set autoread
 syntax on
 "" Disabled because terminal emulator has been configured with ANSI inverted
 " colours, other terminals shouldn't be aware of colour scheme
-colorscheme solarized
+"colorscheme solarized
 
 " Enable mouse integration
 set mouse=a
