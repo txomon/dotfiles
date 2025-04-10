@@ -7,6 +7,9 @@ inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
 " Save all files when hitting <C-s> in normal mode
 nmap <C-s> <action>(SaveAll)
+" Navigate forward and backwards to previous location (not tab, but after following definition)
+nmap <C-h> <action>(Back)
+nmap <C-l> <action>(Forward)
 " Expand selection to the parent
 vmap <C-w> <action>(EditorSelectWord)
 " Shrink selection to the child

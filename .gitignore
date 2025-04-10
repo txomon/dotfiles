@@ -238,6 +238,8 @@
 !/.config/fish/config.fish
 !/.config/fish/functions
 
+!/.config/starship.toml
+
 !/.elvish/
 /.elvish/*
 !/.elvish/lib

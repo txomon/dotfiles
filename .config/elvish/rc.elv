@@ -9,3 +9,8 @@ set edit:insert:binding[Ctrl-F] = $edit:-instant:start~
 set paths = [~/bin ~/go/bin $@paths]
 
 eval (starship init elvish)
+
+set-env CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense' # optional
+
+eval (carapace _carapace|slurp)
+eval (zoxide init elvish | slurp)
