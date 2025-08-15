@@ -94,4 +94,4 @@ $character"""
 disabled = false
 format = 'end at [$time]($style) '
 time_format = '%FT%TZ'
-utc_time_offset = 'UTC'
+utc_time_offset = '0'

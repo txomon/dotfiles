@@ -1,0 +1,11 @@
+#!/usr/bin/elvish
+
+sudo rmmod nvidia_uvm
+sudo rmmod nvidia_drm
+sudo rmmod nvidia_modeset
+sudo rmmod nvidia
+
+fn egpu_present {
+	sudo lspci
+}
+read-line
