@@ -1,0 +1,34 @@
+#!/bin/sh
+# Flip the invoking client to a "solo" session that holds ONLY the given window.
+#
+# The window is *linked* (shared), not moved: it keeps living in the default
+# session, and killing/detaching the solo session never destroys it. Soloing
+# the same window again reuses its existing solo session.
+#
+# Reuse is keyed on the window id (stable and never reused within a server),
+# NOT on the session name: tmux auto-renames windows to the running program, so
+# a name-based key would spawn a duplicate solo after a rename. We therefore
+# look up an existing solo-* session that already contains this window, and only
+# mint a fresh (readable) name when none exists.
+#
+# Args (only shell-safe values are passed through the binding):
+#   $1  wid     window id             (e.g. "@3")  -- always "@" + digits
+#   $2  client  invoking client name  (e.g. "/dev/pts/4")
+wid="$1"; client="$2"
+
+# Existing solo session for THIS window? (match by immutable id, not name.)
+name=$(tmux list-windows -a -F '#{window_id} #{session_name}' \
+	| awk -v w="$wid" '$1 == w && $2 ~ /^solo-/ { print $2; exit }')
+
+if [ -z "$name" ]; then
+	# Cosmetic label from the current window name; sanitized so odd/hostile
+	# characters never reach a shell or a tmux session name. Id suffix keeps
+	# same-named windows distinct.
+	wname=$(tmux display-message -p -t "$wid" '#{window_name}')
+	slug=$(printf '%s' "$wname" | LC_ALL=C tr -c 'A-Za-z0-9_-' '-')
+	name="solo-${slug}-${wid#@}"
+	tmux new-session -d -s "$name"
+	tmux link-window -s "$wid" -t "$name:1" -k
+fi
+
+tmux switch-client -c "$client" -t "$name"

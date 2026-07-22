@@ -10,7 +10,7 @@ export LD_LIBRARY_PATH=$JAVA_HOME/jre/lib/amd64:$JAVA_HOME/jre/lib/amd64/server
 [[ $- != *i* ]] && return
 
 if [[ -z "$TMUX" ]]; then
-	tmux attach || tmux
+	tmux new-session -A -s default
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
