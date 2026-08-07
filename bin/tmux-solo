@@ -1,29 +1,36 @@
 #!/bin/sh
-# Flip the invoking client to a "solo" session that holds ONLY the given window.
+# Flip a client to a "solo" session that holds ONLY one window (linked/shared).
 #
-# The window is *linked* (shared), not moved: it keeps living in the default
-# session, and killing/detaching the solo session never destroys it. Soloing
-# the same window again reuses its existing solo session.
+# Normally triggered by the tmux 'prefix S' key binding, which passes the
+# current window id and the pressing client. It can also be run directly from a
+# shell inside tmux with no arguments, in which case it solos the current window
+# for the current client.
 #
-# Reuse is keyed on the window id (stable and never reused within a server),
-# NOT on the session name: tmux auto-renames windows to the running program, so
-# a name-based key would spawn a duplicate solo after a rename. We therefore
-# look up an existing solo-* session that already contains this window, and only
-# mint a fresh (readable) name when none exists.
+# The window is *linked*, not moved: it keeps living in the default session and
+# killing/detaching the solo never destroys it. Re-soloing the same window
+# reuses its solo session (identity is keyed on the immutable window id, so it
+# survives tmux's automatic window renaming and never collides on shared names).
 #
-# Args (only shell-safe values are passed through the binding):
-#   $1  wid     window id             (e.g. "@3")  -- always "@" + digits
+# Args (optional; supplied by the key binding):
+#   $1  wid     window id             (e.g. "@3")
 #   $2  client  invoking client name  (e.g. "/dev/pts/4")
 wid="$1"; client="$2"
 
-# Existing solo session for THIS window? (match by immutable id, not name.)
+if [ -z "$wid" ] || [ -z "$client" ]; then
+	if [ -z "$TMUX" ]; then
+		echo "tmux-solo: run this from inside tmux (or use the 'prefix S' binding)." >&2
+		exit 2
+	fi
+	# Direct invocation: fall back to the current window / current client.
+	[ -z "$wid" ] && wid=$(tmux display-message -p '#{window_id}')
+	[ -z "$client" ] && client=$(tmux display-message -p '#{client_name}')
+fi
+
+# Reuse an existing solo session for THIS window (match by immutable id, not name).
 name=$(tmux list-windows -a -F '#{window_id} #{session_name}' \
 	| awk -v w="$wid" '$1 == w && $2 ~ /^solo-/ { print $2; exit }')
 
 if [ -z "$name" ]; then
-	# Cosmetic label from the current window name; sanitized so odd/hostile
-	# characters never reach a shell or a tmux session name. Id suffix keeps
-	# same-named windows distinct.
 	wname=$(tmux display-message -p -t "$wid" '#{window_name}')
 	slug=$(printf '%s' "$wname" | LC_ALL=C tr -c 'A-Za-z0-9_-' '-')
 	name="solo-${slug}-${wid#@}"
