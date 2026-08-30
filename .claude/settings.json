@@ -1,0 +1,53 @@
+{
+  "cleanupPeriodDays": 99999,
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_SUPPRESS_SESSION_ATTRIBUTION": "1"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(docker compose run:*)",
+      "WebFetch(domain:www.proofeditor.ai)",
+      "Bash(curl:*)",
+      "WebFetch(domain:raw.githubusercontent.com)"
+    ],
+    "defaultMode": "dontAsk"
+  },
+  "model": "opus[1m]",
+  "worktree": {
+    "baseRef": "fresh"
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": false,
+    "clangd-lsp@claude-plugins-official": false,
+    "pyright-lsp@claude-plugins-official": false,
+    "typescript-lsp@claude-plugins-official": false,
+    "plugin-dev@claude-plugins-official": true,
+    "chrome-devtools-mcp@chrome-devtools-plugins": true,
+    "superpowers@claude-plugins-official": true,
+    "linear@claude-plugins-official": true,
+    "sentry@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {},
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
+  "editorMode": "vim",
+  "verbose": true,
+  "preferredNotifChannel": "auto",
+  "autoCompactEnabled": true,
+  "remoteControlAtStartup": true,
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true,
+  "tmux": false
+}

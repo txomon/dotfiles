@@ -1,0 +1,201 @@
+#!/usr/bin/env bash
+# csr — Claude credential switch/rotate
+#
+# Cycles ~/.claude/.credentials.json (a hardlink) through the saved profiles in
+# ~/.claude/credentials/credentials-*.json. See csr.md for the full design.
+#
+# Never creates or migrates the layout: fails loudly if preconditions are missing.
+
+set -euo pipefail
+export LC_ALL=C   # deterministic, locale-independent globbing/sorting/comparison
+
+CLAUDE_DIR="${CSR_CLAUDE_DIR:-$HOME/.claude}"
+ACTIVE_LINK="$CLAUDE_DIR/.credentials.json"
+PROFILE_DIR="$CLAUDE_DIR/credentials"
+MARKER="$PROFILE_DIR/active"
+BACKUP_DIR="$PROFILE_DIR/backups"
+BACKUP_KEEP=10
+
+die() { printf 'csr: %s\n' "$*" >&2; exit 1; }
+
+# Echo the inode number of a path, or nothing if it does not exist.
+inode_of() {
+  [ -e "$1" ] || return 0
+  stat -c %i "$1"
+}
+
+# Populate the global `profiles` array with sorted profile basenames.
+# Fails if the directory or any profile is missing.
+load_profiles() {
+  [ -d "$PROFILE_DIR" ] || die "$PROFILE_DIR does not exist (set up the layout first; see csr.md)"
+  profiles=()
+  local f
+  # Bash expands globs already sorted (LC_ALL=C => byte order); nullglob so a
+  # no-match expands to nothing. No word-splitting round-trip, so names with
+  # spaces/newlines stay intact.
+  shopt -s nullglob
+  for f in "$PROFILE_DIR"/credentials-*.json; do
+    profiles+=("$(basename "$f")")
+  done
+  shopt -u nullglob
+  [ "${#profiles[@]}" -ge 1 ] || die "no profiles found matching $PROFILE_DIR/credentials-*.json"
+}
+
+# Echo the basename of the profile whose inode matches the active link, or nothing.
+current_by_inode() {
+  local target_ino p
+  target_ino="$(inode_of "$ACTIVE_LINK")"
+  [ -n "$target_ino" ] || return 0
+  for p in "${profiles[@]}"; do
+    if [ "$(inode_of "$PROFILE_DIR/$p")" = "$target_ino" ]; then
+      printf '%s\n' "$p"
+      return 0
+    fi
+  done
+}
+
+# Best-effort JSON validation. Returns success if no validator is available.
+valid_json() {
+  if command -v jq >/dev/null 2>&1; then
+    jq -e . "$1" >/dev/null 2>&1
+  elif command -v python3 >/dev/null 2>&1; then
+    python3 -c 'import json,sys; json.load(open(sys.argv[1]))' "$1" >/dev/null 2>&1
+  else
+    return 0
+  fi
+}
+
+# Copy a profile into the backups dir with a timestamp, then prune to the last N.
+backup_profile() {
+  local src="$1" base ts
+  base="$(basename "$src")"
+  # Nanosecond suffix so two backups in the same second cannot collide.
+  ts="$(date +%Y%m%d-%H%M%S-%N)"
+  mkdir -p "$BACKUP_DIR"
+  cp -p "$src" "$BACKUP_DIR/$base.$ts.bak"
+  # Prune: keep the newest $BACKUP_KEEP for this profile (timestamp sorts lexically).
+  local old
+  shopt -s nullglob
+  mapfile -t old < <(ls -1 "$BACKUP_DIR/$base."*.bak 2>/dev/null | sort)
+  shopt -u nullglob
+  local excess=$(( ${#old[@]} - BACKUP_KEEP ))
+  if [ "$excess" -gt 0 ]; then
+    local i
+    for ((i = 0; i < excess; i++)); do rm -f "${old[$i]}"; done
+  fi
+}
+
+# Atomically make the active link a hardlink to the given profile path.
+relink() {
+  local target="$1" tmp
+  tmp="$ACTIVE_LINK.csr.$$"
+  rm -f "$tmp"
+  ln "$target" "$tmp"
+  chmod 600 "$tmp"
+  mv -f "$tmp" "$ACTIVE_LINK"
+}
+
+# Determine the current profile, recovering a broken link via the marker.
+# Echoes the current profile basename; dies if it cannot be determined.
+reconcile() {
+  local cur
+  cur="$(current_by_inode)"
+  if [ -n "$cur" ]; then
+    printf '%s\n' "$cur"
+    return 0
+  fi
+
+  # No inode match: the hardlink was broken (e.g. an atomic-rename write).
+  # .credentials.json holds the freshest tokens; write them back to the marked profile.
+  [ -f "$MARKER" ] || die "cannot determine active profile: link is broken and no marker at $MARKER (re-establish the link; see csr.md)"
+  local m mpath
+  m="$(cat "$MARKER")"
+  [ -n "$m" ] || die "marker $MARKER is empty (re-establish the link; see csr.md)"
+  mpath="$PROFILE_DIR/$m"
+  [ -f "$mpath" ] || die "marker names a missing profile: $m"
+
+  [ -s "$ACTIVE_LINK" ] || die "live $ACTIVE_LINK is empty; refusing to write it back over $m"
+  valid_json "$ACTIVE_LINK" || die "live $ACTIVE_LINK is not valid JSON; refusing to write it back"
+  backup_profile "$mpath"
+  local tmp="$mpath.csr.$$"
+  cp -p "$ACTIVE_LINK" "$tmp"
+  mv -f "$tmp" "$mpath"
+  printf 'csr: recovered broken link, wrote live tokens back -> %s\n' "$m" >&2
+  printf '%s\n' "$m"
+}
+
+require_basics() {
+  [ -e "$ACTIVE_LINK" ] || die "$ACTIVE_LINK does not exist"
+}
+
+cmd_status() {
+  require_basics
+  load_profiles
+  local cur
+  cur="$(current_by_inode)"
+  printf 'active link : %s (inode %s)\n' "$ACTIVE_LINK" "$(inode_of "$ACTIVE_LINK")"
+  if [ -n "$cur" ]; then
+    printf 'current     : %s (link intact)\n' "$cur"
+  elif [ -f "$MARKER" ]; then
+    printf 'current     : link BROKEN; marker says %s\n' "$(cat "$MARKER")"
+  else
+    printf 'current     : UNKNOWN (link broken, no marker)\n'
+  fi
+  printf 'marker      : %s\n' "$([ -f "$MARKER" ] && cat "$MARKER" || echo '(none)')"
+  printf 'cycle order :\n'
+  local p
+  for p in "${profiles[@]}"; do
+    if [ "$p" = "$cur" ]; then printf '  * %s\n' "$p"; else printf '    %s\n' "$p"; fi
+  done
+}
+
+cmd_cycle() {
+  require_basics
+  [ -d "$PROFILE_DIR" ] || die "$PROFILE_DIR does not exist (set up the layout first; see csr.md)"
+  # Serialize concurrent runs: lock the profile dir's fd (creates no file).
+  # Best-effort — if flock is unavailable, proceed without it.
+  if command -v flock >/dev/null 2>&1; then
+    exec 9<"$PROFILE_DIR"
+    flock -n 9 || die "another csr is running (could not acquire lock on $PROFILE_DIR)"
+  fi
+  load_profiles
+
+  local cur
+  cur="$(reconcile)"
+
+  if [ "${#profiles[@]}" -eq 1 ]; then
+    printf 'csr: only one profile (%s); nothing to cycle to\n' "$cur"
+    return 0
+  fi
+
+  # Find current index, compute next (wrapping).
+  local i idx=-1
+  for i in "${!profiles[@]}"; do
+    [ "${profiles[$i]}" = "$cur" ] && idx=$i && break
+  done
+  [ "$idx" -ge 0 ] || die "current profile $cur not in profile list (unexpected)"
+  local next="${profiles[$(( (idx + 1) % ${#profiles[@]} ))]}"
+
+  local next_path="$PROFILE_DIR/$next"
+  valid_json "$next_path" || die "next profile is not valid JSON: $next"
+
+  relink "$next_path"
+  printf '%s\n' "$next" > "$MARKER"
+
+  printf 'csr: was active -> %s\n' "$cur"
+  printf 'csr: now active -> %s (%d of %d)\n' \
+    "$next" "$(( (idx + 1) % ${#profiles[@]} + 1 ))" "${#profiles[@]}"
+}
+
+main() {
+  case "${1:-cycle}" in
+    cycle|"") cmd_cycle ;;
+    status)   cmd_status ;;
+    -h|--help|help)
+      printf 'usage: csr [cycle|status]\n  cycle (default): rotate to the next profile\n  status         : show current profile and cycle order\n'
+      ;;
+    *) die "unknown command: $1 (try: csr status)" ;;
+  esac
+}
+
+main "$@"

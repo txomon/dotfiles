@@ -1,11 +1,14 @@
 /.adobe/
+/.afirma/
 /.android/
+/Android/
 /.appcfg*
 /.arm/
 /.atlauncher/
 /.audacity-data/
 /.aws/
 /backup/
+/backups/
 /.bash_history
 /.bash_logout
 /.bigqueryrc
@@ -15,21 +18,32 @@
 /.cache/
 /Calibre Library/
 /.cargo/
+/CATCert/
 /.ccache/
 /.cert/
 /.chrome-remote-desktop-session
 /chroot/
 /.circleci/
+/.claude.json.backup
+/.claude.json.tmp.*
 /.cmake/
+/.codeium/
+/.codex/
 /configs/
 /.cookiecutter*
 /.cups/
+/.cursor/
+/.cursor-tutor/
 /.cvsps/
+/.dart-tool/
+/.dartServer/
 /.dbeaver4/
 /.dbshell
 /.dbus/
 /Desktop/
+/.devpod/
 /.digilent*
+/.dlv-mcp/
 /.docker/
 /.dockercfg
 /Documents/
@@ -46,15 +60,20 @@
 /.eteks/
 /.ethash/
 /.ethereum/
+/explicit_filter.restore
 /.factorio/
+/.factorio2/
 /.flexlmlog
 /.fltk/
+/.flutter
+/.fnmt/
 /.fontconfig/
 /.FreeCAD/
 /.ftblauncher/
 /Games/
 /.gconf/
 /.gem/
+/.gemini/
 /.gimp-2.8/
 /.gist
 /.gitconfig
@@ -76,12 +95,14 @@
 /.heroku/
 /.HitboxTeam/
 /.ICEauthority
+/.idea/
 /.idlerc/
 /.ipython/
 /.irb_history
 /.java/
 /.jd/
 /.*.json
+/.junie/
 /.jupyter/
 /.kde/
 /.keras/
@@ -92,11 +113,13 @@
 /.lives
 /.lives-dir/
 /.local/
+/.logseq/
 /.m2/
 /.macromedia/
 /.masterpdfeditor/
 /*.md
 !/README.md
+/mek-cr5/
 /.minecraft/
 *.mkv
 /.mongorc.js
@@ -111,6 +134,7 @@
 /.netrc
 /.node-gyp/
 /.node_repl_history
+/node/
 /.npm/
 /.npmrc
 /.nuget/
@@ -124,6 +148,8 @@
 /.oracle_jre_usage/
 /.org.phoenicis.*
 /.Osmos/
+/pconplanner.tar.xz
+/pcon_prefix/
 /.pg*
 /Pictures/
 /.pip/
@@ -133,12 +159,15 @@
 /.plotly/
 /projects/
 /.psql_history
+/.pub-cache/
+/.pyenv/
 /.pylint.d/
 /.pulse/
 /.pulse-cookie
 /.pypirc
 /.python-eggs/
 /.python_history
+/.qet/
 /.quiltrc-dpkg
 /Recordings/
 /.react-native-cli/
@@ -151,6 +180,7 @@
 /.rustup/
 /.rvm/
 /.sane/
+/.skiko/
 /.Skype/
 /.sqlite_history
 /.ssh/
@@ -162,6 +192,7 @@
 /.teamviewer/
 /.technic/
 /.TelegramDesktop/
+/.tenv/
 /.terraform.d/
 /tests/
 /.thumbnails/
@@ -172,6 +203,7 @@
 /.travis/
 /.ts3client/
 /.tuxguitar-1.2/
+/txt
 /.uml/
 /.vagrant.d/
 /ve/
@@ -190,6 +222,7 @@
 /.VSCodeVim/
 /.web3/
 /.wget-hsts
+/.windsurf/
 /.wine/
 /.wine32/
 /.winpdb_settings.cfg
@@ -247,4 +280,35 @@
 !/.vim/bundle
 /.vim/bundle/*
 !/.vim/bundle/Vundle.vim
+
+# Claude Code: deny everything, then re-include only the portable config.
+# Everything else under .claude/ is credentials, session/project history,
+# plugins or cache, and must never reach a public remote.
+!/.claude/
+/.claude/*
+!/.claude/CLAUDE.md
+!/.claude/settings.json
+!/.claude/agents/
+/.claude/agents/*
+!/.claude/agents/*.md
+
+# Compiled binaries dropped in bin/ — scripts are tracked, build output is not.
+/bin/docker-domain
+
+# Safety net. These patterns are unanchored, so they apply at every depth and
+# catch credential files in any tool directory that gets whitelisted later.
+.credentials.json
+credentials/
+auth.json
+oauth_creds.json
+google_accounts.json
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
 
