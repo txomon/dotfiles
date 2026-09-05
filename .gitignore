@@ -96,6 +96,7 @@
 /.macromedia/
 /.masterpdfeditor/
 /*.md
+!/README.md
 /.minecraft/
 *.mkv
 /.mongorc.js
