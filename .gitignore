@@ -227,8 +227,6 @@
 !/.config
 /.config/*
 
-!/.config/awesome/
-
 !/.config/git/
 /.config/git/gitk
 
