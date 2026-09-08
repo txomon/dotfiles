@@ -3,6 +3,9 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ../../modules
+  ];
   home = {
     username = "javier";
     stateVersion = "26.11";
@@ -10,5 +13,9 @@
     packages = [
       pkgs.starship
     ];
+  };
+  programs = {
+    bat.enable = true;
+    android-utils.enable = true;
   };
 }
