@@ -32,7 +32,9 @@
     "chrome-devtools-mcp@chrome-devtools-plugins": true,
     "superpowers@claude-plugins-official": true,
     "linear@claude-plugins-official": true,
-    "sentry@claude-plugins-official": true
+    "sentry@claude-plugins-official": true,
+    "mattpocock-skills@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {},
   "alwaysThinkingEnabled": true,
