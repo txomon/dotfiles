@@ -131,14 +131,11 @@
 /.nix-channels
 /.nix-defexpr
 /.nix-profile
-/.node-gyp/
-/.node_repl_history
 /node/
 /.npm/
 /.npmrc
 /.nuget/
 /.nv/
-/.nvm/
 /.nvidia-settings-rc
 /.octave_hist
 /.omz-themes.old
