@@ -1,5 +1,3 @@
-#!/bin/bash
-
 layer_id=$1
 
 docker image ls -qa \

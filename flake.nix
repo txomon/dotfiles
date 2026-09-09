@@ -17,7 +17,11 @@
     }: {
       homeConfigurations = {
         "javier@pippin" = hm.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            overlays = [ ];
+            config.allowUnfree = true;
+          };
           modules = [ ./.config/nix/home-manager/hosts/pippin/javier.nix ];
           extraSpecialArgs = {
             hostname = "pippin";

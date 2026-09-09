@@ -13,7 +13,7 @@
   };
   config = lib.mkIf config.programs.txomon-docker.enable {
     home.packages = [
-      (pkgs.writeShellScriptBin "docker-find-image-by-overlay" ./docker-find-image-by-overlay.sh)
+      (pkgs.writeShellScriptBin "docker-find-image-by-overlay" (builtins.readFile ./docker-find-image-by-overlay.sh))
     ];
   };
 }
