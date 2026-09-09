@@ -90,7 +90,6 @@
 /.gsutil/
 /.gtk-bookmarks
 /.gvm/
-/.helm/
 /.heroku/
 /.HitboxTeam/
 /.ICEauthority
@@ -105,7 +104,6 @@
 /.jupyter/
 /.kde/
 /.keras/
-/.krew/
 /.kube/
 /.lastpass
 /.lesshst
