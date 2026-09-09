@@ -6,5 +6,6 @@
   imports = [
     ./txomon-android
     ./txomon-docker
+    ./vim
   ];
 }

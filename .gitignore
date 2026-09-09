@@ -196,7 +196,6 @@
 /.vagrant.d/
 /Videos/
 /.viminfo
-/.vim/.netrwhist
 /.VirtualBox/
 /VirtualBox VMs/
 /.vnc/
@@ -253,12 +252,6 @@
 !/.elvish/lib
 !/.elvish/rc.elv
 
-!/.vim
-/.vim/*
-!/.vim/colors
-!/.vim/bundle
-/.vim/bundle/*
-!/.vim/bundle/Vundle.vim
 
 # Claude Code: deny everything, then re-include only the portable config.
 # Everything else under .claude/ is credentials, session/project history,

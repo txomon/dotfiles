@@ -19,5 +19,6 @@
     home-manager.enable = true;
     txomon-android.enable = true;
     txomon-docker.enable = true;
+    vim.enable = true;
   };
 }
