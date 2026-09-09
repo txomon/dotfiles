@@ -137,7 +137,6 @@
 /.nv/
 /.nvidia-settings-rc
 /.octave_hist
-/.omz-themes.old
 /.openshot/
 /.openshot_qt/
 /.oracle_jre_usage/
@@ -222,11 +221,7 @@
 /.xsession-errors.old
 /.yarnrc
 /.yarnrc
-/.zcompdump
-/.zcompdump-theoden-5.0.8
 /.ZenBound2/
-/.zsh_history
-/.zsh-update
 
 
 /.[ACDGIPW]*/*

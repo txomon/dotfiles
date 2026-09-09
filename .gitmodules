@@ -6,10 +6,6 @@
 	path = .vim/bundle/vim-markdown
 	url = github:plasticboy/vim-markdown
 	ignore = dirty
-[submodule "antigen"]
-	path = .antigen-git
-	url = github:zsh-users/antigen
-	ignore = dirty
 [submodule ".tfenv"]
 	path = .tfenv
 	url = github:tfutils/tfenv
