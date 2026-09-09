@@ -16,6 +16,7 @@
   };
   programs = {
     antigravity-cli.enable = true;
+    home-manager.enable = true;
     txomon-android.enable = true;
     txomon-docker.enable = true;
   };
