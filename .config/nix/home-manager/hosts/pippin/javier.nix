@@ -28,6 +28,7 @@
     txomon-android.enable = true;
     txomon-docker.enable = true;
     txomon-git.enable = true;
+    txomon-notify.enable = true;
     vim.enable = true;
   };
 }
