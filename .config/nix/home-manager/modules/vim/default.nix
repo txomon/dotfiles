@@ -1,15 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   config = lib.mkIf config.programs.vim.enable {
     programs.vim = {
-      # pacman's vim-full equivalent is already on the system; the terminal
-      # build is enough for what this config uses.
-      packageConfigurable = pkgs.vim;
-
       settings = {
         ignorecase = true;
         mouse = "a";

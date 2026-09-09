@@ -1,7 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   imports = [
     ../../modules
@@ -16,6 +15,7 @@
   };
   programs = {
     antigravity-cli.enable = true;
+    direnv.enable = true;
     home-manager.enable = true;
     txomon-android.enable = true;
     txomon-docker.enable = true;
