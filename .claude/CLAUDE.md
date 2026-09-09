@@ -96,14 +96,15 @@ review checkpoints between tasks. Never choose inline / batch execution.
 
 At every review or check stage — between subagent tasks, before declaring
 work complete, before requesting code review, before committing a non-trivial
-diff — also run the diff through `codex` and `gemini` for second / third
-opinions in addition to my own read. Their reviews are asymmetric to mine and
+diff — also run the diff through `codex` and `agy` (the Antigravity CLI) for
+second / third opinions in addition to my own read. Their reviews are asymmetric to mine and
 often catch consistency or taste issues I'd miss. Treat their output as
 additional signal, not as votes.
 
 Use whichever invocation each CLI expects locally (typically
-`codex exec "<prompt>"` and `gemini --prompt "<prompt>"` with the diff piped
-or referenced). If a CLI is unavailable, note it and continue with what is
+`codex exec "<prompt>"` and `agy --print "<prompt>"` with the diff piped
+or referenced). `gemini` is deprecated and its CLI no longer authenticates;
+use `agy` in its place. If a CLI is unavailable, note it and continue with what is
 available — never block on missing tools.
 
 ## Builds and dependencies: prefer containers over the host

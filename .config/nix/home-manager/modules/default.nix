@@ -1,9 +1,9 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   imports = [
+    ./tmux
     ./txomon-android
     ./txomon-docker
     ./vim
