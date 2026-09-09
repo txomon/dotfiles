@@ -72,7 +72,6 @@
 /.ftblauncher/
 /Games/
 /.gconf/
-/.gem/
 /.gemini/
 /.gimp-2.8/
 /.gist
@@ -177,7 +176,6 @@
 /.rnd
 /.rpdb2_settings/
 /.rustup/
-/.rvm/
 /.sane/
 /.skiko/
 /.Skype/
