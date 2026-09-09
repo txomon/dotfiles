@@ -94,7 +94,6 @@
 /.ICEauthority
 /.idea/
 /.idlerc/
-/.ipython/
 /.irb_history
 /.java/
 /.jd/
@@ -148,7 +147,6 @@
 /pcon_prefix/
 /.pg*
 /Pictures/
-/.pip/
 /.pkg-cache/
 /.pki/
 /PlayOnLinux*
@@ -156,13 +154,10 @@
 /projects/
 /.psql_history
 /.pub-cache/
-/.pyenv/
 /.pylint.d/
 /.pulse/
 /.pulse-cookie
 /.pypirc
-/.python-eggs/
-/.python_history
 /.qet/
 /Recordings/
 /.react-native-cli/
@@ -200,16 +195,11 @@
 /txt
 /.uml/
 /.vagrant.d/
-/ve/
-/ve2/
-/ve3/
-/ve34/
 /Videos/
 /.viminfo
 /.vim/.netrwhist
 /.VirtualBox/
 /VirtualBox VMs/
-/.virtualenvs
 /.vnc/
 /.vscode/
 /.vscode/
