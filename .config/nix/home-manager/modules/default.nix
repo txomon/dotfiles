@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
-    ./android-utils
+    ./txomon-android
+    ./txomon-docker
   ];
 }

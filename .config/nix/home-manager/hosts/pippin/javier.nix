@@ -15,7 +15,7 @@
     ];
   };
   programs = {
-    bat.enable = true;
-    android-utils.enable = true;
+    txomon-android.enable = true;
+    txomon-docker.enable = true;
   };
 }

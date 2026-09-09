@@ -1,10 +1,10 @@
 {
-  lib,
   config,
+  lib,
   pkgs,
   ...
 }: {
-  options.programs.android-utils = {
+  options.programs.txomon-android = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.programs.android-utils.enable {
+  config = lib.mkIf config.programs.txomon-android.enable {
     home.packages = [
       (pkgs.writers.writePython3Bin "android-apk" { doCheck = false; } ./android-apk.py)
     ];
