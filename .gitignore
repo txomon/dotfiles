@@ -196,6 +196,7 @@
 /.vagrant.d/
 /Videos/
 /.viminfo
+/.vim/
 /.VirtualBox/
 /VirtualBox VMs/
 /.vnc/
@@ -240,6 +241,9 @@
 
 !/.config/git/
 /.config/git/gitk
+# written by home-manager (modules/txomon-git)
+/.config/git/config
+/.config/git/ignore
 
 !/.config/nix/
 

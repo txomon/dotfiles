@@ -1,7 +1,0 @@
-.idea/
-.vscode/
-*.orig
-*.new
-.envrc
-
-**/.claude/settings.local.json
