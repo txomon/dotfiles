@@ -1,4 +1,3 @@
-#!/bin/sh
 # Flip a client to a "solo" session that holds ONLY one window (linked/shared).
 #
 # Normally triggered by the tmux 'prefix S' key binding, which passes the
@@ -14,10 +13,12 @@
 # Args (optional; supplied by the key binding):
 #   $1  wid     window id             (e.g. "@3")
 #   $2  client  invoking client name  (e.g. "/dev/pts/4")
-wid="$1"; client="$2"
+# writeShellApplication runs this under `set -u`, and both arguments are
+# optional: the key binding passes them, a direct call does not.
+wid="${1:-}"; client="${2:-}"
 
 if [ -z "$wid" ] || [ -z "$client" ]; then
-	if [ -z "$TMUX" ]; then
+	if [ -z "${TMUX:-}" ]; then
 		echo "tmux-solo: run this from inside tmux (or use the 'prefix S' binding)." >&2
 		exit 2
 	fi

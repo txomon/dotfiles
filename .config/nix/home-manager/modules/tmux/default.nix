@@ -229,6 +229,14 @@ let
     alert = tone alertHue signalSaturation signalLuminance;
     notice = tone noticeHue signalSaturation signalLuminance;
   };
+
+  # `prefix S` runs this. Packaging it points the binding at a store path
+  # instead of depending on ~/bin being on PATH.
+  tmux-solo = pkgs.writeShellApplication {
+    name = "tmux-solo";
+    runtimeInputs = [ cfg.package ];
+    text = builtins.readFile ./tmux-solo.sh;
+  };
 in
 {
   options.programs.tmux.palette = {
@@ -277,7 +285,7 @@ in
 
         # solo: flip this client to a session holding ONLY the current window
         # (the window stays linked in the default session; killing the solo leaves it alive)
-        bind S run-shell "/home/javier/bin/tmux-solo '#{window_id}' '#{client_name}'"
+        bind S run-shell "${tmux-solo}/bin/tmux-solo '#{window_id}' '#{client_name}'"
 
         #### COLOUR (derived from programs.tmux.palette.hue)
 
