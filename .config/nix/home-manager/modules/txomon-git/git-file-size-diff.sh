@@ -1,4 +1,3 @@
-#!/bin/bash
 USAGE='[--cached] [<rev-list-options>...]
 
 Show file size changes between two commits or the index and a commit.'

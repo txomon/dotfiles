@@ -6,6 +6,7 @@
     ./tmux
     ./txomon-android
     ./txomon-docker
+    ./txomon-git
     ./vim
   ];
 }
