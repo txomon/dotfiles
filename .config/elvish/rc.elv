@@ -33,3 +33,6 @@ fn kubetoken {
     echo "kubetoken: no access-token in the current kubeconfig" >&2
   }
 }
+fn cd.. { cd .. }
+fn cd... { cd ../.. }
+fn cd.... { cd ../../.. }
