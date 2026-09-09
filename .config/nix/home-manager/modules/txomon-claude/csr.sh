@@ -1,12 +1,10 @@
-#!/usr/bin/env bash
 # csr — Claude credential switch/rotate
 #
 # Cycles ~/.claude/.credentials.json (a hardlink) through the saved profiles in
-# ~/.claude/credentials/credentials-*.json. See csr.md for the full design.
+# ~/.claude/credentials/credentials-*.json. See README.md in this module for the full design.
 #
 # Never creates or migrates the layout: fails loudly if preconditions are missing.
 
-set -euo pipefail
 export LC_ALL=C   # deterministic, locale-independent globbing/sorting/comparison
 
 CLAUDE_DIR="${CSR_CLAUDE_DIR:-$HOME/.claude}"
@@ -76,7 +74,11 @@ backup_profile() {
   # Prune: keep the newest $BACKUP_KEEP for this profile (timestamp sorts lexically).
   local old
   shopt -s nullglob
-  mapfile -t old < <(ls -1 "$BACKUP_DIR/$base."*.bak 2>/dev/null | sort)
+  # Glob straight into the array: bash expands it already sorted (LC_ALL=C),
+  # and with nullglob no match yields an empty array. The previous `ls -1`
+  # form got zero arguments in that case and listed the *current directory*
+  # instead, which the prune below would then have deleted from.
+  old=( "$BACKUP_DIR/$base."*.bak )
   shopt -u nullglob
   local excess=$(( ${#old[@]} - BACKUP_KEEP ))
   if [ "$excess" -gt 0 ]; then
