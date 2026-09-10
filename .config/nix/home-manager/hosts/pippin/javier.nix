@@ -13,6 +13,7 @@
     packages = [ ];
   };
   fleet-control.atm10.enable = true;
+  fleet-control.nix-cache.enable = true;
 
   # pippin is Arch, and /etc/profile.d/nix-daemon.sh appends the nix share
   # directories rather than prepending them, so an Arch .desktop file wins
