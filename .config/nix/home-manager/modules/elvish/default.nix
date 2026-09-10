@@ -26,7 +26,11 @@ in
     home.packages = [ cfg.package ];
 
     xdg.configFile = {
-      "elvish/rc.elv".source = ./rc.elv;
+      # Modules drop numbered fragments into rc.d; rc.elv loops over them.
+      "elvish/rc.elv".text = builtins.replaceStrings
+        [ "@rcd@" ]
+        [ "${config.xdg.configHome}/elvish/rc.d" ]
+        (builtins.readFile ./rc.elv);
 
       # direnv is installed by home-manager, so point the hook at that store
       # path rather than whatever `direnv` happens to be first on PATH.

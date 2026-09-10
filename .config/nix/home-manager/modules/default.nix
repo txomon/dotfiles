@@ -11,6 +11,8 @@
     ./txomon-docker
     ./txomon-egpu
     ./txomon-git
+    ./txomon-graphical
+    ./txomon-kube
     ./txomon-notify
     ./vim
   ];

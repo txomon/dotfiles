@@ -26,5 +26,11 @@
         text = builtins.readFile ./csr.sh;
       })
     ];
+
+    xdg.configFile = lib.mkIf config.programs.elvish.enable {
+      "elvish/rc.d/20-txomon-claude.elv".text = ''
+        edit:add-var cs~ {|@a| claude --dangerously-skip-permissions $@a }
+      '';
+    };
   };
 }

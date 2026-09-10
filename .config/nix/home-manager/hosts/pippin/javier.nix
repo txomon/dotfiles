@@ -35,6 +35,8 @@
     txomon-docker.enable = true;
     txomon-egpu.enable = true;
     txomon-git.enable = true;
+    txomon-graphical.enable = true;
+    txomon-kube.enable = true;
     txomon-notify.enable = true;
     vim.enable = true;
   };

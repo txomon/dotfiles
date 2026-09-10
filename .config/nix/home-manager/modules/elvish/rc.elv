@@ -10,21 +10,13 @@ set-env CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense' # optional
 eval (carapace _carapace|slurp)
 eval (zoxide init elvish | slurp)
 
-fn open {|@a| xdg-open $@a }
-fn cs {|@a| claude --dangerously-skip-permissions $@a }
-fn chj { sudo chown -R javier: . }
-fn xcc {|@a| xclip -selection clipboard $@a }
-fn xcp {|@a| xclip -selection primary $@a }
-fn git-send-email-openwrt {|@a| git send-email --from "Javier Domingo Cansino <javierdo1@gmail.com>" --cc "openwrt-devel@lists.openwrt.org" --smtp-server smtp.gmail.com --smtp-encryption ssl --confirm --smtp-user javierdo1@gmail.com $@a }
-fn kubetoken {
-  try { kubectl get pods > /dev/null } catch e { }
-  try {
-    kubectl config view --raw | grep access-token | sed -e 's/.*: //' | xclip -selection clipboard
-    echo "Kubernetes access token for context "(kubectl config current-context)" copied"
-  } catch e {
-    echo "kubetoken: no access-token in the current kubeconfig" >&2
-  }
-}
 fn cd.. { cd .. }
 fn cd... { cd ../.. }
 fn cd.... { cd ../../.. }
+
+# One file per module that wants a function here, numbered like udev rules.
+# A fragment cannot define a name in this scope, so it calls edit:add-var,
+# the same way lib/direnv.elv reaches into $edit:before-readline.
+for f [(order [@rcd@/*[nomatch-ok].elv])] {
+  eval (slurp < $f)
+}
