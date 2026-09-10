@@ -6,11 +6,6 @@ export JAVA_HOME=/usr/lib/jvm/default/
 
 export LD_LIBRARY_PATH=$JAVA_HOME/jre/lib/amd64:$JAVA_HOME/jre/lib/amd64/server
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    export PATH="$HOME/bin:$PATH"
-fi
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -50,8 +45,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-export PATH=~/bin:$PATH
 
 # Load computer specific env variables
 if [ -f "$HOME/.env" ]; then

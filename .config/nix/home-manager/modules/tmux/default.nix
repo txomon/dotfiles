@@ -231,7 +231,7 @@ let
   };
 
   # `prefix S` runs this. Packaging it points the binding at a store path
-  # instead of depending on ~/bin being on PATH.
+  # instead of depending on the script being somewhere on PATH.
   tmux-solo = pkgs.writeShellApplication {
     name = "tmux-solo";
     runtimeInputs = [ cfg.package ];

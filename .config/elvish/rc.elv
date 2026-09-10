@@ -1,14 +1,10 @@
 use epm
-use os
 
 use direnv
 use tfenv
 
 set edit:insert:binding[Ctrl-W] = $edit:kill-small-word-left~
 set edit:insert:binding[Ctrl-F] = $edit:-instant:start~
-
-var extra-paths = [~/bin]
-set paths = [(each {|p| if (os:is-dir $p) { put $p }} $extra-paths) $@paths]
 
 eval (starship init elvish)
 
