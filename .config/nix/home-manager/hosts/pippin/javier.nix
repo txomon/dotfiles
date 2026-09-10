@@ -35,6 +35,7 @@
       enable = true;
       ides = [ "goland" "idea" "pycharm" "webstorm" ];
     };
+    ringboard.enable = true;
     slack.enable = true;
     starship.enable = true;
     telegram-desktop.enable = true;

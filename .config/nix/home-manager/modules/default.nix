@@ -7,6 +7,7 @@
     ./elvish
     ./gcloud
     ./jetbrains
+    ./ringboard
     ./slack
     ./starship
     ./telegram-desktop
