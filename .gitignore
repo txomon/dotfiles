@@ -247,14 +247,10 @@
 
 !/.config/nix/
 
-!/.config/elvish/
+# written by home-manager (modules/elvish)
+/.config/elvish/
 
 !/.config/starship.toml
-
-!/.elvish/
-/.elvish/*
-!/.elvish/lib
-!/.elvish/rc.elv
 
 
 # Claude Code: deny everything, then re-include only the portable config.

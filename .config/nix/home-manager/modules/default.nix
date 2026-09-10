@@ -4,6 +4,7 @@
 }: {
   imports = [
     ./bash
+    ./elvish
     ./tmux
     ./txomon-android
     ./txomon-claude

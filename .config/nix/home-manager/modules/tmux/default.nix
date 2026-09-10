@@ -254,7 +254,7 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.tmux = {
-      shell = "/usr/bin/elvish";
+      shell = "${config.programs.elvish.package}/bin/elvish";
       terminal = "tmux-256color";
       baseIndex = 1;
       historyLimit = 100000;

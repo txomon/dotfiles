@@ -1,3 +1,0 @@
-[submodule ".tfenv"]
-	path = .tfenv
-	url = github:tfutils/tfenv
