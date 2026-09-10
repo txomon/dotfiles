@@ -21,19 +21,24 @@
     , fenix
     , ...
     }: {
-      homeConfigurations = {
-        "javier@pippin" = hm.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            overlays = [ fenix.overlays.default ];
-            config.allowUnfree = true;
+      homeConfigurations =
+        let
+          mkHost = hostname: hm.lib.homeManagerConfiguration {
+            pkgs = import nixpkgs {
+              system = "x86_64-linux";
+              overlays = [ fenix.overlays.default ];
+              config.allowUnfree = true;
+            };
+            modules = [ ./.config/nix/home-manager/hosts/${hostname}/javier.nix ];
+            extraSpecialArgs = {
+              inherit hostname;
+              system = "x86_64-linux";
+            };
           };
-          modules = [ ./.config/nix/home-manager/hosts/pippin/javier.nix ];
-          extraSpecialArgs = {
-            hostname = "pippin";
-            system = "x86_64-linux";
-          };
+        in
+        {
+          "javier@pippin" = mkHost "pippin";
+          "javier@rosita" = mkHost "rosita";
         };
-      };
     };
 }
