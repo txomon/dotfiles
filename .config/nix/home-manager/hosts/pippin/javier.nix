@@ -14,18 +14,30 @@
   };
   fleet-control.atm10.enable = true;
 
+  # pippin is Arch, and /etc/profile.d/nix-daemon.sh appends the nix share
+  # directories rather than prepending them, so an Arch .desktop file wins
+  # over the nix one of the same name. systemd reads this at session start,
+  # which is what GNOME's launcher inherits.
+  systemd.user.sessionVariables.XDG_DATA_DIRS =
+    "${config.home.profileDirectory}/share:\${XDG_DATA_DIRS}";
+
   programs = {
     antigravity-cli.enable = true;
     bash.enable = true;
+    chromium.enable = true;
     direnv.enable = true;
     elvish.enable = true;
+    firefox.enable = true;
     gcloud.enable = true;
+    google-chrome.enable = true;
     home-manager.enable = true;
     jetbrains = {
       enable = true;
       ides = [ "clion" "goland" "idea" "pycharm" "rust-rover" "webstorm" ];
     };
+    slack.enable = true;
     starship.enable = true;
+    telegram-desktop.enable = true;
     tmux = {
       enable = true;
       prefix = "C-j";

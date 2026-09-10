@@ -7,7 +7,9 @@
     ./elvish
     ./gcloud
     ./jetbrains
+    ./slack
     ./starship
+    ./telegram-desktop
     ./tmux
     ./txomon-android
     ./txomon-claude
