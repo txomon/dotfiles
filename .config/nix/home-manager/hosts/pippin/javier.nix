@@ -33,7 +33,7 @@
     home-manager.enable = true;
     jetbrains = {
       enable = true;
-      ides = [ "clion" "goland" "idea" "pycharm" "rust-rover" "webstorm" ];
+      ides = [ "goland" "idea" "pycharm" "webstorm" ];
     };
     slack.enable = true;
     starship.enable = true;
