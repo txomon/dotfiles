@@ -4,6 +4,9 @@
 , ...
 }: {
   config = lib.mkIf config.programs.vim.enable {
+    # Whatever provides the editor decides what EDITOR points at.
+    home.sessionVariables.EDITOR = "vim";
+
     programs.vim = {
       plugins = [
         pkgs.vimPlugins.vim-markdown

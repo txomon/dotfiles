@@ -27,6 +27,10 @@
       })
     ];
 
+    # Claude Code repaints the whole screen on exit otherwise, wiping the
+    # scrollback of whatever pane it ran in.
+    home.sessionVariables.CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN = 1;
+
     xdg.configFile = lib.mkIf config.programs.elvish.enable {
       "elvish/rc.d/20-txomon-claude.elv".text = ''
         edit:add-var cs~ {|@a| claude --dangerously-skip-permissions $@a }

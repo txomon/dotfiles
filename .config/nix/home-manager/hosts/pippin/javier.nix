@@ -10,9 +10,7 @@
     username = "javier";
     stateVersion = "26.11";
     homeDirectory = "/home/${config.home.username}";
-    packages = [
-      pkgs.starship
-    ];
+    packages = [ ];
   };
   fleet-control.atm10.enable = true;
 
@@ -23,6 +21,7 @@
     elvish.enable = true;
     gcloud.enable = true;
     home-manager.enable = true;
+    starship.enable = true;
     tmux = {
       enable = true;
       prefix = "C-j";
