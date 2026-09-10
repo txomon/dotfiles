@@ -22,6 +22,7 @@
 
       settings = {
         alias.last = "log --format=%H -n1";
+        core.editor = "vim";
         pull.ff = "only";
         push.autoSetupRemote = true;
         rerere.enabled = true;
