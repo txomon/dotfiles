@@ -34,7 +34,8 @@
     "linear@claude-plugins-official": true,
     "sentry@claude-plugins-official": true,
     "mattpocock-skills@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true
+    "playwright@claude-plugins-official": true,
+    "i-have-adhd@i-have-adhd": true
   },
   "extraKnownMarketplaces": {},
   "alwaysThinkingEnabled": true,
