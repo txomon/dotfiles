@@ -3,6 +3,7 @@
 , ...
 }: {
   imports = [
+    ../../fleet-control
     ../../modules
   ];
   home = {
@@ -13,6 +14,8 @@
       pkgs.starship
     ];
   };
+  fleet-control.atm10.enable = true;
+
   programs = {
     antigravity-cli.enable = true;
     direnv.enable = true;

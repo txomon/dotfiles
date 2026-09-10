@@ -1,8 +1,3 @@
-#!/usr/bin/env -S uv run --script
-# /// script
-# requires-python = ">=3.11"
-# dependencies = []
-# ///
 """Whitelist a player on the ATM10 (gandalf) server using the correct OFFLINE UUID.
 
 The server is online-mode=false, so `/whitelist add <name>` stores the wrong
