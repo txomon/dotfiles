@@ -39,6 +39,7 @@
         {
           "javier@pippin" = mkHost "pippin";
           "javier@rosita" = mkHost "rosita";
+          "javier@sam" = mkHost "sam";
         };
     };
 }
