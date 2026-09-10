@@ -1,5 +1,6 @@
 { lib
 , stdenv
+, dbus
 , fetchFromGitHub
 , fenix
 , makeRustPlatform
@@ -38,14 +39,18 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "txomon";
     repo = "clipboard-history";
-    rev = "f44b972d15105c80b006068e4e849a7d92321948";
-    hash = "sha256-yvQYmgPE7LrJOn5HEOYj4VUXo0Bsi+KMjaUa2mGnCDs=";
+    rev = "dae14e2c8a74d1319aae7890d47deed174eaa61f";
+    hash = "sha256-F2QREVVgAVCR3AtkH0lgjd7ZR3CuNfgnUMggfJ3PBdc=";
   };
 
   cargoLock.lockFile = "${src}/Cargo.lock";
 
   nativeBuildInputs = [ pkg-config makeWrapper glib ];
   buildInputs = runtimeLibs;
+
+  # dbus_smoke.rs and dbus_reconnect.rs shell out to dbus-launch and
+  # dbus-daemon. Without them the tests skip silently rather than fail.
+  nativeCheckInputs = [ dbus ];
 
   # gnome-shell/ffi has a Cargo.toml but is not a workspace member; --workspace
   # skips it. The server's `dbus` feature is on by default, as is `systemd`,
