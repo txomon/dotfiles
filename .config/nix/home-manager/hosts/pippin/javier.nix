@@ -21,6 +21,10 @@
     elvish.enable = true;
     gcloud.enable = true;
     home-manager.enable = true;
+    jetbrains = {
+      enable = true;
+      ides = [ "clion" "goland" "idea" "pycharm" "rust-rover" "webstorm" ];
+    };
     starship.enable = true;
     tmux = {
       enable = true;

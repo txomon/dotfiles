@@ -6,6 +6,7 @@
     ./bash
     ./elvish
     ./gcloud
+    ./jetbrains
     ./starship
     ./tmux
     ./txomon-android

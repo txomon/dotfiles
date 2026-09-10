@@ -236,6 +236,14 @@
 !/.[ACDGIPW]*/config/options/code.style.schemes
 !/.[ACDGIPW]*/config/options/code.style.schemes.xml
 
+# written by home-manager (modules/bash)
+/.bash_profile
+/.bashrc
+/.profile
+
+# written by home-manager (modules/jetbrains)
+/.ideavimrc
+
 !/.config
 /.config/*
 
@@ -250,7 +258,8 @@
 # written by home-manager (modules/elvish)
 /.config/elvish/
 
-!/.config/starship.toml
+# written by home-manager (modules/starship)
+/.config/starship.toml
 
 
 # Claude Code: deny everything, then re-include only the portable config.
