@@ -1,3 +1,17 @@
+# TRANSITIONAL. Delete this file.
+#
+# It exists only because the work tree is $HOME, so every path Arch or an
+# application creates there has to be denied by name. The enumerated list is
+# deliberate: an entry that is not listed shows up in `git status`, which is
+# how a new dotfile gets noticed.
+#
+# That stops being useful once every dotfile is a home-manager module, because
+# then the answer for anything new in $HOME is never "track it" but "write a
+# module". At that point the repo moves to a normal project directory, home
+# manager writes into $HOME, and this file goes away rather than shrinking.
+#
+# Until Arch is gone, it stays.
+
 /.adobe/
 /.afirma/
 /.android/
