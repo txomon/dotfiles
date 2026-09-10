@@ -3,6 +3,7 @@
 , ...
 }: {
   imports = [
+    ./bash
     ./tmux
     ./txomon-android
     ./txomon-claude

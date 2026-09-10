@@ -18,6 +18,7 @@
 
   programs = {
     antigravity-cli.enable = true;
+    bash.enable = true;
     direnv.enable = true;
     home-manager.enable = true;
     tmux = {
