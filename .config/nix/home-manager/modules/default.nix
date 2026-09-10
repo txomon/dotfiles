@@ -5,6 +5,7 @@
   imports = [
     ./bash
     ./elvish
+    ./gcloud
     ./tmux
     ./txomon-android
     ./txomon-claude

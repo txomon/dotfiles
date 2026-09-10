@@ -27,5 +27,11 @@
         text = builtins.readFile ./kubetoken.sh;
       })
     ];
+
+    # kubectl shells out to this for GKE contexts, so it is kubernetes' need,
+    # not gcloud's.
+    programs.gcloud.extraComponents = [
+      pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
+    ];
   };
 }

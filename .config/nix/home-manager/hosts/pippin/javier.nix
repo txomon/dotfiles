@@ -21,6 +21,7 @@
     bash.enable = true;
     direnv.enable = true;
     elvish.enable = true;
+    gcloud.enable = true;
     home-manager.enable = true;
     tmux = {
       enable = true;
