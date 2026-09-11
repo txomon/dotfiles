@@ -28,8 +28,13 @@ in
     # GNOME Shell reads XDG_DATA_DIRS for extensions, but on a non-NixOS host
     # that list is rebuilt by the session and a profile swap goes unnoticed by
     # a running shell. XDG_DATA_HOME is a real directory it always watches.
-    xdg.dataFile."gnome-shell/extensions/ringboard@clipboard-history".source =
-      "${cfg.package}/share/gnome-shell/extensions/ringboard@clipboard-history";
+    #
+    # The server is useful on any machine; the extension is only useful where
+    # there is a GNOME Shell to load it, which is what txomon-graphical means.
+    xdg.dataFile = lib.mkIf config.programs.txomon-graphical.enable {
+      "gnome-shell/extensions/ringboard@clipboard-history".source =
+        "${cfg.package}/share/gnome-shell/extensions/ringboard@clipboard-history";
+    };
 
     systemd.user.services.ringboard-server = {
       Unit = {
