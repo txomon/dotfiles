@@ -52,6 +52,7 @@
     };
     txomon-android.enable = true;
     txomon-claude.enable = true;
+    txomon-cli.enable = true;
     txomon-docker.enable = true;
     txomon-egpu.enable = true;
     txomon-git.enable = true;
