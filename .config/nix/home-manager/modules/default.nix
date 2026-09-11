@@ -25,6 +25,7 @@
     ./txomon-graphical
     ./txomon-kube
     ./txomon-notify
+    ./vanta-agent
     ./vim
   ];
 }
