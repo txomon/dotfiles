@@ -53,10 +53,12 @@
               #   }
               # and drop the homeConfigurations entry for that host.
             ];
-            specialArgs = {
-              inherit hostname;
-              system = "x86_64-linux";
-            };
+            # No `system` here. The home side passes one because
+            # homeManagerConfiguration has nowhere else to put it; on the NixOS
+            # side nixpkgs.hostPlatform above is the single source of truth, and
+            # a second copy in specialArgs would be one more thing to keep in
+            # sync.
+            specialArgs = { inherit hostname; };
           };
         in
         {
