@@ -10,7 +10,10 @@
 , libGL
 , libxkbcommon
 , wayland
-, xorg
+, libx11
+, libxcursor
+, libxi
+, libxrandr
 }:
 let
   toolchain = fenix.minimal.toolchain;
@@ -26,10 +29,10 @@ let
     libGL
     libxkbcommon
     wayland
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXrandr
+    libx11
+    libxcursor
+    libxi
+    libxrandr
   ];
 in
 rustPlatform.buildRustPackage rec {
