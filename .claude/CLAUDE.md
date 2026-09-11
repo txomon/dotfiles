@@ -92,6 +92,24 @@ asks how to execute it, always choose **subagent-driven execution**
 (`superpowers:subagent-driven-development`). Fresh subagent per task, with
 review checkpoints between tasks. Never choose inline / batch execution.
 
+## "Hand over to X" names a session that already exists
+
+When I say "hand this over to the agent `<name>`", or "pass this to `<name>`",
+`<name>` is a session already running somewhere else, usually one I started in
+another terminal. Find it and message it. Do not create anything.
+
+**Why:** Spawning a new agent under that name gives two agents the same task and
+the same files. The real session already has its own context, its own working
+directory and possibly uncommitted work, and a fresh one races it.
+
+**How to apply:**
+- A handover with a specific name: list the available agents first, then send
+  the message to that name, copied exactly as the listing prints it.
+- If the listing does not show it, say so and ask. It may be on another machine
+  or not started yet. Do not substitute a new agent for the missing one.
+- "use a subagent", "spawn an agent", "run these in parallel" are the phrasings
+  that mean create one.
+
 ## External review at every check
 
 At every review or check stage — between subagent tasks, before declaring
