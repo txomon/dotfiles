@@ -44,8 +44,10 @@ in
     #     '';
     #     users.users.javier.extraGroups = [ "input" ];
     # * the ydotoold daemon, which NixOS has as programs.ydotool.enable.
-    # * gnome-extensions enable computer-use-linux@avifenesh.dev, which writes
-    #   to the user's dconf and is a one-off after first login.
+    # * gnome-extensions enable computer-use-linux@avifenesh.dev, a one-off
+    #   after first login. dconf.settings."org/gnome/shell".enabled-extensions
+    #   would do it declaratively, but that key is one list for every
+    #   extension, so it has to be owned in one place or not at all.
     #
     # The binary's PATH is suffixed rather than prefixed, so whatever the
     # session already provides (its own ydotool, hyprctl, i3-msg, qdbus6,

@@ -37,10 +37,12 @@ in
   #      systemd.tmpfiles.rules = [ "d /var/vanta 0755 root root -" ];
   #
   #      systemd.services.vanta-agent.preStart = ''
-  #        for f in launcher metalauncher osquery-vanta.ext osqueryd cert.pem; do
+  #        for f in launcher metalauncher osquery-vanta.ext osqueryd; do
   #          [ -e /var/vanta/$f ] || install -m 0755 \
   #            ${cfg.package}/libexec/vanta/$f /var/vanta/$f
   #        done
+  #        [ -e /var/vanta/cert.pem ] || install -m 0644 \
+  #          ${cfg.package}/libexec/vanta/cert.pem /var/vanta/cert.pem
   #      '';
   #
   # 2. The unit itself. Upstream's copy is kept at
@@ -71,6 +73,16 @@ in
   #
   #      {"ACTIVATION_REQUESTED_NONCE":<epoch ms>,"AGENT_KEY":"...",
   #       "OWNER_EMAIL":"...","REGION":"US","NEEDS_OWNER":true}
+  #
+  # 4. Something for the self-updates to run against. The seeded osqueryd is
+  #    the only dynamic binary in the package and autoPatchelfHook points it
+  #    at the store glibc, but the copy metalauncher fetches over TUF to
+  #    replace it will carry the interpreter Vanta ships it with,
+  #    /lib64/ld-linux-x86-64.so.2, which NixOS does not have. So the agent
+  #    works until its first osquery update and then stops. programs.nix-ld
+  #    covers that; an FHS wrapper around ExecStart is the other way.
+  #    Untested, on the grounds that running a monitoring agent to find out
+  #    is not a packaging step.
   #
   # vanta-cli reads that state directory, so it only tells you anything useful
   # when run as root on a host where the daemon is up.
