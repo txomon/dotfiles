@@ -26,7 +26,9 @@
     antigravity-cli.enable = true;
     bash.enable = true;
     chromium.enable = true;
+    cursor.enable = true;
     direnv.enable = true;
+    discord.enable = true;
     elvish.enable = true;
     firefox.enable = true;
     gcloud.enable = true;
