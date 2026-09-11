@@ -1,0 +1,197 @@
+# pCon.planner fix 2 of 2 — Wine dlls/rtscom
+# TARGETS: crash on closing any form/dialog: "EGestureException: Unable to remove
+#   IStylusSyncPlugin: Not implemented" (Vcl.Touch.Gestures.TPlatformGestureEngine.
+#   TRealTimeStylus.Uninitialize on TCustomForm.Destroy). Wine's IRealTimeStylus is
+#   all E_NOTIMPL stubs; VCL adds a sync plugin on form-create and removes it on
+#   destroy. Implements the sync-plugin list + enable/HWND/rect accessors. Independent.
+# UPSTREAMABLE: yes (WineHQ dlls/rtscom).
+#
+--- a/dlls/rtscom/rtscom_main.c	2026-07-09 16:36:41.347212348 +0200
++++ b/dlls/rtscom/rtscom_main.c	2026-07-09 16:17:36.338695251 +0200
+@@ -16,6 +16,7 @@
+  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
+  */
+ #include <stdarg.h>
++#include <string.h>
+ 
+ #define COBJMACROS
+ 
+@@ -30,10 +31,17 @@
+ WINE_DEFAULT_DEBUG_CHANNEL(rtscom);
+ 
+ 
++#define RTS_MAX_SYNC_PLUGINS 16
++
+ struct rtstylus
+ {
+     IRealTimeStylus IRealTimeStylus_iface;
+     LONG ref;
++    BOOL enabled;
++    HANDLE_PTR hwnd;
++    RECT input_rect;
++    IStylusSyncPlugin *sync_plugins[RTS_MAX_SYNC_PLUGINS];
++    ULONG sync_count;
+ };
+ 
+ static struct rtstylus *impl_from_IRealTimeStylus( IRealTimeStylus *iface )
+@@ -78,6 +86,9 @@
+ 
+     if (!ref)
+     {
++        ULONG i;
++        for (i = 0; i < This->sync_count; i++)
++            IStylusSyncPlugin_Release( This->sync_plugins[i] );
+         free( This );
+     }
+ 
+@@ -87,78 +98,116 @@
+ static HRESULT WINAPI rtstylus_get_Enabled(IRealTimeStylus *iface, BOOL *pfEnable)
+ {
+     struct rtstylus *This = impl_from_IRealTimeStylus(iface);
+-    FIXME("%p, %p\n", This, pfEnable);
+-    return E_NOTIMPL;
++    TRACE("%p, %p\n", This, pfEnable);
++    if (!pfEnable) return E_POINTER;
++    *pfEnable = This->enabled;
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI rtstylus_put_Enabled(IRealTimeStylus *iface, BOOL fEnable)
+ {
+     struct rtstylus *This = impl_from_IRealTimeStylus(iface);
+-    FIXME("%p, %d\n", This, fEnable);
+-    return E_NOTIMPL;
++    TRACE("%p, %d\n", This, fEnable);
++    This->enabled = fEnable;
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI rtstylus_get_HWND(IRealTimeStylus *iface, HANDLE_PTR *phwnd)
+ {
+     struct rtstylus *This = impl_from_IRealTimeStylus(iface);
+-    FIXME("%p, %p\n", This, phwnd);
+-    return E_NOTIMPL;
++    TRACE("%p, %p\n", This, phwnd);
++    if (!phwnd) return E_POINTER;
++    *phwnd = This->hwnd;
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI rtstylus_put_HWND(IRealTimeStylus *iface, HANDLE_PTR hwnd)
+ {
+     struct rtstylus *This = impl_from_IRealTimeStylus(iface);
+-    FIXME("%p, %Ix\n", This, hwnd);
+-    return E_NOTIMPL;
++    TRACE("%p, %Ix\n", This, hwnd);
++    This->hwnd = hwnd;
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI rtstylus_get_WindowInputRectangle(IRealTimeStylus *iface, RECT *prcWndInputRect)
+ {
+     struct rtstylus *This = impl_from_IRealTimeStylus(iface);
+-    FIXME("%p, %p\n", This, prcWndInputRect);
+-    return E_NOTIMPL;
++    TRACE("%p, %p\n", This, prcWndInputRect);
++    if (!prcWndInputRect) return E_POINTER;
++    *prcWndInputRect = This->input_rect;
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI rtstylus_put_WindowInputRectangle(IRealTimeStylus *iface, const RECT *prcWndInputRect)
+ {
+     struct rtstylus *This = impl_from_IRealTimeStylus(iface);
+-    FIXME("%p, %p\n", This, prcWndInputRect);
+-    return E_NOTIMPL;
++    TRACE("%p, %p\n", This, prcWndInputRect);
++    if (prcWndInputRect) This->input_rect = *prcWndInputRect;
++    else memset(&This->input_rect, 0, sizeof(This->input_rect));
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI rtstylus_AddStylusSyncPlugin(IRealTimeStylus *iface, ULONG iIndex, IStylusSyncPlugin *piPlugin)
+ {
+     struct rtstylus *This = impl_from_IRealTimeStylus(iface);
+-    FIXME("%p, %lu, %p\n", This, iIndex, piPlugin);
+-    return E_NOTIMPL;
++    ULONG i;
++    TRACE("%p, %lu, %p\n", This, iIndex, piPlugin);
++    if (!piPlugin) return E_POINTER;
++    if (This->sync_count >= RTS_MAX_SYNC_PLUGINS) return E_FAIL;
++    if (iIndex > This->sync_count) iIndex = This->sync_count;
++    for (i = This->sync_count; i > iIndex; i--)
++        This->sync_plugins[i] = This->sync_plugins[i - 1];
++    This->sync_plugins[iIndex] = piPlugin;
++    IStylusSyncPlugin_AddRef(piPlugin);
++    This->sync_count++;
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI rtstylus_RemoveStylusSyncPlugin(IRealTimeStylus *iface, ULONG iIndex, IStylusSyncPlugin **ppiPlugin)
+ {
+     struct rtstylus *This = impl_from_IRealTimeStylus(iface);
+-    FIXME("%p, %lu, %p\n", This, iIndex, ppiPlugin);
+-    return E_NOTIMPL;
++    ULONG i;
++    TRACE("%p, %lu, %p\n", This, iIndex, ppiPlugin);
++    if (ppiPlugin) *ppiPlugin = NULL;
++    if (iIndex >= This->sync_count) return S_OK;
++    if (ppiPlugin) *ppiPlugin = This->sync_plugins[iIndex]; /* transfer ref to caller */
++    else IStylusSyncPlugin_Release(This->sync_plugins[iIndex]);
++    for (i = iIndex; i + 1 < This->sync_count; i++)
++        This->sync_plugins[i] = This->sync_plugins[i + 1];
++    This->sync_count--;
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI rtstylus_RemoveAllStylusSyncPlugins(IRealTimeStylus *iface)
+ {
+     struct rtstylus *This = impl_from_IRealTimeStylus(iface);
+-    FIXME("%p\n", This);
+-    return E_NOTIMPL;
++    ULONG i;
++    TRACE("%p\n", This);
++    for (i = 0; i < This->sync_count; i++)
++        IStylusSyncPlugin_Release(This->sync_plugins[i]);
++    This->sync_count = 0;
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI rtstylus_GetStylusSyncPlugin(IRealTimeStylus *iface, ULONG iIndex, IStylusSyncPlugin **ppiPlugin)
+ {
+     struct rtstylus *This = impl_from_IRealTimeStylus(iface);
+-    FIXME("%p, %lu, %p\n", This, iIndex, ppiPlugin);
+-    return E_NOTIMPL;
++    TRACE("%p, %lu, %p\n", This, iIndex, ppiPlugin);
++    if (!ppiPlugin) return E_POINTER;
++    *ppiPlugin = NULL;
++    if (iIndex >= This->sync_count) return E_INVALIDARG;
++    *ppiPlugin = This->sync_plugins[iIndex];
++    IStylusSyncPlugin_AddRef(*ppiPlugin);
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI rtstylus_GetStylusSyncPluginCount(IRealTimeStylus *iface, ULONG *pcPlugins)
+ {
+     struct rtstylus *This = impl_from_IRealTimeStylus(iface);
+-    FIXME("%p, %p\n", This, pcPlugins);
+-    return E_NOTIMPL;
++    TRACE("%p, %p\n", This, pcPlugins);
++    if (!pcPlugins) return E_POINTER;
++    *pcPlugins = This->sync_count;
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI rtstylus_AddStylusAsyncPlugin(IRealTimeStylus *iface, ULONG iIndex, IStylusAsyncPlugin *piPlugin)
+@@ -349,6 +398,11 @@
+     if (!This) return E_OUTOFMEMORY;
+     This->IRealTimeStylus_iface.lpVtbl = &realtime_stylus_vtbl;
+     This->ref = 1;
++    This->enabled = FALSE;
++    This->hwnd = 0;
++    memset( &This->input_rect, 0, sizeof(This->input_rect) );
++    memset( This->sync_plugins, 0, sizeof(This->sync_plugins) );
++    This->sync_count = 0;
+ 
+     hr = IRealTimeStylus_QueryInterface( &This->IRealTimeStylus_iface, iid, obj );
+     IRealTimeStylus_Release( &This->IRealTimeStylus_iface );

@@ -1,0 +1,276 @@
+# pCon.planner fix 1 of 2 — Wine dlls/wbemdisp
+# TARGETS: startup crash "EOleException: Not implemented" in fWMIService.fQueryWMI
+#   (GraphicsSystemCheck -> usesLowEndGFX). pCon iterates Win32_VideoController via
+#   'for each prop in obj.Properties_'; Wine's SWbemPropertySet::_NewEnum and the
+#   ISWbemProperty getters are E_NOTIMPL stubs. Implements the property enumerator +
+#   getters. Independent of the other fixes.
+# UPSTREAMABLE: yes (WineHQ dlls/wbemdisp).
+#
+--- a/dlls/wbemdisp/locator.c	2026-07-09 11:37:33.698388763 +0200
++++ b/dlls/wbemdisp/locator.c	2026-07-09 10:50:54.446961033 +0200
+@@ -254,26 +254,55 @@
+ 
+ static HRESULT WINAPI property_get_Name( ISWbemProperty *iface, BSTR *strName )
+ {
+-    FIXME( "\n" );
+-    return E_NOTIMPL;
++    struct property *property = impl_from_ISWbemProperty( iface );
++
++    TRACE( "%p, %p\n", property, strName );
++
++    if (!strName) return E_INVALIDARG;
++    *strName = SysAllocStringLen( property->name, SysStringLen( property->name ) );
++    return *strName ? S_OK : E_OUTOFMEMORY;
+ }
+ 
+ static HRESULT WINAPI property_get_IsLocal( ISWbemProperty *iface, VARIANT_BOOL *bIsLocal )
+ {
+-    FIXME( "\n" );
+-    return E_NOTIMPL;
++    struct property *property = impl_from_ISWbemProperty( iface );
++
++    TRACE( "%p, %p\n", property, bIsLocal );
++
++    if (!bIsLocal) return E_INVALIDARG;
++    *bIsLocal = VARIANT_TRUE;
++    return S_OK;
+ }
+ 
+ static HRESULT WINAPI property_get_Origin( ISWbemProperty *iface, BSTR *strOrigin )
+ {
+-    FIXME( "\n" );
+-    return E_NOTIMPL;
++    struct property *property = impl_from_ISWbemProperty( iface );
++
++    TRACE( "%p, %p\n", property, strOrigin );
++
++    if (!strOrigin) return E_INVALIDARG;
++    *strOrigin = SysAllocStringLen( NULL, 0 );
++    return *strOrigin ? S_OK : E_OUTOFMEMORY;
+ }
+ 
+ static HRESULT WINAPI property_get_CIMType( ISWbemProperty *iface, WbemCimtypeEnum *iCimType )
+ {
+-    FIXME( "\n" );
+-    return E_NOTIMPL;
++    struct property *property = impl_from_ISWbemProperty( iface );
++    CIMTYPE type = 0;
++    VARIANT var;
++    HRESULT hr;
++
++    TRACE( "%p, %p\n", property, iCimType );
++
++    if (!iCimType) return E_INVALIDARG;
++    VariantInit( &var );
++    hr = IWbemClassObject_Get( property->object, property->name, 0, &var, &type, NULL );
++    if (SUCCEEDED( hr ))
++    {
++        *iCimType = type & ~CIM_FLAG_ARRAY;
++        VariantClear( &var );
++    }
++    return hr;
+ }
+ 
+ static HRESULT WINAPI property_get_Qualifiers_( ISWbemProperty *iface, ISWbemQualifierSet **objWbemQualifierSet )
+@@ -284,8 +313,21 @@
+ 
+ static HRESULT WINAPI property_get_IsArray( ISWbemProperty *iface, VARIANT_BOOL *bIsArray )
+ {
+-    FIXME( "\n" );
+-    return E_NOTIMPL;
++    struct property *property = impl_from_ISWbemProperty( iface );
++    VARIANT var;
++    HRESULT hr;
++
++    TRACE( "%p, %p\n", property, bIsArray );
++
++    if (!bIsArray) return E_INVALIDARG;
++    VariantInit( &var );
++    hr = IWbemClassObject_Get( property->object, property->name, 0, &var, NULL, NULL );
++    if (SUCCEEDED( hr ))
++    {
++        *bIsArray = (V_VT( &var ) & VT_ARRAY) ? VARIANT_TRUE : VARIANT_FALSE;
++        VariantClear( &var );
++    }
++    return hr;
+ }
+ 
+ static const ISWbemPropertyVtbl property_vtbl =
+@@ -436,12 +478,175 @@
+     return hr;
+ }
+ 
+-static HRESULT WINAPI propertyset_get__NewEnum( ISWbemPropertySet *iface, IUnknown **unk )
++struct propertyenum
+ {
+-    FIXME( "\n" );
++    IEnumVARIANT IEnumVARIANT_iface;
++    LONG refs;
++    IWbemClassObject *object;
++    BSTR *names;
++    ULONG count;
++    ULONG pos;
++};
++
++static inline struct propertyenum *impl_from_IEnumVARIANT_prop( IEnumVARIANT *iface )
++{
++    return CONTAINING_RECORD( iface, struct propertyenum, IEnumVARIANT_iface );
++}
++
++static HRESULT WINAPI propertyenum_QueryInterface( IEnumVARIANT *iface, REFIID riid, void **obj )
++{
++    struct propertyenum *propertyenum = impl_from_IEnumVARIANT_prop( iface );
++
++    TRACE( "%p %s %p\n", propertyenum, debugstr_guid(riid), obj );
++
++    if (IsEqualGUID( riid, &IID_IEnumVARIANT ) || IsEqualGUID( riid, &IID_IUnknown ))
++    {
++        *obj = iface;
++    }
++    else
++    {
++        WARN( "interface %s not implemented\n", debugstr_guid(riid) );
++        return E_NOINTERFACE;
++    }
++    IEnumVARIANT_AddRef( iface );
++    return S_OK;
++}
++
++static ULONG WINAPI propertyenum_AddRef( IEnumVARIANT *iface )
++{
++    struct propertyenum *propertyenum = impl_from_IEnumVARIANT_prop( iface );
++    return InterlockedIncrement( &propertyenum->refs );
++}
++
++static ULONG WINAPI propertyenum_Release( IEnumVARIANT *iface )
++{
++    struct propertyenum *propertyenum = impl_from_IEnumVARIANT_prop( iface );
++    LONG refs = InterlockedDecrement( &propertyenum->refs );
++    if (!refs)
++    {
++        ULONG i;
++        TRACE( "destroying %p\n", propertyenum );
++        for (i = 0; i < propertyenum->count; i++) SysFreeString( propertyenum->names[i] );
++        free( propertyenum->names );
++        IWbemClassObject_Release( propertyenum->object );
++        free( propertyenum );
++    }
++    return refs;
++}
++
++static HRESULT WINAPI propertyenum_Next( IEnumVARIANT *iface, ULONG celt, VARIANT *var, ULONG *fetched )
++{
++    struct propertyenum *propertyenum = impl_from_IEnumVARIANT_prop( iface );
++    HRESULT hr = S_OK;
++    ULONG i;
++
++    TRACE( "%p, %lu, %p, %p\n", iface, celt, var, fetched );
++
++    for (i = 0; i < celt && propertyenum->pos < propertyenum->count; i++)
++    {
++        ISWbemProperty *prop;
++
++        VariantInit( &var[i] );
++        hr = SWbemProperty_create( propertyenum->object, propertyenum->names[propertyenum->pos], &prop );
++        if (FAILED( hr )) break;
++        V_VT( &var[i] ) = VT_DISPATCH;
++        V_DISPATCH( &var[i] ) = (IDispatch *)prop;
++        propertyenum->pos++;
++    }
++    if (fetched) *fetched = i;
++    return (i < celt) ? S_FALSE : S_OK;
++}
++
++static HRESULT WINAPI propertyenum_Skip( IEnumVARIANT *iface, ULONG celt )
++{
++    struct propertyenum *propertyenum = impl_from_IEnumVARIANT_prop( iface );
++
++    TRACE( "%p, %lu\n", iface, celt );
++
++    if (propertyenum->pos + celt > propertyenum->count)
++    {
++        propertyenum->pos = propertyenum->count;
++        return S_FALSE;
++    }
++    propertyenum->pos += celt;
++    return S_OK;
++}
++
++static HRESULT WINAPI propertyenum_Reset( IEnumVARIANT *iface )
++{
++    struct propertyenum *propertyenum = impl_from_IEnumVARIANT_prop( iface );
++
++    TRACE( "%p\n", iface );
++
++    propertyenum->pos = 0;
++    return S_OK;
++}
++
++static HRESULT WINAPI propertyenum_Clone( IEnumVARIANT *iface, IEnumVARIANT **penum )
++{
++    FIXME( "%p, %p\n", iface, penum );
+     return E_NOTIMPL;
+ }
+ 
++static const struct IEnumVARIANTVtbl propertyenum_vtbl =
++{
++    propertyenum_QueryInterface,
++    propertyenum_AddRef,
++    propertyenum_Release,
++    propertyenum_Next,
++    propertyenum_Skip,
++    propertyenum_Reset,
++    propertyenum_Clone
++};
++
++static HRESULT SWbemPropertyEnum_create( IWbemClassObject *object, IEnumVARIANT **obj )
++{
++    struct propertyenum *propertyenum;
++    ULONG capacity = 0;
++    BSTR name;
++    HRESULT hr;
++
++    if (!(propertyenum = malloc( sizeof(*propertyenum) ))) return E_OUTOFMEMORY;
++    propertyenum->IEnumVARIANT_iface.lpVtbl = &propertyenum_vtbl;
++    propertyenum->refs = 1;
++    propertyenum->object = object;
++    IWbemClassObject_AddRef( object );
++    propertyenum->names = NULL;
++    propertyenum->count = 0;
++    propertyenum->pos = 0;
++
++    hr = IWbemClassObject_BeginEnumeration( object, WBEM_FLAG_NONSYSTEM_ONLY );
++    if (SUCCEEDED( hr ))
++    {
++        while (IWbemClassObject_Next( object, 0, &name, NULL, NULL, NULL ) == S_OK)
++        {
++            if (propertyenum->count >= capacity)
++            {
++                ULONG new_capacity = capacity ? capacity * 2 : 16;
++                BSTR *new_names = realloc( propertyenum->names, new_capacity * sizeof(*new_names) );
++                if (!new_names) { SysFreeString( name ); break; }
++                propertyenum->names = new_names;
++                capacity = new_capacity;
++            }
++            propertyenum->names[propertyenum->count++] = name;
++        }
++        IWbemClassObject_EndEnumeration( object );
++    }
++
++    *obj = &propertyenum->IEnumVARIANT_iface;
++    TRACE( "returning iface %p\n", *obj );
++    return S_OK;
++}
++
++static HRESULT WINAPI propertyset_get__NewEnum( ISWbemPropertySet *iface, IUnknown **unk )
++{
++    struct propertyset *propertyset = impl_from_ISWbemPropertySet( iface );
++
++    TRACE( "%p, %p\n", propertyset, unk );
++
++    return SWbemPropertyEnum_create( propertyset->object, (IEnumVARIANT **)unk );
++}
++
+ static HRESULT WINAPI propertyset_Item( ISWbemPropertySet *iface, BSTR name,
+                                         LONG flags, ISWbemProperty **prop )
+ {

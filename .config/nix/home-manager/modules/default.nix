@@ -3,11 +3,14 @@
 , ...
 }: {
   imports = [
+    ./autofirma
     ./bash
+    ./configuradorfnmt
     ./discord
     ./elvish
     ./gcloud
     ./jetbrains
+    ./pcon-planner
     ./ringboard
     ./slack
     ./starship
@@ -15,6 +18,7 @@
     ./tmux
     ./txomon-android
     ./txomon-claude
+    ./txomon-cli
     ./txomon-docker
     ./txomon-egpu
     ./txomon-git
