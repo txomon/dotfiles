@@ -4,6 +4,7 @@
 }: {
   imports = [
     ./bash
+    ./discord
     ./elvish
     ./gcloud
     ./jetbrains
