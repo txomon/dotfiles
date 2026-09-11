@@ -23,7 +23,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = [
+      cfg.package
+      # rc.elv runs `carapace _carapace` unconditionally, so the shell does not
+      # start without it. Installed here rather than in a package list so the
+      # two cannot drift apart.
+      pkgs.carapace
+    ];
 
     xdg.configFile = {
       # Modules drop numbered fragments into rc.d; rc.elv loops over them.
