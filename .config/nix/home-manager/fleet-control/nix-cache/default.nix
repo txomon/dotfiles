@@ -20,6 +20,10 @@
         # owns the daemon this talks to.
         runtimeInputs = [ pkgs.attic-client pkgs.jq ];
         text = ''
+          if [[ $# -gt 1 || "''${1-}" == -* ]]; then
+            echo "usage: nix-cache [flakeref]" >&2
+            exit 2
+          fi
           flake="''${1:-.}"
 
           # The flake root is not addressable as an attribute path, so this is
