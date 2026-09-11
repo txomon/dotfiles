@@ -27,7 +27,12 @@
             pkgs = import nixpkgs {
               system = "x86_64-linux";
               overlays = [ fenix.overlays.default ];
-              config.allowUnfree = true;
+              config = {
+                allowUnfree = true;
+                # logseq is stuck on an Electron that upstream no longer
+                # supports. Accepted knowingly rather than dropping the app.
+                permittedInsecurePackages = [ "electron-39.8.10" ];
+              };
             };
             modules = [ ./.config/nix/home-manager/hosts/${hostname}/javier.nix ];
             extraSpecialArgs = {

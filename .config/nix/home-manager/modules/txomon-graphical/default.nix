@@ -27,6 +27,7 @@ in
       pkgs.gnome-tweaks
       pkgs.helvum
       pkgs.jadx
+      pkgs.logseq
       # The pinned nixpkgs has 5.9.98, whose tarball code-industry has since
       # removed: the URL 404s. They only serve the current release. Bumped to
       # 5.9.99, which is the version Arch is running and the one nixpkgs master
