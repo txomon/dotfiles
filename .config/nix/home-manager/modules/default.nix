@@ -5,6 +5,7 @@
   imports = [
     ./autofirma
     ./bash
+    ./computer-use-linux
     ./configuradorfnmt
     ./discord
     ./elvish
