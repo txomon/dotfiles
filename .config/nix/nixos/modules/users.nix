@@ -1,9 +1,13 @@
 { ... }: {
   # users.mutableUsers is left at its default (true). This repo is public, so no
   # password hash can live in it, and hashedPasswordFile would need a secret on
-  # the machine before the first switch. With mutableUsers true the account is
-  # created without a password and `passwd` sets one out of band, which keeps
-  # every credential out of git.
+  # the machine before the first switch. mutableUsers true keeps every
+  # credential out of git.
+  #
+  # The account is therefore created with no password, and a NixOS account with
+  # no password cannot log in at GDM or on a TTY. On a fresh install, set one
+  # before the first reboot: `nixos-install` asks for a root password, so log in
+  # as root on tty1 and run `passwd javier`. Nothing here will do it for you.
   users.users.javier = {
     isNormalUser = true;
     description = "Javier Domingo Cansino";

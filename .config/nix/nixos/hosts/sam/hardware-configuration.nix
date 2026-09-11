@@ -10,7 +10,7 @@
 #     > .config/nix/nixos/hosts/sam/hardware-configuration.nix
 #
 # and then checking the result against `lsblk -f`, in particular that every
-# encrypted or LVM device the root filesystem sits behind has a
+# LUKS container the root filesystem sits behind has a
 # boot.initrd.luks.devices entry. nixos-generate-config does not emit those.
 { config, lib, pkgs, modulesPath, ... }:
 

@@ -29,14 +29,14 @@
     }: {
       nixosConfigurations =
         let
-          # `system` and `pkgs` as arguments to nixosSystem are legacy aliases
-          # for the nixpkgs.hostPlatform and nixpkgs.pkgs module options, so the
-          # platform is set as a module instead. allowUnfree, the insecure
-          # package allowance and the rest of nixpkgs.config live in
-          # .config/nix/nixos/modules/nix.nix.
+          # No `system` or `pkgs` argument to nixosSystem: both are legacy
+          # aliases for the nixpkgs.hostPlatform and nixpkgs.pkgs module
+          # options. hostPlatform is set by each host's
+          # hardware-configuration.nix, where nixos-generate-config puts it and
+          # where a host on a different architecture could override it; the rest
+          # of nixpkgs.config lives in .config/nix/nixos/modules/nix.nix.
           mkHost = { hostname, hardware ? [ ] }: nixpkgs.lib.nixosSystem {
             modules = hardware ++ [
-              { nixpkgs.hostPlatform = "x86_64-linux"; }
               ./.config/nix/nixos/hosts/${hostname}/configuration.nix
 
               # home-manager is deliberately NOT wired in as a NixOS submodule.
