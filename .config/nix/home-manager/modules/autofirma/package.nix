@@ -86,7 +86,7 @@ let
           '{}' +
       '';
     };
-    mvnHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    mvnHash = "sha256-I7bBf6b/M8P6ltxz1T8ky8o0IQhwU7lBXdOizkaFoVQ=";
 
     installPhase = ''
       runHook preInstall
