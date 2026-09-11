@@ -42,6 +42,8 @@ in
       }))
       pkgs.meld
       pkgs.spotify
+      # Synthesises X11 clicks, so it is as display-bound as the rest here.
+      pkgs.theclicker
       # transmission-gtk is a throw; 3 was dropped and 4 is a separate attribute.
       # Arch already ships 4.1.3, which is what this resolves to, so no data migration.
       pkgs.transmission_4-gtk
@@ -49,6 +51,12 @@ in
       pkgs.vlc
       pkgs.wine
       pkgs.winetricks
+      # Already in the closure as a runtimeInput of xcc and xcp below, but
+      # those wrappers put it on PATH under their own names only. This is the
+      # one that makes `xclip` itself callable, and it belongs next to its
+      # wrappers rather than in a generic list.
+      pkgs.xclip
+      pkgs.xdotool
 
       (pkgs.writeShellApplication {
         name = "open";
