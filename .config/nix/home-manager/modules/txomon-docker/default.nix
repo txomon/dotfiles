@@ -18,6 +18,14 @@ in
   };
   config = lib.mkIf config.programs.txomon-docker.enable {
     home.packages = [
+      # The client only. The daemon is a system service and belongs in
+      # virtualisation.docker on the NixOS side, not in a user profile.
+      pkgs.docker-client
+      pkgs.docker-compose
+      # Ships docker-credential-secretservice, which the credHelpers entry
+      # below names, and docker-credential-pass.
+      pkgs.docker-credential-helpers
+
       (pkgs.writeShellScriptBin "docker-find-image-by-overlay" (builtins.readFile ./docker-find-image-by-overlay.sh))
     ];
 
