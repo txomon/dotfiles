@@ -12,7 +12,6 @@
     ./gcloud
     ./jetbrains
     ./pcon-planner
-    ./pcon-planner-legacy
     ./ringboard
     ./slack
     ./starship

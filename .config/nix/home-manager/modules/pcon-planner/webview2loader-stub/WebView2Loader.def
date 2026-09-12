@@ -1,7 +1,0 @@
-LIBRARY WebView2Loader
-EXPORTS
-GetAvailableCoreWebView2BrowserVersionString
-GetAvailableCoreWebView2BrowserVersionStringWithOptions
-CompareBrowserVersions
-CreateCoreWebView2Environment
-CreateCoreWebView2EnvironmentWithOptions
