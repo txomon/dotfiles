@@ -3,6 +3,7 @@
 , ...
 }: {
   imports = [
+    ../../bundles
     ../../fleet-control
     ../../modules
   ];
@@ -12,6 +13,7 @@
     homeDirectory = "/home/${config.home.username}";
     packages = [ ];
   };
+  bundles.graphical.enable = true;
   fleet-control.atm10.enable = true;
   fleet-control.nix-cache.enable = true;
 
@@ -32,7 +34,6 @@
     elvish.enable = true;
     firefox.enable = true;
     gcloud.enable = true;
-    gnome.enable = true;
     google-chrome.enable = true;
     home-manager.enable = true;
     jetbrains = {
@@ -57,7 +58,6 @@
     txomon-docker.enable = true;
     txomon-egpu.enable = true;
     txomon-git.enable = true;
-    txomon-graphical.enable = true;
     txomon-kube.enable = true;
     txomon-notify.enable = true;
     vim.enable = true;
