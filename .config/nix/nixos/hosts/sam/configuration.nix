@@ -23,13 +23,18 @@
   # the transition is finished.
   boot.initrd.systemd.enable = false;
 
-  # Also for the transition, and also temporary. The lustrate rewrites
-  # /etc/shadow, so javier comes back locked: `passwd -S javier` reports L and
-  # GDM shows a bare username field with no account. An empty root password is
-  # the documented way back in, and it only applies at account creation, so it
-  # is inert once shadow exists. First boot: log in as root on tty1, run
-  # `passwd javier`, then `passwd -l root`, then delete this line.
-  users.users.root.initialHashedPassword = "";
+  # The lustrate rewrites /etc/shadow, so both accounts would come back locked
+  # and GDM would show a bare username field. Rather than an empty root
+  # password, sam keeps the hashes it already has: they were copied out of its
+  # own /etc/shadow into /var/lib/nixos-passwd, root-only, mode 0600, and both
+  # paths are listed as keepers in /etc/NIXOS_LUSTRATE so stage 1 restores them
+  # before activation reads them.
+  #
+  # hashedPasswordFile rather than hashedPassword: the file is read at
+  # activation and never enters the world-readable store, which is the same
+  # reason every *File option in nixpkgs exists. Nothing secret is in this repo.
+  users.users.root.hashedPasswordFile = "/var/lib/nixos-passwd/root";
+  users.users.javier.hashedPasswordFile = "/var/lib/nixos-passwd/javier";
 
   # sam's static hostname is bare "sam", with no domain, unlike pippin and
   # rosita which are both under endor.txomon.com. Left as found.
