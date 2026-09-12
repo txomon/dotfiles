@@ -84,8 +84,12 @@
         ${hostname}.succeed("grep -q '28bd' /etc/udev/rules.d/10-xp-pen.rules")
 
     with subtest("wireshark can capture without root"):
-        ${hostname}.succeed("test -u /run/wrappers/bin/dumpcap")
-        ${hostname}.succeed("stat -c %G /run/wrappers/bin/dumpcap | grep -x wireshark")
+        # Not a setuid wrapper: programs.wireshark gives dumpcap
+        # cap_net_raw,cap_net_admin+eip and mode u+rx,g+x as root:wireshark, so
+        # group membership is the whole gate. The capability itself is set by
+        # security.wrappers and is asserted at config level, not from in here.
+        ${hostname}.succeed("test -e /run/wrappers/bin/dumpcap")
+        ${hostname}.succeed("stat -c %U:%G /run/wrappers/bin/dumpcap | grep -x root:wireshark")
 
     with subtest("locale and timezone"):
         ${hostname}.succeed("test -L /etc/localtime")
