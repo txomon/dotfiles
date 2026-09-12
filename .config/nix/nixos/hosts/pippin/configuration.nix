@@ -56,5 +56,11 @@
   #     nvidiaBusId = "PCI:130:0:0";
   #   };
 
+  # Here and not in a shared module: thermald refuses both ThinkPads. On sam it
+  # logs "Unsupported cpu model or platform" for the i7-8565U and exits, having
+  # first failed to find /sys/devices/platform/thinkpad_acpi/dytc_lapmode.
+  # pippin's i7-1370P is supported and Arch has been running it enabled.
+  services.thermald.enable = true;
+
   system.stateVersion = "26.11";
 }

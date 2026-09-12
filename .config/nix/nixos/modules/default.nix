@@ -8,6 +8,7 @@
     ./peripherals.nix
     ./programs.nix
     ./ssh.nix
+    ./tailscale.nix
     ./sops.nix
     ./users.nix
     ./virtualisation.nix
