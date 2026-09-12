@@ -29,6 +29,10 @@ in
       # start without it. Installed here rather than in a package list so the
       # two cannot drift apart.
       pkgs.carapace
+      # Same story for zoxide: rc.elv evals `zoxide init elvish` at line 11,
+      # and elvish aborts the whole file on a failed command, so without it
+      # nothing below that line runs, including the rc.d loop that defines cs.
+      pkgs.zoxide
     ];
 
     xdg.configFile = {
