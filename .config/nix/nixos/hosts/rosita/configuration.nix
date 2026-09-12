@@ -2,21 +2,21 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules
+    ../../modules/thinkpad-x1-carbon-7th-gen
   ];
 
-  # Unverified: rosita still runs Arch and was not reachable when this was
-  # written. Confirm the firmware is EFI before switching; a BIOS machine needs
-  # boot.loader.grub instead.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # No nixos-hardware module. pippin gets framework-13th-gen-intel because its
-  # model was read off /sys/class/dmi/id. rosita's is unknown, so nothing is
-  # claimed; check github:NixOS/nixos-hardware for a matching module once the
-  # machine can be inspected.
+  networking.domain = "endor.txomon.com";
 
-  # No hardware.nvidia or services.xserver.videoDrivers: the graphics hardware
-  # has not been looked at.
+  # ThinkPad X1 Carbon 7th Gen, 20QDS37700, i7-8565U (Whiskey Lake-U), BIOS
+  # N2HET46W. The nixos-hardware module is added in flake.nix; the fingerprint
+  # reader and the 4G modem come from the shared module imported above.
+
+  # Overrides the fleet default. rosita reports Atlantic/Canary, where pippin
+  # and sam both report Europe/Madrid.
+  time.timeZone = "Atlantic/Canary";
 
   system.stateVersion = "26.11";
 }

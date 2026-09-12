@@ -1,9 +1,8 @@
-{ ... }: {
-  # Read off pippin, and applied to all three hosts: `timedatectl` reports
-  # Europe/Madrid, /etc/locale.conf has LANG=en_US.UTF-8, and `localectl`
-  # reports VC keymap "us" with no X11 layout. rosita and sam were not checked;
-  # move this into the host files if either of them differs.
-  time.timeZone = "Europe/Madrid";
+{ lib, ... }: {
+  # All three report LANG=en_US.UTF-8 and VC keymap "us". Timezone is
+  # Europe/Madrid on pippin and sam but Atlantic/Canary on rosita, so this is a
+  # default that rosita's host file overrides.
+  time.timeZone = lib.mkDefault "Europe/Madrid";
 
   i18n.defaultLocale = "en_US.UTF-8";
 
