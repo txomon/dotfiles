@@ -4,56 +4,55 @@
 # both secrets directories in README.md: this file sits two levels above
 # `private/`, whether that is under $HOME or under the checkout.
 #
-# path_regex is matched against the path relative to this file. Rules are
-# tried in order and the first match wins, so the narrow test rule is first.
+# path_regex is matched against the path relative to this file.
+#
+# NOTHING IS LISTED YET, ON PURPOSE. Until you fill this in, sops refuses:
+#
+#   config file not found, or has no creation rules, and no keys provided
+#   through command line options
+#
+# That refusal is the point. A file encrypted to a key nobody holds looks
+# like a success and is unrecoverable, which is worse than not writing it.
+# README.md, under Secrets, is the long version.
+#
+# Two edits make it work.
+#
+# 1. Your own key, the recipient on every host file so any of them can be
+#    edited from any machine:
+#
+#      age-keygen -o ~/.config/sops/age/keys.txt
+#
+#    .gitignore already excludes that path via /.config/*. Back it up
+#    somewhere off these machines: it is the only thing in this scheme whose
+#    loss cannot be repaired. Paste the public half it prints as &admin below
+#    and uncomment it.
+#
+# 2. One key per machine, which is what the machine itself decrypts with at
+#    service start. As root on that host, once:
+#
+#      install -d -m 0700 /var/lib/sops-nix
+#      age-keygen -o /var/lib/sops-nix/key.txt
+#
+#    Paste the public half as that host's anchor, add it to that host's rule,
+#    and run `sops updatekeys <secrets dir>/<host>.yaml`. Losing a machine key
+#    is repairable: make a new one and repeat. Until a host has one, only the
+#    admin key can read its file and sops-install-secrets.service cannot.
 
-keys:
-  # Javier's own key, and the recipient on every host file, so that any of
-  # them can be edited from any machine. Private half at
-  # ~/.config/sops/age/keys.txt, mode 0600, excluded by .gitignore via
-  # /.config/*. Back it up somewhere off these machines: it is the only thing
-  # in this scheme whose loss cannot be repaired.
-  - &admin age1r0ph338qxkkd35u9vycnty9g9rs46ypxalgpksdgyjvq9mytqywqv7ts36
-
-  # One per machine, and what the machine itself decrypts with at service
-  # start. Create it as root on the host, once:
-  #
-  #   install -d -m 0700 /var/lib/sops-nix
-  #   age-keygen -o /var/lib/sops-nix/key.txt
-  #
-  # then paste the public half it prints below, uncomment the anchor, add it
-  # to that host's rule, and run `sops updatekeys <secrets dir>/<host>.yaml`.
-  # Losing a machine key is repairable: make a new one and repeat. Until a
-  # host has one, only the admin key above can read its file and
-  # sops-install-secrets.service cannot.
-  # - &pippin age1...
-  # - &rosita age1...
-  # - &sam age1...
-
-  # Decrypts the VM test's placeholder and nothing else. Its private half is
-  # committed next to it on purpose; see nixos/tests/vanta-secret/age-key.txt.
-  - &test age1fw88sjpzgcs85vyxw9rpvk4hjcchdcw3us3n8grenyhhhucjz39srjgvck
-
-creation_rules:
-  - path_regex: nixos/tests/vanta-secret/vanta\.yaml$
-    key_groups:
-      - age:
-          - *test
-
-  - path_regex: private/pippin\.yaml$
-    key_groups:
-      - age:
-          - *admin
-          # - *pippin
-
-  - path_regex: private/rosita\.yaml$
-    key_groups:
-      - age:
-          - *admin
-          # - *rosita
-
-  - path_regex: private/sam\.yaml$
-    key_groups:
-      - age:
-          - *admin
-          # - *sam
+# keys:
+#   - &admin age1...
+#   - &pippin age1...
+#   - &rosita age1...
+#   - &sam age1...
+#
+# creation_rules:
+#   - path_regex: private/pippin\.yaml$
+#     key_groups:
+#       - age: [ *admin, *pippin ]
+#
+#   - path_regex: private/rosita\.yaml$
+#     key_groups:
+#       - age: [ *admin, *rosita ]
+#
+#   - path_regex: private/sam\.yaml$
+#     key_groups:
+#       - age: [ *admin, *sam ]

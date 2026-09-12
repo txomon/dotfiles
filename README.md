@@ -33,6 +33,28 @@ Nothing creates these directories and a missing one is skipped.
 Only `pippin` has anything in its file today, the Vanta agent key. Syncing the
 directory between machines is not solved yet.
 
+### From nothing to a working secret
+
+No file exists yet. In order:
+
+1. `age-keygen -o ~/.config/sops/age/keys.txt`, then put the public half it
+   prints into `.config/nix/.sops.yaml` as `&admin` and uncomment that block.
+2. On pippin as root, `install -d -m 0700 /var/lib/sops-nix` then
+   `age-keygen -o /var/lib/sops-nix/key.txt`, and add its public half as
+   `&pippin`.
+3. `sops /home/javier/.config/nix/private/pippin.yaml`, and put the JSON Vanta
+   gave you under a key named `vanta_conf`:
+
+   ```yaml
+   vanta_conf: |
+     {"ACTIVATION_REQUESTED_NONCE":0,"AGENT_KEY":"...","OWNER_EMAIL":"...","REGION":"US","NEEDS_OWNER":true}
+   ```
+
+4. `services.vanta-agent.enable = true` on pippin, and rebuild.
+
+Steps 1 and 2 are once per machine. `rosita` and `sam` need nothing until
+something on them asks for a secret.
+
 ### Editing
 
 ```
@@ -42,15 +64,25 @@ sops /home/javier/.config/nix/private/pippin.yaml
 `.config/nix/.sops.yaml` says which keys each file is written for. It is found
 by walking up from the file, so it applies at either search path.
 
+**It lists no keys yet**, so that command refuses until you add yours. See
+Keys below. The refusal is deliberate: a file encrypted to a key nobody holds
+looks like it worked and cannot be read again.
+
 ### Keys
 
-Two age keys read any host file.
+Two age keys read any host file, and neither exists yet.
 
 `~/.config/sops/age/keys.txt` is yours, mode 0600, on every machine you edit
-from. `.gitignore` already excludes it via `/.config/*`. **Back it up off
-these machines.** It is the only key that reads every file, and if it and the
-machine keys are all gone, nothing here can be recovered: the Vanta agent key
-would have to be reissued.
+from. `.gitignore` already excludes it via `/.config/*`. Make it once, then
+paste the public half into `.config/nix/.sops.yaml`:
+
+```
+age-keygen -o ~/.config/sops/age/keys.txt
+```
+
+**Back it up off these machines.** It is the only key that reads every file,
+and if it and the machine keys are all gone, nothing here can be recovered:
+the Vanta agent key would have to be reissued.
 
 `/var/lib/sops-nix/key.txt` is the machine's, root only, and is what
 `sops-install-secrets.service` decrypts with. It is not derived from anything
