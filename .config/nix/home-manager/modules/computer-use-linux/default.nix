@@ -28,8 +28,8 @@ in
     # Same reasoning as ringboard: a running GNOME Shell watches
     # XDG_DATA_HOME, not the profile's XDG_DATA_DIRS, so the extension goes
     # where the shell will see it. Only useful where there is a shell to load
-    # it, which is what txomon-graphical means.
-    xdg.dataFile = lib.mkIf config.programs.txomon-graphical.enable {
+    # it, which is what programs.gnome means.
+    xdg.dataFile = lib.mkIf config.programs.gnome.enable {
       "gnome-shell/extensions/computer-use-linux@avifenesh.dev".source =
         "${cfg.package}/share/gnome-shell/extensions/computer-use-linux@avifenesh.dev";
     };

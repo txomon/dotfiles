@@ -12,6 +12,7 @@
     ./factorio
     ./gcloud
     ./gimp
+    ./gnome
     ./gnome-browser-connector
     ./gnome-firmware
     ./gnome-network-displays

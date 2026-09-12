@@ -32,6 +32,7 @@
     elvish.enable = true;
     firefox.enable = true;
     gcloud.enable = true;
+    gnome.enable = true;
     google-chrome.enable = true;
     home-manager.enable = true;
     jetbrains = {
