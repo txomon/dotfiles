@@ -5,10 +5,10 @@
 # belong in a user profile. Its default.nix spells out the four things the
 # system layer owes it, and all four are below.
 #
-# Off by default, and this is the one thing that stops it being on: the agent
-# will not run without /etc/vanta.conf, which holds the Vanta agent key. This
-# repo is public, so the key cannot live here and neither can a file that
-# embeds it. See the option description for how to turn it on.
+# Off by default. The agent will not run without /etc/vanta.conf, which holds
+# the Vanta agent key; that file is now a sops secret out of this host's own
+# encrypted file, so enabling this is the only step left once the key is in
+# there. See the option description.
 { config, lib, pkgs, ... }:
 
 let
@@ -19,16 +19,21 @@ in
     enable = lib.mkEnableOption ''
       the Vanta monitoring daemon.
 
-      Provision /etc/vanta.conf first, root:root mode 0600, holding the agent
-      key. The deb's postinst writes it as:
+      /etc/vanta.conf comes from the vanta_conf key of this host's sops file,
+      so the only thing to do before turning this on is put the real agent key
+      there:
+
+        sops <secrets dir>/pippin.yaml
+
+      README.md, under Secrets, says which directories are searched. The value
+      is the JSON the deb's postinst writes, verbatim:
 
         {"ACTIVATION_REQUESTED_NONCE":<epoch ms>,"AGENT_KEY":"...",
          "OWNER_EMAIL":"...","REGION":"US","NEEDS_OWNER":true}
 
-      That is a secret, so it wants sops-nix or agenix rather than
-      environment.etc with a literal. Neither is a flake input yet, so for now
-      it is placed on the machine out of band, the same way the user password
-      is. With this on and that file missing, the unit restarts forever
+      That host also needs /var/lib/sops-nix/key.txt, or nothing can be
+      decrypted. With this on and either of those missing, the daemon refuses
+      to start and `systemctl status sops-install-secrets` says why
     '';
 
     package = lib.mkOption {
@@ -40,6 +45,20 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # 0. The agent key. sops.defaultSopsFile is whatever the search in
+    # ./sops.nix turned up for this host, so this only has to name the key
+    # inside it. /etc/vanta.conf is a symlink to /run/secrets/vanta_conf,
+    # itself a symlink into the current generation under /run/secrets.d. The
+    # file at the end of that carries the root:root 0600, and /run/secrets.d
+    # is a ramfs, so the plaintext never reaches a disk.
+    sops.secrets.vanta_conf = {
+      path = "/etc/vanta.conf";
+      owner = "root";
+      group = "root";
+      mode = "0600";
+      restartUnits = [ "vanta-agent.service" ];
+    };
+
     # 1. State, not a store symlink: the path is compiled into metalauncher and
     # launcher, and the metalauncher TUF-verifies and replaces the binaries
     # under it in place.
@@ -49,8 +68,16 @@ in
     # is at ${cfg.package}/share/doc/vanta/vanta.service for comparison.
     systemd.services.vanta-agent = {
       description = "Vanta monitoring software";
-      after = [ "network.target" "syslog.target" ];
+      after = [ "network.target" "syslog.target" "sops-install-secrets.service" ];
       wantedBy = [ "multi-user.target" ];
+
+      # Requires, not just after. /etc/vanta.conf is the one thing the agent
+      # cannot start without, and the search for this host's sops file runs
+      # inside sops-install-secrets.service. If that file is missing or cannot
+      # be decrypted, that unit fails and this one refuses to start rather
+      # than looping against a config that is not there. `systemctl status
+      # sops-install-secrets` then names every directory that was searched.
+      requires = [ "sops-install-secrets.service" ];
 
       # Seed once and then leave it alone, so a rebuild never clobbers a
       # binary the agent has updated itself to.

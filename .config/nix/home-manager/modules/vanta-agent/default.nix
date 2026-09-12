@@ -67,9 +67,10 @@ in
   #    ExecStart is the /var/vanta copy on purpose: the agent updates itself
   #    and a store path would be reverted on the next rebuild.
   #
-  # 3. /etc/vanta.conf, root:root, mode 0600. Holds the agent key, so it wants
-  #    sops-nix or agenix rather than a literal in the repo. The format the
-  #    deb's postinst writes:
+  # 3. /etc/vanta.conf, root:root, mode 0600. Holds the agent key, so it is a
+  #    sops-nix secret rather than a literal in the repo: the vanta_conf key
+  #    of the host's own sops file, found by the search README.md describes.
+  #    The format the deb's postinst writes, and what that key holds verbatim:
   #
   #      {"ACTIVATION_REQUESTED_NONCE":<epoch ms>,"AGENT_KEY":"...",
   #       "OWNER_EMAIL":"...","REGION":"US","NEEDS_OWNER":true}
