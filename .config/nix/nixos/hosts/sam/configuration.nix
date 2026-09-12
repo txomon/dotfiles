@@ -8,6 +8,14 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # sam's ESP is 197M, against 1G on pippin and rosita, and one generation is
+  # 46M of kernel plus initrd. Left unset, nixos-rebuild keeps an entry for
+  # every generation and the fourth switch fails at bootloader install with no
+  # space left. Three fits in 138M and leaves room for an initrd that grows.
+  # The generations themselves are not deleted by this, only their boot
+  # entries; `nix-collect-garbage` is still what removes them.
+  boot.loader.systemd-boot.configurationLimit = 3;
+
   # For the Arch to NixOS transition only. NIXOS_LUSTRATE is implemented in
   # exactly one file in nixpkgs, nixos/modules/system/boot/stage-1-init.sh, the
   # scripted initrd. The systemd initrd, which is the default, has no lustrate
