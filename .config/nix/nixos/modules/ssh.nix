@@ -21,4 +21,15 @@
   #
   # These are also what sops-nix's age.sshKeyPaths defaults to, so a machine
   # with host keys can decrypt its own secrets without a separate age key.
+
+  # Tailscale is how these machines are actually reached: sam answers on
+  # 100.72.138.16 and its wifi is behind NAT. The node identity lives in
+  # /var/lib/tailscale, which moves to /old-root during a lustrate, so that
+  # path has to be a keeper in NIXOS_LUSTRATE or the machine comes back as a
+  # new node needing a browser login nobody can give it remotely.
+  services.tailscale.enable = true;
+
+  # In the migration list and not previously enabled. Whiskey Lake-U throttles
+  # hard without it.
+  services.thermald.enable = true;
 }

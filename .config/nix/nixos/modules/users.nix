@@ -11,6 +11,16 @@
   users.users.javier = {
     isNormalUser = true;
     description = "Javier Domingo Cansino";
+
+    # Pinned rather than allocated. NixOS hands out the first free uid from
+    # 1000 up and remembers the choice in /var/lib/nixos/uid-map, which on a
+    # machine converted from Arch does not exist yet: a lustrate moves /var to
+    # /old-root, so the allocator starts from scratch on the first boot. It
+    # would almost certainly pick 1000 again, being the only normal user, and
+    # "almost certainly" is not good enough when every file under /home/javier
+    # carries the numeric id and the machine is remote. All three hosts are
+    # 1000 today.
+    uid = 1000;
     extraGroups = [
       "wheel" # sudo
       "networkmanager" # edit connections without a polkit prompt
@@ -29,4 +39,12 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBGmyM7PO+GEyHusUXkXv+Ruxkgw/txy8TGBxPhS1wlD javier@pippin"
     ];
   };
+
+  # What Arch already does here: /etc/sudoers on all three hosts carries
+  # `%wheel ALL=(ALL) NOPASSWD: ALL`. NixOS defaults the other way, and on a
+  # converted machine that is not a preference but a lockout: root ssh is off,
+  # javier's password is whatever hash came out of the old /etc/shadow, and
+  # nothing at the far end of the tailnet can type it. Setting it false
+  # reproduces the behaviour the machines have now rather than widening it.
+  security.sudo.wheelNeedsPassword = false;
 }
