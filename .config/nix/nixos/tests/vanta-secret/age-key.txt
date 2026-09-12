@@ -1,8 +1,0 @@
-# TEST KEY. Not a secret, and committed on purpose.
-#
-# It decrypts nothing but vanta.yaml next to it, which holds a made-up agent
-# key. The real per-host files are not in this repo at all and are encrypted
-# to different recipients; see .config/nix/.sops.yaml and README.md.
-# created: 2026-09-12T09:19:52+02:00
-# public key: age1fw88sjpzgcs85vyxw9rpvk4hjcchdcw3us3n8grenyhhhucjz39srjgvck
-AGE-SECRET-KEY-1DC3EQNW0HQUN24398UHH6QCZQNEWN846248PM2JH443F5UJPVZ6Q9X34SF
