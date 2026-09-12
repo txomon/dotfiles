@@ -11,7 +11,7 @@ in
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Autoclicker that synthesises X11 clicks";
+      description = "Autoclicker. Synthesises X11 clicks, so it needs a display.";
     };
 
     package = lib.mkPackageOption pkgs "theclicker" { };

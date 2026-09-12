@@ -10,6 +10,7 @@
     };
   };
 
+  # Every application here was migrated off the Arch desktop install.
   config = lib.mkIf config.bundles.graphical.enable {
     programs = {
       factorio.enable = true;
