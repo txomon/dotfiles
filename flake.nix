@@ -17,6 +17,11 @@
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Decrypts the per-host sops file found by secrets.searchPaths.
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -25,6 +30,7 @@
     , hm
     , fenix
     , nixos-hardware
+    , sops-nix
     , ...
     }: {
       # `nix flake check` evaluates nixosConfigurations but does not build
@@ -38,8 +44,15 @@
       checks.x86_64-linux =
         let
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          # Passed in rather than imported by the tests, for the same reason
+          # mkHost below passes it: a test node imports only the host's
+          # configuration.nix, and modules/sops.nix sets options that do not
+          # exist without this.
+          sopsModule = sops-nix.nixosModules.sops;
           mkTest = { hostname, thinkpad }: pkgs.testers.runNixOSTest (
-            import ./.config/nix/nixos/tests/system-boots.nix { inherit hostname thinkpad; }
+            import ./.config/nix/nixos/tests/system-boots.nix {
+              inherit hostname thinkpad sopsModule;
+            }
           );
         in
         {
@@ -58,6 +71,11 @@
           # of nixpkgs.config lives in .config/nix/nixos/modules/nix.nix.
           mkHost = { hostname, hardware ? [ ] }: nixpkgs.lib.nixosSystem {
             modules = hardware ++ [
+              # Defines the sops.* options that .config/nix/nixos/modules/
+              # sops.nix sets. Here rather than in that file so the module
+              # tree stays free of flake inputs, the same as nixos-hardware.
+              sops-nix.nixosModules.sops
+
               ./.config/nix/nixos/hosts/${hostname}/configuration.nix
 
               # home-manager is deliberately NOT wired in as a NixOS submodule.

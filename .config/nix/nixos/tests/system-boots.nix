@@ -17,7 +17,7 @@
 #
 # `nix flake check` only evaluates nixosConfigurations. These checks are the
 # part that actually builds and boots something.
-{ hostname, thinkpad }:
+{ hostname, thinkpad, sopsModule }:
 
 { lib, ... }: {
   name = "${hostname}-boots";
@@ -33,7 +33,12 @@
   node.pkgsReadOnly = false;
 
   nodes.${hostname} = {
-    imports = [ ../hosts/${hostname}/configuration.nix ];
+    # sops-nix comes in from flake.nix, not from the module tree, so a node
+    # built from configuration.nix alone would not have the options
+    # modules/sops.nix sets. Nothing here declares a secret: vanta is off on
+    # every host, so no sops unit is generated and no file is searched for.
+    # The vanta-secret check is where a secret is actually installed.
+    imports = [ sopsModule ../hosts/${hostname}/configuration.nix ];
 
     # GNOME, GDM and the rest do not come up in the 1024MB default.
     virtualisation.memorySize = 4096;
