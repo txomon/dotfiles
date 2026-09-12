@@ -29,8 +29,11 @@
     }: {
       # `nix flake check` evaluates nixosConfigurations but does not build
       # them, so these are the outputs that actually prove anything. Each one
-      # boots that host's real module set in a headless VM and asserts against
-      # the running system. Run all three with `nix flake check`, or one with
+      # boots that host's own configuration.nix in a headless VM and asserts
+      # against the running system. Note what they do not cover: the
+      # nixos-hardware module below is added here rather than in
+      # configuration.nix, so the test nodes never see it. Run all three with
+      # `nix flake check`, or one with
       #   nix build .#checks.x86_64-linux.rosita-boots
       checks.x86_64-linux =
         let

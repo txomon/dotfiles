@@ -2,16 +2,18 @@
 # running system. Called once per host from flake.nix, which exposes the results
 # as checks.x86_64-linux.<host>-boots.
 #
-# The node imports the host's own configuration.nix, so what boots here is the
-# module set the machine will actually run, not a restatement of it. Only the
-# things a VM cannot have are replaced, and nearly all of that is done for us:
+# The node imports the host's own configuration.nix, so what boots here is that
+# file and everything it imports, not a restatement of it. Only the things a VM
+# cannot have are replaced, and nearly all of that is done for us:
 # nixos/modules/virtualisation/qemu-vm.nix applies mkVMOverride to fileSystems,
 # swapDevices, boot.initrd.luks.devices and services.xserver.videoDrivers, which
 # beats the normal-priority definitions in the hardware files.
 #
-# What is deliberately NOT in the node: the nixos-hardware model module. That is
-# added in flake.nix's mkHost rather than in configuration.nix, so leaving it out
-# is a matter of not adding it.
+# So this is NOT the whole of what the machine runs. The nixos-hardware model
+# module is added in flake.nix's mkHost rather than in configuration.nix, and is
+# therefore absent from the node: nothing it sets is exercised here. Neither is
+# anything qemu-vm overrode, which is exactly the real disk layout, the LUKS
+# unlock and, on pippin, the NVIDIA driver.
 #
 # `nix flake check` only evaluates nixosConfigurations. These checks are the
 # part that actually builds and boots something.
@@ -24,11 +26,10 @@
   node.specialArgs = { inherit hostname; };
 
   # runNixOSTest hands every node a prebuilt `pkgs` and pins the nixpkgs.*
-  # options read-only. These configurations set nixpkgs.config (allowUnfree,
-  # the insecure Electron) and, on the ThinkPads, nixpkgs.overlays for the
-  # ModemManager rebuild, so the node has to construct its own pkgs. Costs some
-  # evaluation time and buys the thing the test is for: the node is built from
-  # the host's own nixpkgs settings rather than from the test's.
+  # options read-only. modules/nix.nix sets nixpkgs.config (allowUnfree and the
+  # insecure Electron), so the node has to construct its own pkgs instead.
+  # Costs some evaluation time and buys the thing the test is for: the node is
+  # built from the host's own nixpkgs settings rather than from the test's.
   node.pkgsReadOnly = false;
 
   nodes.${hostname} = {
@@ -122,8 +123,11 @@
         unit = ${hostname}.succeed("systemctl cat ModemManager.service")
         assert "wwan-fcc-unlock" in unit, f"no ExecStartPre drop-in:\n{unit}"
         # Dispatcher mode is upstream issue 1028: daemon and script fight over
-        # the same RPC channel. /etc/ModemManager/fcc-unlock.d must stay empty.
-        ${hostname}.fail("ls /etc/ModemManager/fcc-unlock.d/* 2>/dev/null")
+        # the same RPC channel. /etc/ModemManager/fcc-unlock.d must stay empty,
+        # whether or not the directory itself exists.
+        ${hostname}.fail(
+            'test -n "$(ls -A /etc/ModemManager/fcc-unlock.d 2>/dev/null)"'
+        )
 
     with subtest("PCI runtime PM is pinned off for the modem"):
         ${hostname}.succeed("grep -q '0x7360' /etc/udev/rules.d/99-local.rules")
