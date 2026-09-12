@@ -7,6 +7,7 @@
     ./packages.nix
     ./peripherals.nix
     ./programs.nix
+    ./ssh.nix
     ./sops.nix
     ./users.nix
     ./virtualisation.nix
