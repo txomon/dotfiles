@@ -13,8 +13,10 @@
 #     no /var/lib/sops-nix/key.txt and nothing should give it a real one.
 #   - services.vanta-agent.enable, which is off on every host.
 #
-# Both files are planted by an activation script, which runs from the initrd
-# and so is strictly before sops-install-secrets.service in the real root.
+# Both files are planted by an activation script. On this nixpkgs that runs
+# from initrd-nixos-activation.service, before the switch-root, so it is
+# strictly ahead of sops-install-secrets.service in the real root. The boot
+# log in the check output shows the ordering if it is ever in doubt.
 { hostname, sopsModule }:
 
 { lib, ... }: {

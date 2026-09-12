@@ -75,15 +75,17 @@ point: nix never sees them and never copies them into the store. It also means
 a missing file cannot fail `nix build` or `nixos-rebuild`.
 
 So it fails at the unit instead. The search runs as `ExecStartPre` of
-`sops-install-secrets.service`, and finding nothing fails that unit with every
-directory it looked in, in order. Services that asked for a secret declare
-`Requires=` on it, so they refuse to start rather than looping against a
-config that is not there:
+`sops-install-secrets.service`, and finding nothing fails that unit, naming
+every directory it looked in, in order. Services that asked for a secret
+declare `Requires=` on it, so they refuse to start rather than looping against
+a config that is not there:
 
 ```
 systemctl status sops-install-secrets
 ```
 
-`nixos-rebuild switch` still completes and still reports the failed units, so
-nothing is swallowed, but a secret that only one optional service wants does
-not block an unrelated rebuild.
+It is not silent. That unit is `RequiredBy=sysinit-reactivation.target`, so
+`nixos-rebuild switch` exits non-zero and names it. What it does not do is
+abort the switch: nothing sops-shaped runs in the activation script, so the
+new generation is activated either way and you lose that one service rather
+than the whole rebuild.

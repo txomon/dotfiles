@@ -85,12 +85,16 @@ in
     # What happens when the search finds nothing.
     #
     # Installing secrets from a systemd unit rather than from the activation
-    # script is what makes the answer "the service refuses to start" rather
-    # than "nixos-rebuild refuses to switch". A missing file fails the search,
-    # which fails sops-install-secrets.service, and anything that asked for a
-    # secret requires that unit and so does not start. The switch completes
-    # and still reports the failed units, so nothing is swallowed, but one
-    # missing optional secret does not block an unrelated rebuild.
+    # script moves that failure from "nixos-rebuild refuses to switch" to
+    # "the service refuses to start". A missing file fails the search, which
+    # fails sops-install-secrets.service, and anything that asked for a secret
+    # requires that unit and so does not come up.
+    #
+    # Not silent either way: sops-nix makes that unit RequiredBy
+    # sysinit-reactivation.target, so a switch exits non-zero and names it.
+    # What changes is that the new generation is still activated, because
+    # nothing sops-shaped runs in the activation script any more. One missing
+    # optional secret costs you that service and not the rest of the rebuild.
     sops.useSystemdActivation = true;
 
     # Only when something actually asked for a secret. With vanta off, which
@@ -98,7 +102,17 @@ in
     # no unit and there is nothing to attach to.
     systemd.services.sops-install-secrets =
       lib.mkIf (config.sops.secrets != { })
-        { serviceConfig.ExecStartPre = [ "${search}" ]; };
+        {
+          serviceConfig.ExecStartPre = [ "${search}" ];
+
+          # The unit runs with DefaultDependencies=no. sops-nix orders it
+          # after local-fs.target and asks for the mount holding its age key,
+          # but it knows nothing about where the search looks, and these paths
+          # are under /home. On these three hosts /home is on /, so this is
+          # belt and braces; it stops being so the moment one of them is a
+          # separate filesystem.
+          unitConfig.RequiresMountsFor = cfg.searchPaths;
+        };
 
     # The two commands README.md tells you to run. sops-nix installs only
     # sops-install-secrets, which is the activation half and no use for
