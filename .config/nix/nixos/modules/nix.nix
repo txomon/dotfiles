@@ -2,8 +2,9 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Same nixpkgs settings the homeConfigurations get. The home side builds its
-  # own `pkgs` with `import nixpkgs { config.allowUnfree = true; }`; on the
-  # NixOS side the equivalent is the `nixpkgs.config` module option.
+  # own `pkgs` with an `import nixpkgs { config = { ... }; }`; on the NixOS
+  # side the equivalent is the `nixpkgs.config` module option. Keep the two in
+  # step: the insecure entry below is logseq's Electron, same as in flake.nix.
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [ "electron-39.8.10" ];

@@ -27,6 +27,24 @@
     , nixos-hardware
     , ...
     }: {
+      # `nix flake check` evaluates nixosConfigurations but does not build
+      # them, so these are the outputs that actually prove anything. Each one
+      # boots that host's real module set in a headless VM and asserts against
+      # the running system. Run all three with `nix flake check`, or one with
+      #   nix build .#checks.x86_64-linux.rosita-boots
+      checks.x86_64-linux =
+        let
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          mkTest = { hostname, thinkpad }: pkgs.testers.runNixOSTest (
+            import ./.config/nix/nixos/tests/system-boots.nix { inherit hostname thinkpad; }
+          );
+        in
+        {
+          pippin-boots = mkTest { hostname = "pippin"; thinkpad = false; };
+          rosita-boots = mkTest { hostname = "rosita"; thinkpad = true; };
+          sam-boots = mkTest { hostname = "sam"; thinkpad = true; };
+        };
+
       nixosConfigurations =
         let
           # No `system` or `pkgs` argument to nixosSystem: both are legacy
@@ -66,10 +84,17 @@
             hostname = "pippin";
             hardware = [ nixos-hardware.nixosModules.framework-13th-gen-intel ];
           };
-          # No nixos-hardware module for these two: neither machine has been
-          # inspected, so there is nothing to justify a model claim.
-          rosita = mkHost { hostname = "rosita"; };
-          sam = mkHost { hostname = "sam"; };
+          # rosita and sam are both ThinkPad X1 Carbon 7th Gen, so they get the
+          # same model module. The fingerprint reader and 4G modem work they
+          # also share is a repo module, imported by both host files.
+          rosita = mkHost {
+            hostname = "rosita";
+            hardware = [ nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen ];
+          };
+          sam = mkHost {
+            hostname = "sam";
+            hardware = [ nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen ];
+          };
         };
 
       homeConfigurations =
