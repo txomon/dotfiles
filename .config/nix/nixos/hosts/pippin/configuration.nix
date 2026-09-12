@@ -2,6 +2,9 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules
+    # Work laptop. Vanta is not on rosita or sam, and neither is the
+    # secret it needs.
+    ../../modules/vanta.nix
   ];
 
   # EFI, matching the current install: /boot/EFI/systemd and /boot/loader are

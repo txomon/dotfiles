@@ -8,7 +8,6 @@
     ./peripherals.nix
     ./programs.nix
     ./users.nix
-    ./vanta.nix
     ./virtualisation.nix
   ];
 }

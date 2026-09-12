@@ -304,3 +304,9 @@ id_dsa
 id_ecdsa
 id_ed25519
 
+
+# Secrets. Never committed: this repository is public. The directory is not
+# excluded itself, only its contents, because git cannot re-include a file
+# inside an excluded directory and the README documents the convention.
+/.config/nix/private/*
+!/.config/nix/private/README.md
