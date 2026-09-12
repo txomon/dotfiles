@@ -30,8 +30,8 @@ That list is the default of `secrets.searchPaths`, declared in
 `.config/nix/nixos/modules/sops.nix`. Change it there and nothing else moves.
 Nothing creates these directories and a missing one is skipped.
 
-Only `pippin` has anything in its file today, the Vanta agent key. Syncing the
-directory between machines is not solved yet.
+`pippin` is the only host anything asks a secret of, the Vanta agent key.
+Syncing the directory between machines is not solved yet.
 
 ### From nothing to a working secret
 
