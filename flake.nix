@@ -59,6 +59,15 @@
           pippin-boots = mkTest { hostname = "pippin"; thinkpad = false; };
           rosita-boots = mkTest { hostname = "rosita"; thinkpad = true; };
           sam-boots = mkTest { hostname = "sam"; thinkpad = true; };
+
+          # The one check that proves a secret arrives, rather than that the
+          # config mentioning it evaluates.
+          vanta-secret = pkgs.testers.runNixOSTest (
+            import ./.config/nix/nixos/tests/vanta-secret.nix {
+              hostname = "pippin";
+              inherit sopsModule;
+            }
+          );
         };
 
       nixosConfigurations =
