@@ -13,6 +13,7 @@
   # Every application here was migrated off the Arch desktop install.
   config = lib.mkIf config.bundles.graphical.enable {
     programs = {
+      appindicator.enable = true;
       factorio.enable = true;
       gimp.enable = true;
       gnome.enable = true;
@@ -21,12 +22,17 @@
       gnome-network-displays.enable = true;
       gnome-power-manager.enable = true;
       gnome-tweaks.enable = true;
+      gsconnect.enable = true;
       helvum.enable = true;
       jadx.enable = true;
       logseq.enable = true;
       masterpdfeditor.enable = true;
       meld.enable = true;
+      notification-timeout.enable = true;
+      panel-date-format.enable = true;
       spotify.enable = true;
+      system-monitor.enable = true;
+      tailscale-status.enable = true;
       theclicker.enable = true;
       transmission-remote-gtk.enable = true;
       transmission_4-gtk.enable = true;

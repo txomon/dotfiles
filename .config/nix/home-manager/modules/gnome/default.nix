@@ -114,9 +114,11 @@ in
           "slack.desktop"
         ];
 
-        # Only ringboard is packaged here. The rest still come from
-        # ~/.local/share/gnome-shell/extensions or the system extension set,
-        # and GNOME ignores an entry it cannot find.
+        # All seven are packaged, one module each, and every one of those
+        # modules links its extension into ~/.local/share/gnome-shell/
+        # extensions. GNOME ignores an entry here it cannot find, so this list
+        # and the enables in bundles/graphical have to agree; nothing checks
+        # that they do.
         enabled-extensions = [
           "gsconnect@andyholmes.github.io"
           "system-monitor@gnome-shell-extensions.gcampax.github.com"

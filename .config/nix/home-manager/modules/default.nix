@@ -3,6 +3,7 @@
 , ...
 }: {
   imports = [
+    ./appindicator
     ./autofirma
     ./bash
     ./computer-use-linux
@@ -18,6 +19,7 @@
     ./gnome-network-displays
     ./gnome-power-manager
     ./gnome-tweaks
+    ./gsconnect
     ./helvum
     ./imapsync
     ./jadx
@@ -25,7 +27,9 @@
     ./logseq
     ./masterpdfeditor
     ./meld
+    ./notification-timeout
     ./nvtop
+    ./panel-date-format
     ./pcon-planner
     ./piper-tts
     ./ringboard
@@ -33,6 +37,8 @@
     ./sox
     ./spotify
     ./starship
+    ./system-monitor
+    ./tailscale-status
     ./telegram-desktop
     ./theclicker
     ./tmux
