@@ -7,6 +7,7 @@
   # finer taxonomy (media, wine, gnome-extras) would be a classification
   # nobody acts on. Split one when a host wants half of it and not the other.
   imports = [
+    ./cli
     ./graphical
   ];
 }

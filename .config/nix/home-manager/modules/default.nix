@@ -19,14 +19,18 @@
     ./gnome-power-manager
     ./gnome-tweaks
     ./helvum
+    ./imapsync
     ./jadx
     ./jetbrains
     ./logseq
     ./masterpdfeditor
     ./meld
+    ./nvtop
     ./pcon-planner
+    ./piper-tts
     ./ringboard
     ./slack
+    ./sox
     ./spotify
     ./starship
     ./telegram-desktop
@@ -36,9 +40,10 @@
     ./transmission_4-gtk
     ./txomon-android
     ./txomon-claude
-    ./txomon-cli
+    ./txomon-codex
     ./txomon-docker
     ./txomon-egpu
+    ./txomon-gh
     ./txomon-git
     ./txomon-graphical
     ./txomon-kube
@@ -49,5 +54,6 @@
     ./wine
     ./winetricks
     ./xdotool
+    ./yq
   ];
 }
